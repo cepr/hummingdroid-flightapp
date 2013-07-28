@@ -1,0 +1,20 @@
+digraph G {
+    // Graph attributes
+    rankdir=LR;
+    nodesep = 1.0;
+    fontsize = 13;
+    label = "Telemetry Data Flow";
+
+    // Node attributes
+    node [ shape="component", fontsize=12, style=filled, fillcolor=greenyellow ];
+
+    // Edge attributes
+    edge [ fontsize=10 ];
+
+    // Graph definition
+    Receiver -> Telemetry [ label="setCommand(Attitude)" ];
+    Sensors -> Telemetry [ label="setAttitude(Attitude)" ];
+    Controller -> Telemetry [ label="setControl(MotorsControl)" ];
+    Telemetry -> GCS [ label="UDP:1234 (TelemetryPacket)" ];
+}
+

@@ -1,0 +1,22 @@
+digraph G {
+    // Graph attributes
+    rankdir=LR;
+    nodesep = 1.0;
+    fontsize = 13;
+    label = "Command and Control Data Flow";
+
+    // Node attributes
+    node [ shape="component", fontsize=12, style=filled, fillcolor=greenyellow ];
+
+    // Edge attributes
+    edge [ fontsize=10 ];
+
+    // Graph definition
+    GCS -> Receiver [ label="UDP:1234 (CommandPacket)" ];
+    Receiver -> Controller [ label = "setCommand(Attitude)" ];
+    Controller -> Motors [ label = "setControl(MotorsControl)" ];
+    Motors -> Teensy [ label = "write(byte[4])\nthrottle" ];
+    Sensors -> Teensy [ label = "read(int)\naltitude", dir=back ];
+    Controller -> Sensors [ label = "setAttitude(Attitude)", dir=back ];
+}
+

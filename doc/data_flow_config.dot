@@ -1,0 +1,19 @@
+digraph G {
+    // Graph attributes
+    rankdir=LR;
+    nodesep = 1.0;
+    fontsize = 13;
+    label = "Configuration Data Flow";
+
+    // Node attributes
+    node [ shape="component", fontsize=12, style=filled, fillcolor=greenyellow ];
+
+    // Edge attributes
+    edge [ fontsize=10 ];
+
+    // Graph definition
+    GCS -> Controller [ label="setConfig(ControllerConfig)" ];
+    GCS -> Telemetry [ label="setConfig(TelemetryConfig)" ];
+    GCS -> Sensors [ label="setConfig(SensorsConfig)" ];
+}
+
