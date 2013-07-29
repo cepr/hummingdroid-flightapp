@@ -13,8 +13,8 @@ digraph G {
     edge [ fontname = "Nimbus Sans L", fontsize=10 ];
 
     // Graph definition
-    GCS -> Received [ label="UDP:49152 (CommandPacket)" ];
-    Received -> Controller [ label="setConfig(ControllerConfig)" ];
-    Received -> Telemetry [ label="setConfig(TelemetryConfig)" ];
-    Received -> Sensors [ label="setConfig(SensorsConfig)" ];
+    GCS -> Receiver [ label="UDP:49152 (CommandPacket)" ];
+    Receiver -> Controller [ label="setConfig(ControllerConfig)" ];
+    Receiver -> Telemetry [ label="setConfig(TelemetryConfig)" ];
+    Receiver -> Sensors [ label="setConfig(SensorsConfig)" ];
 }
