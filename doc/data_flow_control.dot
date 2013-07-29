@@ -2,17 +2,18 @@ digraph G {
     // Graph attributes
     rankdir=LR;
     nodesep = 1.0;
+    fontname = "Nimbus Sans L";
     fontsize = 13;
     label = "Command and Control Data Flow";
 
     // Node attributes
-    node [ shape="component", fontsize=12, style=filled, fillcolor=greenyellow ];
+    node [ shape="component", fontname = "Nimbus Sans L", fontsize=12, style=filled, fillcolor=greenyellow ];
 
     // Edge attributes
-    edge [ fontsize=10 ];
+    edge [ fontname = "Nimbus Sans L", fontsize=10 ];
 
     // Graph definition
-    GCS -> Receiver [ label="UDP:1234 (CommandPacket)" ];
+    GCS -> Receiver [ label="UDP:49152 (CommandPacket)" ];
     Receiver -> Controller [ label = "setCommand(Attitude)" ];
     Controller -> Motors [ label = "setControl(MotorsControl)" ];
     Motors -> Teensy [ label = "write(byte[4])\nthrottle" ];

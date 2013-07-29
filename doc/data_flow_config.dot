@@ -2,18 +2,19 @@ digraph G {
     // Graph attributes
     rankdir=LR;
     nodesep = 1.0;
+    fontname = "Nimbus Sans L";
     fontsize = 13;
     label = "Configuration Data Flow";
 
     // Node attributes
-    node [ shape="component", fontsize=12, style=filled, fillcolor=greenyellow ];
+    node [ shape="component", fontname = "Nimbus Sans L", fontsize=12, style=filled, fillcolor=greenyellow ];
 
     // Edge attributes
-    edge [ fontsize=10 ];
+    edge [ fontname = "Nimbus Sans L", fontsize=10 ];
 
     // Graph definition
-    GCS -> Controller [ label="setConfig(ControllerConfig)" ];
-    GCS -> Telemetry [ label="setConfig(TelemetryConfig)" ];
-    GCS -> Sensors [ label="setConfig(SensorsConfig)" ];
+    GCS -> Received [ label="UDP:49152 (CommandPacket)" ];
+    Received -> Controller [ label="setConfig(ControllerConfig)" ];
+    Received -> Telemetry [ label="setConfig(TelemetryConfig)" ];
+    Received -> Sensors [ label="setConfig(SensorsConfig)" ];
 }
-
