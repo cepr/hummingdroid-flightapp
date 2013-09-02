@@ -43,7 +43,7 @@ public class Sensors {
 	public final Value roll = new Value();
 	public final Value pitch = new Value();
 
-	private final Teensy external;
+	private final Teensy teensy;
 	private final Controller controller;
 	private final Telemetry telemetry;
 
@@ -73,7 +73,7 @@ public class Sensors {
 	 *            FlightService instance.
 	 */
 	public Sensors(FlightService context) {
-		this.external = context.getTeensy();
+		this.teensy = context.getTeensy();
 		this.controller = context.getController();
 		this.telemetry = context.getTelemetry();
 		sensor_manager = (SensorManager) context
@@ -194,7 +194,7 @@ public class Sensors {
 			try {
 				while (true) {
 					try {
-						external.read(buffer.array(), 200);
+						teensy.read(buffer.array(), 200);
 						synchronized (this) {
 							altitude.set(buffer.getInt(0), System.nanoTime());
 						}
@@ -206,7 +206,10 @@ public class Sensors {
 			} catch (InterruptedException e) {
 				// Leave the thread
 			} finally {
-				thread = null;
+				synchronized(Sensors.this) {
+					thread = null;
+					Sensors.this.notify();
+				}
 			}
 		}
 	}

@@ -58,7 +58,9 @@ public class Motors {
 		float br = (1 - r) * (1 - p) * (1 - y);
 		float bl = (1 + r) * (1 - p) * (1 + y);
 		float max = Math.max(Math.max(fl, fr), Math.max(br, bl));
-		g = Math.max(g, 1f / max);
+		if (max != 0.0f) {
+			g = Math.min(g, 1f / max);
+		}
 
 		data[0] = cast(fl * g * 255f);
 		data[1] = cast(fr * g * 255f);

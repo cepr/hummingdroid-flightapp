@@ -29,8 +29,6 @@ import org.hummingdroid.Communication.MotorsControl;
 import org.hummingdroid.Communication.TelemetryPacket;
 import org.hummingdroid.Communication.CommandPacket.TelemetryConfig;
 
-
-// socat UDP-RECV:49152 STDOUT | trend -ff -c3a -L Alt,Roll,Pitch,Yaw,Control_Alt,Control_Roll,Control_Pitch,Control_Yaw -s -G1.57+2 -v - 1000
 public class Telemetry {
 
 	private Thread thread = null;
@@ -91,7 +89,7 @@ public class Telemetry {
 			DatagramSocket client = null;
 			try {
 				// Wait for the telemetry to be configured
-				synchronized (this) {
+				synchronized (Telemetry.this) {
 					while (config == null) {
 						wait();
 					}
@@ -110,7 +108,7 @@ public class Telemetry {
 
 					// Sending loop
 					while (true) {
-						synchronized (this) {
+						synchronized (Telemetry.this) {
 							packet.setData(telemetryPacketBuilder.build()
 									.toByteArray());
 							telemetryPacketBuilder.clear();
@@ -129,8 +127,10 @@ public class Telemetry {
 				if (client != null) {
 					client.close();
 				}
-				thread = null;
-				Telemetry.this.notify();
+				synchronized(Telemetry.this) {
+					thread = null;
+					Telemetry.this.notify();
+				}
 			}
 		}
 	}

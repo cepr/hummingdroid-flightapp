@@ -164,7 +164,6 @@ public class FlightService extends Service {
 		controller.setConfig(default_settings.getControllerConfig());
 		controller.setCommand(default_settings.getCommand());
 		telemetry.setConfig(default_settings.getTelemetryConfig());
-		telemetry.setCommand(default_settings.getCommand());
 		sensors.setConfig(default_settings.getSensorsConfig());
 
 		// Start the threads

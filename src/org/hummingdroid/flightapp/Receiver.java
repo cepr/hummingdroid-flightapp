@@ -50,6 +50,7 @@ public class Receiver {
 	private final Controller controller;
 	private final Telemetry telemetry;
 	private final Sensors sensors;
+	private boolean stopping;
 
 	/**
 	 * Constructor.
@@ -82,6 +83,7 @@ public class Receiver {
 
 	public synchronized void stop() throws InterruptedException {
 		while (thread != null) {
+			stopping = true;
 			thread.interrupt();
 			wait(100);
 		}
@@ -105,7 +107,7 @@ public class Receiver {
 					1024);
 			try {
 				// Main connection loop
-				while (true) {
+				while (!stopping) {
 					// Create the socket
 					DatagramSocket server = null;
 					try {
@@ -156,8 +158,10 @@ public class Receiver {
 			} catch (InterruptedException e) {
 				// Terminate thread
 			} finally {
-				thread = null;
-				Receiver.this.notify();
+				synchronized (Receiver.this) {
+					thread = null;
+					Receiver.this.notify();
+				}
 			}
 		}
 	}
