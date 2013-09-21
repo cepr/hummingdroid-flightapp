@@ -19,10 +19,9 @@ package org.hummingdroid.flightapp;
 
 import org.hummingdroid.Communication;
 import org.hummingdroid.Communication.CommandPacket;
-import org.hummingdroid.Communication.PID;
 import org.hummingdroid.Communication.CommandPacket.ControllerConfig;
 import org.hummingdroid.Communication.CommandPacket.SensorsConfig;
-import org.hummingdroid.Communication.CommandPacket.TelemetryConfig;
+import org.hummingdroid.Communication.PID;
 
 import android.app.Service;
 import android.content.Intent;
@@ -31,6 +30,8 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 
 public class FlightService extends Service {
+
+	public static final String TAG = "Hummingdroid";
 
 	private static FlightService instance;
 	private Teensy teensy;
@@ -151,19 +152,12 @@ public class FlightService extends Service {
 							.setMaxInclinaison(0.2f)
 							.setMaxAltitude(0.2f)
 							.setMaxYawRate(0.2f))
-					.setTelemetryConfig(TelemetryConfig.newBuilder()
-							.setHost("192.168.43.101")
-							.setPort(49152)
-							.setCommandEnabled(true)
-							.setAttitudeEnabled(true)
-							.setControlEnabled(true))
 					.setSensorsConfig(SensorsConfig.newBuilder()
 							.setAccelLowpassConstant(0.95f))
 					.build();
 		// @formatter:on
 		controller.setConfig(default_settings.getControllerConfig());
 		controller.setCommand(default_settings.getCommand());
-		telemetry.setConfig(default_settings.getTelemetryConfig());
 		sensors.setConfig(default_settings.getSensorsConfig());
 
 		// Start the threads

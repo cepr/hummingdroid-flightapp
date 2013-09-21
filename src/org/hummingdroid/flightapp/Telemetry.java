@@ -25,9 +25,11 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import org.hummingdroid.Communication.Attitude;
+import org.hummingdroid.Communication.CommandPacket.TelemetryConfig;
 import org.hummingdroid.Communication.MotorsControl;
 import org.hummingdroid.Communication.TelemetryPacket;
-import org.hummingdroid.Communication.CommandPacket.TelemetryConfig;
+
+import android.util.Log;
 
 public class Telemetry {
 
@@ -91,9 +93,10 @@ public class Telemetry {
 				// Wait for the telemetry to be configured
 				synchronized (Telemetry.this) {
 					while (config == null) {
-						wait();
+						Telemetry.this.wait();
 					}
 				}
+				Log.i(FlightService.TAG, "Starting telemetry");
 
 				// Main connection loop
 				while (true) {

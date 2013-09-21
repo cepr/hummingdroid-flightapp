@@ -59,15 +59,24 @@ public class Value {
 			float dt = (value.timestamp - timestamp) * 1e-9f;
 			this.value += value.value * dt;
 		}
-		this.timestamp = value.timestamp;
+		timestamp = value.timestamp;
 	}
 
-	public void derive(Value value) {
-		if (this.timestamp > 0f) {
-			float dt = (value.timestamp - timestamp) * 1e-9f;
-			this.value = (value.value - this.value) / dt;
+	public static class Derivator extends Value {
+
+		private float prev;
+
+		public void derive(Value value) {
+			if (timestamp != 0) {
+				float dt = (value.timestamp - timestamp) * 1e-9f;
+				if (dt > 0f) {
+					this.value = (value.value - prev) / dt;
+				}
+			}
+			prev = value.value;
+			this.timestamp = value.timestamp;
 		}
-		this.timestamp = value.timestamp;
+
 	}
 
 	public static class LowPass extends Value {	
@@ -103,7 +112,7 @@ public class Value {
 		private final Value propo = new Value();
 		private final Value integ = new Value();
 		private final Value integ_factor = new Value(); 
-		private final Value deriv = new Value();
+		private final Derivator deriv = new Derivator();
 		private final Value deriv_factor = new Value();
 		private org.hummingdroid.Communication.PID params = null;
 

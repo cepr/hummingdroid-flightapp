@@ -116,12 +116,15 @@ public class Receiver {
 						server.setSoTimeout(REMOTE_COMMAND_TIMEOUT_MS);
 
 						// Main reading loop
-						while (true) {
+						while (!stopping) {
 							try {
 								server.receive(packet);
 								connected = true;
+								byte[] data = new byte[packet.getLength()];
+								System.arraycopy(packet.getData(), 0, data, 0,
+										data.length);
 								CommandPacket command = CommandPacket
-										.parseFrom(packet.getData());
+										.parseFrom(data);
 								if (command.hasCommand()) {
 									controller.setCommand(command.getCommand());
 									telemetry.setCommand(command.getCommand());
@@ -144,7 +147,9 @@ public class Receiver {
 							}
 						}
 					} catch (SocketException e) {
+						e.printStackTrace();
 					} catch (IOException e) {
+						e.printStackTrace();
 					} finally {
 						// Close server
 						if (server != null) {
