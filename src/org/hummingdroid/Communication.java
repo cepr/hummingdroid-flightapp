@@ -6,10 +6,10 @@ package org.hummingdroid;
 public final class Communication {
   private Communication() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
   public interface AttitudeOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required float altitude = 1;
     boolean hasAltitude();
@@ -28,7 +28,7 @@ public final class Communication {
     float getYawRate();
   }
   public static final class Attitude extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements AttitudeOrBuilder {
     // Use Attitude.newBuilder() to construct.
     private Attitude(Builder builder) {
@@ -43,16 +43,6 @@ public final class Communication {
     
     public Attitude getDefaultInstanceForType() {
       return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_Attitude_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_Attitude_fieldAccessorTable;
     }
     
     private int bitField0_;
@@ -142,7 +132,6 @@ public final class Communication {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeFloat(4, yawRate_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -167,7 +156,6 @@ public final class Communication {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(4, yawRate_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
@@ -253,37 +241,16 @@ public final class Communication {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.hummingdroid.Communication.AttitudeOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_Attitude_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_Attitude_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          org.hummingdroid.Communication.Attitude, Builder>
+        implements org.hummingdroid.Communication.AttitudeOrBuilder {
       // Construct using org.hummingdroid.Communication.Attitude.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -304,11 +271,6 @@ public final class Communication {
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.hummingdroid.Communication.Attitude.getDescriptor();
       }
       
       public org.hummingdroid.Communication.Attitude getDefaultInstanceForType() {
@@ -354,17 +316,7 @@ public final class Communication {
         }
         result.yawRate_ = yawRate_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.hummingdroid.Communication.Attitude) {
-          return mergeFrom((org.hummingdroid.Communication.Attitude)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(org.hummingdroid.Communication.Attitude other) {
@@ -381,7 +333,6 @@ public final class Communication {
         if (other.hasYawRate()) {
           setYawRate(other.getYawRate());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -409,21 +360,15 @@ public final class Communication {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -465,13 +410,13 @@ public final class Communication {
       public Builder setAltitude(float value) {
         bitField0_ |= 0x00000001;
         altitude_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearAltitude() {
         bitField0_ = (bitField0_ & ~0x00000001);
         altitude_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -486,13 +431,13 @@ public final class Communication {
       public Builder setRoll(float value) {
         bitField0_ |= 0x00000002;
         roll_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearRoll() {
         bitField0_ = (bitField0_ & ~0x00000002);
         roll_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -507,13 +452,13 @@ public final class Communication {
       public Builder setPitch(float value) {
         bitField0_ |= 0x00000004;
         pitch_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearPitch() {
         bitField0_ = (bitField0_ & ~0x00000004);
         pitch_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -528,13 +473,13 @@ public final class Communication {
       public Builder setYawRate(float value) {
         bitField0_ |= 0x00000008;
         yawRate_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearYawRate() {
         bitField0_ = (bitField0_ & ~0x00000008);
         yawRate_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -550,7 +495,7 @@ public final class Communication {
   }
   
   public interface MotorsControlOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required float altitude_throttle = 1;
     boolean hasAltitudeThrottle();
@@ -569,7 +514,7 @@ public final class Communication {
     float getYawThrottle();
   }
   public static final class MotorsControl extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements MotorsControlOrBuilder {
     // Use MotorsControl.newBuilder() to construct.
     private MotorsControl(Builder builder) {
@@ -584,16 +529,6 @@ public final class Communication {
     
     public MotorsControl getDefaultInstanceForType() {
       return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_MotorsControl_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_MotorsControl_fieldAccessorTable;
     }
     
     private int bitField0_;
@@ -683,7 +618,6 @@ public final class Communication {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeFloat(4, yawThrottle_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -708,7 +642,6 @@ public final class Communication {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(4, yawThrottle_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
@@ -794,37 +727,16 @@ public final class Communication {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.hummingdroid.Communication.MotorsControlOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_MotorsControl_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_MotorsControl_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          org.hummingdroid.Communication.MotorsControl, Builder>
+        implements org.hummingdroid.Communication.MotorsControlOrBuilder {
       // Construct using org.hummingdroid.Communication.MotorsControl.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -845,11 +757,6 @@ public final class Communication {
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.hummingdroid.Communication.MotorsControl.getDescriptor();
       }
       
       public org.hummingdroid.Communication.MotorsControl getDefaultInstanceForType() {
@@ -895,17 +802,7 @@ public final class Communication {
         }
         result.yawThrottle_ = yawThrottle_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.hummingdroid.Communication.MotorsControl) {
-          return mergeFrom((org.hummingdroid.Communication.MotorsControl)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(org.hummingdroid.Communication.MotorsControl other) {
@@ -922,7 +819,6 @@ public final class Communication {
         if (other.hasYawThrottle()) {
           setYawThrottle(other.getYawThrottle());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -950,21 +846,15 @@ public final class Communication {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -1006,13 +896,13 @@ public final class Communication {
       public Builder setAltitudeThrottle(float value) {
         bitField0_ |= 0x00000001;
         altitudeThrottle_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearAltitudeThrottle() {
         bitField0_ = (bitField0_ & ~0x00000001);
         altitudeThrottle_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -1027,13 +917,13 @@ public final class Communication {
       public Builder setRollThrottle(float value) {
         bitField0_ |= 0x00000002;
         rollThrottle_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearRollThrottle() {
         bitField0_ = (bitField0_ & ~0x00000002);
         rollThrottle_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -1048,13 +938,13 @@ public final class Communication {
       public Builder setPitchThrottle(float value) {
         bitField0_ |= 0x00000004;
         pitchThrottle_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearPitchThrottle() {
         bitField0_ = (bitField0_ & ~0x00000004);
         pitchThrottle_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -1069,13 +959,13 @@ public final class Communication {
       public Builder setYawThrottle(float value) {
         bitField0_ |= 0x00000008;
         yawThrottle_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearYawThrottle() {
         bitField0_ = (bitField0_ & ~0x00000008);
         yawThrottle_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -1091,7 +981,7 @@ public final class Communication {
   }
   
   public interface PIDOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required float Kp = 1;
     boolean hasKp();
@@ -1110,7 +1000,7 @@ public final class Communication {
     float getKo();
   }
   public static final class PID extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements PIDOrBuilder {
     // Use PID.newBuilder() to construct.
     private PID(Builder builder) {
@@ -1125,16 +1015,6 @@ public final class Communication {
     
     public PID getDefaultInstanceForType() {
       return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_PID_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_PID_fieldAccessorTable;
     }
     
     private int bitField0_;
@@ -1224,7 +1104,6 @@ public final class Communication {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeFloat(4, ko_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -1249,7 +1128,6 @@ public final class Communication {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(4, ko_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
@@ -1335,37 +1213,16 @@ public final class Communication {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.hummingdroid.Communication.PIDOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_PID_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_PID_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          org.hummingdroid.Communication.PID, Builder>
+        implements org.hummingdroid.Communication.PIDOrBuilder {
       // Construct using org.hummingdroid.Communication.PID.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -1386,11 +1243,6 @@ public final class Communication {
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.hummingdroid.Communication.PID.getDescriptor();
       }
       
       public org.hummingdroid.Communication.PID getDefaultInstanceForType() {
@@ -1436,17 +1288,7 @@ public final class Communication {
         }
         result.ko_ = ko_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.hummingdroid.Communication.PID) {
-          return mergeFrom((org.hummingdroid.Communication.PID)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(org.hummingdroid.Communication.PID other) {
@@ -1463,7 +1305,6 @@ public final class Communication {
         if (other.hasKo()) {
           setKo(other.getKo());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -1491,21 +1332,15 @@ public final class Communication {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -1547,13 +1382,13 @@ public final class Communication {
       public Builder setKp(float value) {
         bitField0_ |= 0x00000001;
         kp_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearKp() {
         bitField0_ = (bitField0_ & ~0x00000001);
         kp_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -1568,13 +1403,13 @@ public final class Communication {
       public Builder setKi(float value) {
         bitField0_ |= 0x00000002;
         ki_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearKi() {
         bitField0_ = (bitField0_ & ~0x00000002);
         ki_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -1589,13 +1424,13 @@ public final class Communication {
       public Builder setKd(float value) {
         bitField0_ |= 0x00000004;
         kd_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearKd() {
         bitField0_ = (bitField0_ & ~0x00000004);
         kd_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -1610,13 +1445,13 @@ public final class Communication {
       public Builder setKo(float value) {
         bitField0_ |= 0x00000008;
         ko_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearKo() {
         bitField0_ = (bitField0_ & ~0x00000008);
         ko_ = 0F;
-        onChanged();
+        
         return this;
       }
       
@@ -1632,30 +1467,26 @@ public final class Communication {
   }
   
   public interface CommandPacketOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // optional .org.hummingdroid.Attitude command = 1;
     boolean hasCommand();
     org.hummingdroid.Communication.Attitude getCommand();
-    org.hummingdroid.Communication.AttitudeOrBuilder getCommandOrBuilder();
     
     // optional .org.hummingdroid.CommandPacket.ControllerConfig controller_config = 2;
     boolean hasControllerConfig();
     org.hummingdroid.Communication.CommandPacket.ControllerConfig getControllerConfig();
-    org.hummingdroid.Communication.CommandPacket.ControllerConfigOrBuilder getControllerConfigOrBuilder();
     
     // optional .org.hummingdroid.CommandPacket.TelemetryConfig telemetry_config = 3;
     boolean hasTelemetryConfig();
     org.hummingdroid.Communication.CommandPacket.TelemetryConfig getTelemetryConfig();
-    org.hummingdroid.Communication.CommandPacket.TelemetryConfigOrBuilder getTelemetryConfigOrBuilder();
     
     // optional .org.hummingdroid.CommandPacket.SensorsConfig sensors_config = 4;
     boolean hasSensorsConfig();
     org.hummingdroid.Communication.CommandPacket.SensorsConfig getSensorsConfig();
-    org.hummingdroid.Communication.CommandPacket.SensorsConfigOrBuilder getSensorsConfigOrBuilder();
   }
   public static final class CommandPacket extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements CommandPacketOrBuilder {
     // Use CommandPacket.newBuilder() to construct.
     private CommandPacket(Builder builder) {
@@ -1672,38 +1503,24 @@ public final class Communication {
       return defaultInstance;
     }
     
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_fieldAccessorTable;
-    }
-    
     public interface ControllerConfigOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
+        extends com.google.protobuf.MessageLiteOrBuilder {
       
       // required .org.hummingdroid.PID altitude_pid = 1;
       boolean hasAltitudePid();
       org.hummingdroid.Communication.PID getAltitudePid();
-      org.hummingdroid.Communication.PIDOrBuilder getAltitudePidOrBuilder();
       
       // required .org.hummingdroid.PID roll_pid = 2;
       boolean hasRollPid();
       org.hummingdroid.Communication.PID getRollPid();
-      org.hummingdroid.Communication.PIDOrBuilder getRollPidOrBuilder();
       
       // required .org.hummingdroid.PID pitch_pid = 3;
       boolean hasPitchPid();
       org.hummingdroid.Communication.PID getPitchPid();
-      org.hummingdroid.Communication.PIDOrBuilder getPitchPidOrBuilder();
       
       // required .org.hummingdroid.PID yaw_rate_pid = 4;
       boolean hasYawRatePid();
       org.hummingdroid.Communication.PID getYawRatePid();
-      org.hummingdroid.Communication.PIDOrBuilder getYawRatePidOrBuilder();
       
       // optional float max_inclinaison = 5;
       boolean hasMaxInclinaison();
@@ -1718,7 +1535,7 @@ public final class Communication {
       float getMaxYawRate();
     }
     public static final class ControllerConfig extends
-        com.google.protobuf.GeneratedMessage
+        com.google.protobuf.GeneratedMessageLite
         implements ControllerConfigOrBuilder {
       // Use ControllerConfig.newBuilder() to construct.
       private ControllerConfig(Builder builder) {
@@ -1735,16 +1552,6 @@ public final class Communication {
         return defaultInstance;
       }
       
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_ControllerConfig_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_ControllerConfig_fieldAccessorTable;
-      }
-      
       private int bitField0_;
       // required .org.hummingdroid.PID altitude_pid = 1;
       public static final int ALTITUDE_PID_FIELD_NUMBER = 1;
@@ -1753,9 +1560,6 @@ public final class Communication {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       public org.hummingdroid.Communication.PID getAltitudePid() {
-        return altitudePid_;
-      }
-      public org.hummingdroid.Communication.PIDOrBuilder getAltitudePidOrBuilder() {
         return altitudePid_;
       }
       
@@ -1768,9 +1572,6 @@ public final class Communication {
       public org.hummingdroid.Communication.PID getRollPid() {
         return rollPid_;
       }
-      public org.hummingdroid.Communication.PIDOrBuilder getRollPidOrBuilder() {
-        return rollPid_;
-      }
       
       // required .org.hummingdroid.PID pitch_pid = 3;
       public static final int PITCH_PID_FIELD_NUMBER = 3;
@@ -1781,9 +1582,6 @@ public final class Communication {
       public org.hummingdroid.Communication.PID getPitchPid() {
         return pitchPid_;
       }
-      public org.hummingdroid.Communication.PIDOrBuilder getPitchPidOrBuilder() {
-        return pitchPid_;
-      }
       
       // required .org.hummingdroid.PID yaw_rate_pid = 4;
       public static final int YAW_RATE_PID_FIELD_NUMBER = 4;
@@ -1792,9 +1590,6 @@ public final class Communication {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public org.hummingdroid.Communication.PID getYawRatePid() {
-        return yawRatePid_;
-      }
-      public org.hummingdroid.Communication.PIDOrBuilder getYawRatePidOrBuilder() {
         return yawRatePid_;
       }
       
@@ -1902,7 +1697,6 @@ public final class Communication {
         if (((bitField0_ & 0x00000040) == 0x00000040)) {
           output.writeFloat(7, maxYawRate_);
         }
-        getUnknownFields().writeTo(output);
       }
       
       private int memoizedSerializedSize = -1;
@@ -1939,7 +1733,6 @@ public final class Communication {
           size += com.google.protobuf.CodedOutputStream
             .computeFloatSize(7, maxYawRate_);
         }
-        size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
         return size;
       }
@@ -2025,41 +1818,16 @@ public final class Communication {
       }
       public Builder toBuilder() { return newBuilder(this); }
       
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
       public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements org.hummingdroid.Communication.CommandPacket.ControllerConfigOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_ControllerConfig_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_ControllerConfig_fieldAccessorTable;
-        }
-        
+          com.google.protobuf.GeneratedMessageLite.Builder<
+            org.hummingdroid.Communication.CommandPacket.ControllerConfig, Builder>
+          implements org.hummingdroid.Communication.CommandPacket.ControllerConfigOrBuilder {
         // Construct using org.hummingdroid.Communication.CommandPacket.ControllerConfig.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
         
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
         private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            getAltitudePidFieldBuilder();
-            getRollPidFieldBuilder();
-            getPitchPidFieldBuilder();
-            getYawRatePidFieldBuilder();
-          }
         }
         private static Builder create() {
           return new Builder();
@@ -2067,29 +1835,13 @@ public final class Communication {
         
         public Builder clear() {
           super.clear();
-          if (altitudePidBuilder_ == null) {
-            altitudePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-          } else {
-            altitudePidBuilder_.clear();
-          }
+          altitudePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
           bitField0_ = (bitField0_ & ~0x00000001);
-          if (rollPidBuilder_ == null) {
-            rollPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-          } else {
-            rollPidBuilder_.clear();
-          }
+          rollPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
           bitField0_ = (bitField0_ & ~0x00000002);
-          if (pitchPidBuilder_ == null) {
-            pitchPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-          } else {
-            pitchPidBuilder_.clear();
-          }
+          pitchPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
           bitField0_ = (bitField0_ & ~0x00000004);
-          if (yawRatePidBuilder_ == null) {
-            yawRatePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-          } else {
-            yawRatePidBuilder_.clear();
-          }
+          yawRatePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
           bitField0_ = (bitField0_ & ~0x00000008);
           maxInclinaison_ = 0F;
           bitField0_ = (bitField0_ & ~0x00000010);
@@ -2102,11 +1854,6 @@ public final class Communication {
         
         public Builder clone() {
           return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return org.hummingdroid.Communication.CommandPacket.ControllerConfig.getDescriptor();
         }
         
         public org.hummingdroid.Communication.CommandPacket.ControllerConfig getDefaultInstanceForType() {
@@ -2138,35 +1885,19 @@ public final class Communication {
           if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
             to_bitField0_ |= 0x00000001;
           }
-          if (altitudePidBuilder_ == null) {
-            result.altitudePid_ = altitudePid_;
-          } else {
-            result.altitudePid_ = altitudePidBuilder_.build();
-          }
+          result.altitudePid_ = altitudePid_;
           if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
             to_bitField0_ |= 0x00000002;
           }
-          if (rollPidBuilder_ == null) {
-            result.rollPid_ = rollPid_;
-          } else {
-            result.rollPid_ = rollPidBuilder_.build();
-          }
+          result.rollPid_ = rollPid_;
           if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
             to_bitField0_ |= 0x00000004;
           }
-          if (pitchPidBuilder_ == null) {
-            result.pitchPid_ = pitchPid_;
-          } else {
-            result.pitchPid_ = pitchPidBuilder_.build();
-          }
+          result.pitchPid_ = pitchPid_;
           if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
             to_bitField0_ |= 0x00000008;
           }
-          if (yawRatePidBuilder_ == null) {
-            result.yawRatePid_ = yawRatePid_;
-          } else {
-            result.yawRatePid_ = yawRatePidBuilder_.build();
-          }
+          result.yawRatePid_ = yawRatePid_;
           if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
             to_bitField0_ |= 0x00000010;
           }
@@ -2180,17 +1911,7 @@ public final class Communication {
           }
           result.maxYawRate_ = maxYawRate_;
           result.bitField0_ = to_bitField0_;
-          onBuilt();
           return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof org.hummingdroid.Communication.CommandPacket.ControllerConfig) {
-            return mergeFrom((org.hummingdroid.Communication.CommandPacket.ControllerConfig)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
         }
         
         public Builder mergeFrom(org.hummingdroid.Communication.CommandPacket.ControllerConfig other) {
@@ -2216,7 +1937,6 @@ public final class Communication {
           if (other.hasMaxYawRate()) {
             setMaxYawRate(other.getMaxYawRate());
           }
-          this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
         
@@ -2260,21 +1980,15 @@ public final class Communication {
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
           while (true) {
             int tag = input.readTag();
             switch (tag) {
               case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+                
                 return this;
               default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
+                if (!parseUnknownField(input, extensionRegistry, tag)) {
+                  
                   return this;
                 }
                 break;
@@ -2338,362 +2052,174 @@ public final class Communication {
         
         // required .org.hummingdroid.PID altitude_pid = 1;
         private org.hummingdroid.Communication.PID altitudePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-        private com.google.protobuf.SingleFieldBuilder<
-            org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder> altitudePidBuilder_;
         public boolean hasAltitudePid() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
         public org.hummingdroid.Communication.PID getAltitudePid() {
-          if (altitudePidBuilder_ == null) {
-            return altitudePid_;
-          } else {
-            return altitudePidBuilder_.getMessage();
-          }
+          return altitudePid_;
         }
         public Builder setAltitudePid(org.hummingdroid.Communication.PID value) {
-          if (altitudePidBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            altitudePid_ = value;
-            onChanged();
-          } else {
-            altitudePidBuilder_.setMessage(value);
+          if (value == null) {
+            throw new NullPointerException();
           }
+          altitudePid_ = value;
+          
           bitField0_ |= 0x00000001;
           return this;
         }
         public Builder setAltitudePid(
             org.hummingdroid.Communication.PID.Builder builderForValue) {
-          if (altitudePidBuilder_ == null) {
-            altitudePid_ = builderForValue.build();
-            onChanged();
-          } else {
-            altitudePidBuilder_.setMessage(builderForValue.build());
-          }
+          altitudePid_ = builderForValue.build();
+          
           bitField0_ |= 0x00000001;
           return this;
         }
         public Builder mergeAltitudePid(org.hummingdroid.Communication.PID value) {
-          if (altitudePidBuilder_ == null) {
-            if (((bitField0_ & 0x00000001) == 0x00000001) &&
-                altitudePid_ != org.hummingdroid.Communication.PID.getDefaultInstance()) {
-              altitudePid_ =
-                org.hummingdroid.Communication.PID.newBuilder(altitudePid_).mergeFrom(value).buildPartial();
-            } else {
-              altitudePid_ = value;
-            }
-            onChanged();
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              altitudePid_ != org.hummingdroid.Communication.PID.getDefaultInstance()) {
+            altitudePid_ =
+              org.hummingdroid.Communication.PID.newBuilder(altitudePid_).mergeFrom(value).buildPartial();
           } else {
-            altitudePidBuilder_.mergeFrom(value);
+            altitudePid_ = value;
           }
+          
           bitField0_ |= 0x00000001;
           return this;
         }
         public Builder clearAltitudePid() {
-          if (altitudePidBuilder_ == null) {
-            altitudePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-            onChanged();
-          } else {
-            altitudePidBuilder_.clear();
-          }
+          altitudePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
+          
           bitField0_ = (bitField0_ & ~0x00000001);
           return this;
-        }
-        public org.hummingdroid.Communication.PID.Builder getAltitudePidBuilder() {
-          bitField0_ |= 0x00000001;
-          onChanged();
-          return getAltitudePidFieldBuilder().getBuilder();
-        }
-        public org.hummingdroid.Communication.PIDOrBuilder getAltitudePidOrBuilder() {
-          if (altitudePidBuilder_ != null) {
-            return altitudePidBuilder_.getMessageOrBuilder();
-          } else {
-            return altitudePid_;
-          }
-        }
-        private com.google.protobuf.SingleFieldBuilder<
-            org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder> 
-            getAltitudePidFieldBuilder() {
-          if (altitudePidBuilder_ == null) {
-            altitudePidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-                org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder>(
-                    altitudePid_,
-                    getParentForChildren(),
-                    isClean());
-            altitudePid_ = null;
-          }
-          return altitudePidBuilder_;
         }
         
         // required .org.hummingdroid.PID roll_pid = 2;
         private org.hummingdroid.Communication.PID rollPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-        private com.google.protobuf.SingleFieldBuilder<
-            org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder> rollPidBuilder_;
         public boolean hasRollPid() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
         public org.hummingdroid.Communication.PID getRollPid() {
-          if (rollPidBuilder_ == null) {
-            return rollPid_;
-          } else {
-            return rollPidBuilder_.getMessage();
-          }
+          return rollPid_;
         }
         public Builder setRollPid(org.hummingdroid.Communication.PID value) {
-          if (rollPidBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            rollPid_ = value;
-            onChanged();
-          } else {
-            rollPidBuilder_.setMessage(value);
+          if (value == null) {
+            throw new NullPointerException();
           }
+          rollPid_ = value;
+          
           bitField0_ |= 0x00000002;
           return this;
         }
         public Builder setRollPid(
             org.hummingdroid.Communication.PID.Builder builderForValue) {
-          if (rollPidBuilder_ == null) {
-            rollPid_ = builderForValue.build();
-            onChanged();
-          } else {
-            rollPidBuilder_.setMessage(builderForValue.build());
-          }
+          rollPid_ = builderForValue.build();
+          
           bitField0_ |= 0x00000002;
           return this;
         }
         public Builder mergeRollPid(org.hummingdroid.Communication.PID value) {
-          if (rollPidBuilder_ == null) {
-            if (((bitField0_ & 0x00000002) == 0x00000002) &&
-                rollPid_ != org.hummingdroid.Communication.PID.getDefaultInstance()) {
-              rollPid_ =
-                org.hummingdroid.Communication.PID.newBuilder(rollPid_).mergeFrom(value).buildPartial();
-            } else {
-              rollPid_ = value;
-            }
-            onChanged();
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              rollPid_ != org.hummingdroid.Communication.PID.getDefaultInstance()) {
+            rollPid_ =
+              org.hummingdroid.Communication.PID.newBuilder(rollPid_).mergeFrom(value).buildPartial();
           } else {
-            rollPidBuilder_.mergeFrom(value);
+            rollPid_ = value;
           }
+          
           bitField0_ |= 0x00000002;
           return this;
         }
         public Builder clearRollPid() {
-          if (rollPidBuilder_ == null) {
-            rollPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-            onChanged();
-          } else {
-            rollPidBuilder_.clear();
-          }
+          rollPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
+          
           bitField0_ = (bitField0_ & ~0x00000002);
           return this;
-        }
-        public org.hummingdroid.Communication.PID.Builder getRollPidBuilder() {
-          bitField0_ |= 0x00000002;
-          onChanged();
-          return getRollPidFieldBuilder().getBuilder();
-        }
-        public org.hummingdroid.Communication.PIDOrBuilder getRollPidOrBuilder() {
-          if (rollPidBuilder_ != null) {
-            return rollPidBuilder_.getMessageOrBuilder();
-          } else {
-            return rollPid_;
-          }
-        }
-        private com.google.protobuf.SingleFieldBuilder<
-            org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder> 
-            getRollPidFieldBuilder() {
-          if (rollPidBuilder_ == null) {
-            rollPidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-                org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder>(
-                    rollPid_,
-                    getParentForChildren(),
-                    isClean());
-            rollPid_ = null;
-          }
-          return rollPidBuilder_;
         }
         
         // required .org.hummingdroid.PID pitch_pid = 3;
         private org.hummingdroid.Communication.PID pitchPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-        private com.google.protobuf.SingleFieldBuilder<
-            org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder> pitchPidBuilder_;
         public boolean hasPitchPid() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
         public org.hummingdroid.Communication.PID getPitchPid() {
-          if (pitchPidBuilder_ == null) {
-            return pitchPid_;
-          } else {
-            return pitchPidBuilder_.getMessage();
-          }
+          return pitchPid_;
         }
         public Builder setPitchPid(org.hummingdroid.Communication.PID value) {
-          if (pitchPidBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            pitchPid_ = value;
-            onChanged();
-          } else {
-            pitchPidBuilder_.setMessage(value);
+          if (value == null) {
+            throw new NullPointerException();
           }
+          pitchPid_ = value;
+          
           bitField0_ |= 0x00000004;
           return this;
         }
         public Builder setPitchPid(
             org.hummingdroid.Communication.PID.Builder builderForValue) {
-          if (pitchPidBuilder_ == null) {
-            pitchPid_ = builderForValue.build();
-            onChanged();
-          } else {
-            pitchPidBuilder_.setMessage(builderForValue.build());
-          }
+          pitchPid_ = builderForValue.build();
+          
           bitField0_ |= 0x00000004;
           return this;
         }
         public Builder mergePitchPid(org.hummingdroid.Communication.PID value) {
-          if (pitchPidBuilder_ == null) {
-            if (((bitField0_ & 0x00000004) == 0x00000004) &&
-                pitchPid_ != org.hummingdroid.Communication.PID.getDefaultInstance()) {
-              pitchPid_ =
-                org.hummingdroid.Communication.PID.newBuilder(pitchPid_).mergeFrom(value).buildPartial();
-            } else {
-              pitchPid_ = value;
-            }
-            onChanged();
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              pitchPid_ != org.hummingdroid.Communication.PID.getDefaultInstance()) {
+            pitchPid_ =
+              org.hummingdroid.Communication.PID.newBuilder(pitchPid_).mergeFrom(value).buildPartial();
           } else {
-            pitchPidBuilder_.mergeFrom(value);
+            pitchPid_ = value;
           }
+          
           bitField0_ |= 0x00000004;
           return this;
         }
         public Builder clearPitchPid() {
-          if (pitchPidBuilder_ == null) {
-            pitchPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-            onChanged();
-          } else {
-            pitchPidBuilder_.clear();
-          }
+          pitchPid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
+          
           bitField0_ = (bitField0_ & ~0x00000004);
           return this;
-        }
-        public org.hummingdroid.Communication.PID.Builder getPitchPidBuilder() {
-          bitField0_ |= 0x00000004;
-          onChanged();
-          return getPitchPidFieldBuilder().getBuilder();
-        }
-        public org.hummingdroid.Communication.PIDOrBuilder getPitchPidOrBuilder() {
-          if (pitchPidBuilder_ != null) {
-            return pitchPidBuilder_.getMessageOrBuilder();
-          } else {
-            return pitchPid_;
-          }
-        }
-        private com.google.protobuf.SingleFieldBuilder<
-            org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder> 
-            getPitchPidFieldBuilder() {
-          if (pitchPidBuilder_ == null) {
-            pitchPidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-                org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder>(
-                    pitchPid_,
-                    getParentForChildren(),
-                    isClean());
-            pitchPid_ = null;
-          }
-          return pitchPidBuilder_;
         }
         
         // required .org.hummingdroid.PID yaw_rate_pid = 4;
         private org.hummingdroid.Communication.PID yawRatePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-        private com.google.protobuf.SingleFieldBuilder<
-            org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder> yawRatePidBuilder_;
         public boolean hasYawRatePid() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
         public org.hummingdroid.Communication.PID getYawRatePid() {
-          if (yawRatePidBuilder_ == null) {
-            return yawRatePid_;
-          } else {
-            return yawRatePidBuilder_.getMessage();
-          }
+          return yawRatePid_;
         }
         public Builder setYawRatePid(org.hummingdroid.Communication.PID value) {
-          if (yawRatePidBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            yawRatePid_ = value;
-            onChanged();
-          } else {
-            yawRatePidBuilder_.setMessage(value);
+          if (value == null) {
+            throw new NullPointerException();
           }
+          yawRatePid_ = value;
+          
           bitField0_ |= 0x00000008;
           return this;
         }
         public Builder setYawRatePid(
             org.hummingdroid.Communication.PID.Builder builderForValue) {
-          if (yawRatePidBuilder_ == null) {
-            yawRatePid_ = builderForValue.build();
-            onChanged();
-          } else {
-            yawRatePidBuilder_.setMessage(builderForValue.build());
-          }
+          yawRatePid_ = builderForValue.build();
+          
           bitField0_ |= 0x00000008;
           return this;
         }
         public Builder mergeYawRatePid(org.hummingdroid.Communication.PID value) {
-          if (yawRatePidBuilder_ == null) {
-            if (((bitField0_ & 0x00000008) == 0x00000008) &&
-                yawRatePid_ != org.hummingdroid.Communication.PID.getDefaultInstance()) {
-              yawRatePid_ =
-                org.hummingdroid.Communication.PID.newBuilder(yawRatePid_).mergeFrom(value).buildPartial();
-            } else {
-              yawRatePid_ = value;
-            }
-            onChanged();
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              yawRatePid_ != org.hummingdroid.Communication.PID.getDefaultInstance()) {
+            yawRatePid_ =
+              org.hummingdroid.Communication.PID.newBuilder(yawRatePid_).mergeFrom(value).buildPartial();
           } else {
-            yawRatePidBuilder_.mergeFrom(value);
+            yawRatePid_ = value;
           }
+          
           bitField0_ |= 0x00000008;
           return this;
         }
         public Builder clearYawRatePid() {
-          if (yawRatePidBuilder_ == null) {
-            yawRatePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
-            onChanged();
-          } else {
-            yawRatePidBuilder_.clear();
-          }
+          yawRatePid_ = org.hummingdroid.Communication.PID.getDefaultInstance();
+          
           bitField0_ = (bitField0_ & ~0x00000008);
           return this;
-        }
-        public org.hummingdroid.Communication.PID.Builder getYawRatePidBuilder() {
-          bitField0_ |= 0x00000008;
-          onChanged();
-          return getYawRatePidFieldBuilder().getBuilder();
-        }
-        public org.hummingdroid.Communication.PIDOrBuilder getYawRatePidOrBuilder() {
-          if (yawRatePidBuilder_ != null) {
-            return yawRatePidBuilder_.getMessageOrBuilder();
-          } else {
-            return yawRatePid_;
-          }
-        }
-        private com.google.protobuf.SingleFieldBuilder<
-            org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder> 
-            getYawRatePidFieldBuilder() {
-          if (yawRatePidBuilder_ == null) {
-            yawRatePidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-                org.hummingdroid.Communication.PID, org.hummingdroid.Communication.PID.Builder, org.hummingdroid.Communication.PIDOrBuilder>(
-                    yawRatePid_,
-                    getParentForChildren(),
-                    isClean());
-            yawRatePid_ = null;
-          }
-          return yawRatePidBuilder_;
         }
         
         // optional float max_inclinaison = 5;
@@ -2707,13 +2233,13 @@ public final class Communication {
         public Builder setMaxInclinaison(float value) {
           bitField0_ |= 0x00000010;
           maxInclinaison_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearMaxInclinaison() {
           bitField0_ = (bitField0_ & ~0x00000010);
           maxInclinaison_ = 0F;
-          onChanged();
+          
           return this;
         }
         
@@ -2728,13 +2254,13 @@ public final class Communication {
         public Builder setMaxAltitude(float value) {
           bitField0_ |= 0x00000020;
           maxAltitude_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearMaxAltitude() {
           bitField0_ = (bitField0_ & ~0x00000020);
           maxAltitude_ = 0F;
-          onChanged();
+          
           return this;
         }
         
@@ -2749,13 +2275,13 @@ public final class Communication {
         public Builder setMaxYawRate(float value) {
           bitField0_ |= 0x00000040;
           maxYawRate_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearMaxYawRate() {
           bitField0_ = (bitField0_ & ~0x00000040);
           maxYawRate_ = 0F;
-          onChanged();
+          
           return this;
         }
         
@@ -2771,7 +2297,7 @@ public final class Communication {
     }
     
     public interface TelemetryConfigOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
+        extends com.google.protobuf.MessageLiteOrBuilder {
       
       // required string host = 1;
       boolean hasHost();
@@ -2794,7 +2320,7 @@ public final class Communication {
       boolean getControlEnabled();
     }
     public static final class TelemetryConfig extends
-        com.google.protobuf.GeneratedMessage
+        com.google.protobuf.GeneratedMessageLite
         implements TelemetryConfigOrBuilder {
       // Use TelemetryConfig.newBuilder() to construct.
       private TelemetryConfig(Builder builder) {
@@ -2809,16 +2335,6 @@ public final class Communication {
       
       public TelemetryConfig getDefaultInstanceForType() {
         return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_fieldAccessorTable;
       }
       
       private int bitField0_;
@@ -2948,7 +2464,6 @@ public final class Communication {
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
           output.writeBool(5, controlEnabled_);
         }
-        getUnknownFields().writeTo(output);
       }
       
       private int memoizedSerializedSize = -1;
@@ -2977,7 +2492,6 @@ public final class Communication {
           size += com.google.protobuf.CodedOutputStream
             .computeBoolSize(5, controlEnabled_);
         }
-        size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
         return size;
       }
@@ -3063,37 +2577,16 @@ public final class Communication {
       }
       public Builder toBuilder() { return newBuilder(this); }
       
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
       public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements org.hummingdroid.Communication.CommandPacket.TelemetryConfigOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_fieldAccessorTable;
-        }
-        
+          com.google.protobuf.GeneratedMessageLite.Builder<
+            org.hummingdroid.Communication.CommandPacket.TelemetryConfig, Builder>
+          implements org.hummingdroid.Communication.CommandPacket.TelemetryConfigOrBuilder {
         // Construct using org.hummingdroid.Communication.CommandPacket.TelemetryConfig.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
         
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
         private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
         }
         private static Builder create() {
           return new Builder();
@@ -3116,11 +2609,6 @@ public final class Communication {
         
         public Builder clone() {
           return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return org.hummingdroid.Communication.CommandPacket.TelemetryConfig.getDescriptor();
         }
         
         public org.hummingdroid.Communication.CommandPacket.TelemetryConfig getDefaultInstanceForType() {
@@ -3170,17 +2658,7 @@ public final class Communication {
           }
           result.controlEnabled_ = controlEnabled_;
           result.bitField0_ = to_bitField0_;
-          onBuilt();
           return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof org.hummingdroid.Communication.CommandPacket.TelemetryConfig) {
-            return mergeFrom((org.hummingdroid.Communication.CommandPacket.TelemetryConfig)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
         }
         
         public Builder mergeFrom(org.hummingdroid.Communication.CommandPacket.TelemetryConfig other) {
@@ -3200,7 +2678,6 @@ public final class Communication {
           if (other.hasControlEnabled()) {
             setControlEnabled(other.getControlEnabled());
           }
-          this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
         
@@ -3232,21 +2709,15 @@ public final class Communication {
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
           while (true) {
             int tag = input.readTag();
             switch (tag) {
               case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+                
                 return this;
               default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
+                if (!parseUnknownField(input, extensionRegistry, tag)) {
+                  
                   return this;
                 }
                 break;
@@ -3303,19 +2774,19 @@ public final class Communication {
   }
   bitField0_ |= 0x00000001;
           host_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearHost() {
           bitField0_ = (bitField0_ & ~0x00000001);
           host_ = getDefaultInstance().getHost();
-          onChanged();
+          
           return this;
         }
         void setHost(com.google.protobuf.ByteString value) {
           bitField0_ |= 0x00000001;
           host_ = value;
-          onChanged();
+          
         }
         
         // required int32 port = 2;
@@ -3329,13 +2800,13 @@ public final class Communication {
         public Builder setPort(int value) {
           bitField0_ |= 0x00000002;
           port_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearPort() {
           bitField0_ = (bitField0_ & ~0x00000002);
           port_ = 0;
-          onChanged();
+          
           return this;
         }
         
@@ -3350,13 +2821,13 @@ public final class Communication {
         public Builder setCommandEnabled(boolean value) {
           bitField0_ |= 0x00000004;
           commandEnabled_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearCommandEnabled() {
           bitField0_ = (bitField0_ & ~0x00000004);
           commandEnabled_ = false;
-          onChanged();
+          
           return this;
         }
         
@@ -3371,13 +2842,13 @@ public final class Communication {
         public Builder setAttitudeEnabled(boolean value) {
           bitField0_ |= 0x00000008;
           attitudeEnabled_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearAttitudeEnabled() {
           bitField0_ = (bitField0_ & ~0x00000008);
           attitudeEnabled_ = false;
-          onChanged();
+          
           return this;
         }
         
@@ -3392,13 +2863,13 @@ public final class Communication {
         public Builder setControlEnabled(boolean value) {
           bitField0_ |= 0x00000010;
           controlEnabled_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearControlEnabled() {
           bitField0_ = (bitField0_ & ~0x00000010);
           controlEnabled_ = false;
-          onChanged();
+          
           return this;
         }
         
@@ -3414,14 +2885,14 @@ public final class Communication {
     }
     
     public interface SensorsConfigOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
+        extends com.google.protobuf.MessageLiteOrBuilder {
       
       // required float accel_lowpass_constant = 1;
       boolean hasAccelLowpassConstant();
       float getAccelLowpassConstant();
     }
     public static final class SensorsConfig extends
-        com.google.protobuf.GeneratedMessage
+        com.google.protobuf.GeneratedMessageLite
         implements SensorsConfigOrBuilder {
       // Use SensorsConfig.newBuilder() to construct.
       private SensorsConfig(Builder builder) {
@@ -3436,16 +2907,6 @@ public final class Communication {
       
       public SensorsConfig getDefaultInstanceForType() {
         return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_SensorsConfig_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_SensorsConfig_fieldAccessorTable;
       }
       
       private int bitField0_;
@@ -3481,7 +2942,6 @@ public final class Communication {
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           output.writeFloat(1, accelLowpassConstant_);
         }
-        getUnknownFields().writeTo(output);
       }
       
       private int memoizedSerializedSize = -1;
@@ -3494,7 +2954,6 @@ public final class Communication {
           size += com.google.protobuf.CodedOutputStream
             .computeFloatSize(1, accelLowpassConstant_);
         }
-        size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
         return size;
       }
@@ -3580,37 +3039,16 @@ public final class Communication {
       }
       public Builder toBuilder() { return newBuilder(this); }
       
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
       public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements org.hummingdroid.Communication.CommandPacket.SensorsConfigOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_SensorsConfig_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_SensorsConfig_fieldAccessorTable;
-        }
-        
+          com.google.protobuf.GeneratedMessageLite.Builder<
+            org.hummingdroid.Communication.CommandPacket.SensorsConfig, Builder>
+          implements org.hummingdroid.Communication.CommandPacket.SensorsConfigOrBuilder {
         // Construct using org.hummingdroid.Communication.CommandPacket.SensorsConfig.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
         
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
         private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
         }
         private static Builder create() {
           return new Builder();
@@ -3625,11 +3063,6 @@ public final class Communication {
         
         public Builder clone() {
           return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return org.hummingdroid.Communication.CommandPacket.SensorsConfig.getDescriptor();
         }
         
         public org.hummingdroid.Communication.CommandPacket.SensorsConfig getDefaultInstanceForType() {
@@ -3663,17 +3096,7 @@ public final class Communication {
           }
           result.accelLowpassConstant_ = accelLowpassConstant_;
           result.bitField0_ = to_bitField0_;
-          onBuilt();
           return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof org.hummingdroid.Communication.CommandPacket.SensorsConfig) {
-            return mergeFrom((org.hummingdroid.Communication.CommandPacket.SensorsConfig)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
         }
         
         public Builder mergeFrom(org.hummingdroid.Communication.CommandPacket.SensorsConfig other) {
@@ -3681,7 +3104,6 @@ public final class Communication {
           if (other.hasAccelLowpassConstant()) {
             setAccelLowpassConstant(other.getAccelLowpassConstant());
           }
-          this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
         
@@ -3697,21 +3119,15 @@ public final class Communication {
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
           while (true) {
             int tag = input.readTag();
             switch (tag) {
               case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+                
                 return this;
               default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
+                if (!parseUnknownField(input, extensionRegistry, tag)) {
+                  
                   return this;
                 }
                 break;
@@ -3738,13 +3154,13 @@ public final class Communication {
         public Builder setAccelLowpassConstant(float value) {
           bitField0_ |= 0x00000001;
           accelLowpassConstant_ = value;
-          onChanged();
+          
           return this;
         }
         public Builder clearAccelLowpassConstant() {
           bitField0_ = (bitField0_ & ~0x00000001);
           accelLowpassConstant_ = 0F;
-          onChanged();
+          
           return this;
         }
         
@@ -3769,9 +3185,6 @@ public final class Communication {
     public org.hummingdroid.Communication.Attitude getCommand() {
       return command_;
     }
-    public org.hummingdroid.Communication.AttitudeOrBuilder getCommandOrBuilder() {
-      return command_;
-    }
     
     // optional .org.hummingdroid.CommandPacket.ControllerConfig controller_config = 2;
     public static final int CONTROLLER_CONFIG_FIELD_NUMBER = 2;
@@ -3780,9 +3193,6 @@ public final class Communication {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     public org.hummingdroid.Communication.CommandPacket.ControllerConfig getControllerConfig() {
-      return controllerConfig_;
-    }
-    public org.hummingdroid.Communication.CommandPacket.ControllerConfigOrBuilder getControllerConfigOrBuilder() {
       return controllerConfig_;
     }
     
@@ -3795,9 +3205,6 @@ public final class Communication {
     public org.hummingdroid.Communication.CommandPacket.TelemetryConfig getTelemetryConfig() {
       return telemetryConfig_;
     }
-    public org.hummingdroid.Communication.CommandPacket.TelemetryConfigOrBuilder getTelemetryConfigOrBuilder() {
-      return telemetryConfig_;
-    }
     
     // optional .org.hummingdroid.CommandPacket.SensorsConfig sensors_config = 4;
     public static final int SENSORS_CONFIG_FIELD_NUMBER = 4;
@@ -3806,9 +3213,6 @@ public final class Communication {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     public org.hummingdroid.Communication.CommandPacket.SensorsConfig getSensorsConfig() {
-      return sensorsConfig_;
-    }
-    public org.hummingdroid.Communication.CommandPacket.SensorsConfigOrBuilder getSensorsConfigOrBuilder() {
       return sensorsConfig_;
     }
     
@@ -3866,7 +3270,6 @@ public final class Communication {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeMessage(4, sensorsConfig_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -3891,7 +3294,6 @@ public final class Communication {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, sensorsConfig_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
@@ -3977,41 +3379,16 @@ public final class Communication {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.hummingdroid.Communication.CommandPacketOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_CommandPacket_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          org.hummingdroid.Communication.CommandPacket, Builder>
+        implements org.hummingdroid.Communication.CommandPacketOrBuilder {
       // Construct using org.hummingdroid.Communication.CommandPacket.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getCommandFieldBuilder();
-          getControllerConfigFieldBuilder();
-          getTelemetryConfigFieldBuilder();
-          getSensorsConfigFieldBuilder();
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -4019,40 +3396,19 @@ public final class Communication {
       
       public Builder clear() {
         super.clear();
-        if (commandBuilder_ == null) {
-          command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-        } else {
-          commandBuilder_.clear();
-        }
+        command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (controllerConfigBuilder_ == null) {
-          controllerConfig_ = org.hummingdroid.Communication.CommandPacket.ControllerConfig.getDefaultInstance();
-        } else {
-          controllerConfigBuilder_.clear();
-        }
+        controllerConfig_ = org.hummingdroid.Communication.CommandPacket.ControllerConfig.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000002);
-        if (telemetryConfigBuilder_ == null) {
-          telemetryConfig_ = org.hummingdroid.Communication.CommandPacket.TelemetryConfig.getDefaultInstance();
-        } else {
-          telemetryConfigBuilder_.clear();
-        }
+        telemetryConfig_ = org.hummingdroid.Communication.CommandPacket.TelemetryConfig.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000004);
-        if (sensorsConfigBuilder_ == null) {
-          sensorsConfig_ = org.hummingdroid.Communication.CommandPacket.SensorsConfig.getDefaultInstance();
-        } else {
-          sensorsConfigBuilder_.clear();
-        }
+        sensorsConfig_ = org.hummingdroid.Communication.CommandPacket.SensorsConfig.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.hummingdroid.Communication.CommandPacket.getDescriptor();
       }
       
       public org.hummingdroid.Communication.CommandPacket getDefaultInstanceForType() {
@@ -4084,47 +3440,21 @@ public final class Communication {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        if (commandBuilder_ == null) {
-          result.command_ = command_;
-        } else {
-          result.command_ = commandBuilder_.build();
-        }
+        result.command_ = command_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        if (controllerConfigBuilder_ == null) {
-          result.controllerConfig_ = controllerConfig_;
-        } else {
-          result.controllerConfig_ = controllerConfigBuilder_.build();
-        }
+        result.controllerConfig_ = controllerConfig_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        if (telemetryConfigBuilder_ == null) {
-          result.telemetryConfig_ = telemetryConfig_;
-        } else {
-          result.telemetryConfig_ = telemetryConfigBuilder_.build();
-        }
+        result.telemetryConfig_ = telemetryConfig_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        if (sensorsConfigBuilder_ == null) {
-          result.sensorsConfig_ = sensorsConfig_;
-        } else {
-          result.sensorsConfig_ = sensorsConfigBuilder_.build();
-        }
+        result.sensorsConfig_ = sensorsConfig_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.hummingdroid.Communication.CommandPacket) {
-          return mergeFrom((org.hummingdroid.Communication.CommandPacket)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(org.hummingdroid.Communication.CommandPacket other) {
@@ -4141,7 +3471,6 @@ public final class Communication {
         if (other.hasSensorsConfig()) {
           mergeSensorsConfig(other.getSensorsConfig());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -4177,21 +3506,15 @@ public final class Communication {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -4240,362 +3563,174 @@ public final class Communication {
       
       // optional .org.hummingdroid.Attitude command = 1;
       private org.hummingdroid.Communication.Attitude command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder> commandBuilder_;
       public boolean hasCommand() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       public org.hummingdroid.Communication.Attitude getCommand() {
-        if (commandBuilder_ == null) {
-          return command_;
-        } else {
-          return commandBuilder_.getMessage();
-        }
+        return command_;
       }
       public Builder setCommand(org.hummingdroid.Communication.Attitude value) {
-        if (commandBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          command_ = value;
-          onChanged();
-        } else {
-          commandBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        command_ = value;
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder setCommand(
           org.hummingdroid.Communication.Attitude.Builder builderForValue) {
-        if (commandBuilder_ == null) {
-          command_ = builderForValue.build();
-          onChanged();
-        } else {
-          commandBuilder_.setMessage(builderForValue.build());
-        }
+        command_ = builderForValue.build();
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder mergeCommand(org.hummingdroid.Communication.Attitude value) {
-        if (commandBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              command_ != org.hummingdroid.Communication.Attitude.getDefaultInstance()) {
-            command_ =
-              org.hummingdroid.Communication.Attitude.newBuilder(command_).mergeFrom(value).buildPartial();
-          } else {
-            command_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000001) == 0x00000001) &&
+            command_ != org.hummingdroid.Communication.Attitude.getDefaultInstance()) {
+          command_ =
+            org.hummingdroid.Communication.Attitude.newBuilder(command_).mergeFrom(value).buildPartial();
         } else {
-          commandBuilder_.mergeFrom(value);
+          command_ = value;
         }
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder clearCommand() {
-        if (commandBuilder_ == null) {
-          command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-          onChanged();
-        } else {
-          commandBuilder_.clear();
-        }
+        command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
-      }
-      public org.hummingdroid.Communication.Attitude.Builder getCommandBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getCommandFieldBuilder().getBuilder();
-      }
-      public org.hummingdroid.Communication.AttitudeOrBuilder getCommandOrBuilder() {
-        if (commandBuilder_ != null) {
-          return commandBuilder_.getMessageOrBuilder();
-        } else {
-          return command_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder> 
-          getCommandFieldBuilder() {
-        if (commandBuilder_ == null) {
-          commandBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder>(
-                  command_,
-                  getParentForChildren(),
-                  isClean());
-          command_ = null;
-        }
-        return commandBuilder_;
       }
       
       // optional .org.hummingdroid.CommandPacket.ControllerConfig controller_config = 2;
       private org.hummingdroid.Communication.CommandPacket.ControllerConfig controllerConfig_ = org.hummingdroid.Communication.CommandPacket.ControllerConfig.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.CommandPacket.ControllerConfig, org.hummingdroid.Communication.CommandPacket.ControllerConfig.Builder, org.hummingdroid.Communication.CommandPacket.ControllerConfigOrBuilder> controllerConfigBuilder_;
       public boolean hasControllerConfig() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       public org.hummingdroid.Communication.CommandPacket.ControllerConfig getControllerConfig() {
-        if (controllerConfigBuilder_ == null) {
-          return controllerConfig_;
-        } else {
-          return controllerConfigBuilder_.getMessage();
-        }
+        return controllerConfig_;
       }
       public Builder setControllerConfig(org.hummingdroid.Communication.CommandPacket.ControllerConfig value) {
-        if (controllerConfigBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          controllerConfig_ = value;
-          onChanged();
-        } else {
-          controllerConfigBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        controllerConfig_ = value;
+        
         bitField0_ |= 0x00000002;
         return this;
       }
       public Builder setControllerConfig(
           org.hummingdroid.Communication.CommandPacket.ControllerConfig.Builder builderForValue) {
-        if (controllerConfigBuilder_ == null) {
-          controllerConfig_ = builderForValue.build();
-          onChanged();
-        } else {
-          controllerConfigBuilder_.setMessage(builderForValue.build());
-        }
+        controllerConfig_ = builderForValue.build();
+        
         bitField0_ |= 0x00000002;
         return this;
       }
       public Builder mergeControllerConfig(org.hummingdroid.Communication.CommandPacket.ControllerConfig value) {
-        if (controllerConfigBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              controllerConfig_ != org.hummingdroid.Communication.CommandPacket.ControllerConfig.getDefaultInstance()) {
-            controllerConfig_ =
-              org.hummingdroid.Communication.CommandPacket.ControllerConfig.newBuilder(controllerConfig_).mergeFrom(value).buildPartial();
-          } else {
-            controllerConfig_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000002) == 0x00000002) &&
+            controllerConfig_ != org.hummingdroid.Communication.CommandPacket.ControllerConfig.getDefaultInstance()) {
+          controllerConfig_ =
+            org.hummingdroid.Communication.CommandPacket.ControllerConfig.newBuilder(controllerConfig_).mergeFrom(value).buildPartial();
         } else {
-          controllerConfigBuilder_.mergeFrom(value);
+          controllerConfig_ = value;
         }
+        
         bitField0_ |= 0x00000002;
         return this;
       }
       public Builder clearControllerConfig() {
-        if (controllerConfigBuilder_ == null) {
-          controllerConfig_ = org.hummingdroid.Communication.CommandPacket.ControllerConfig.getDefaultInstance();
-          onChanged();
-        } else {
-          controllerConfigBuilder_.clear();
-        }
+        controllerConfig_ = org.hummingdroid.Communication.CommandPacket.ControllerConfig.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
-      }
-      public org.hummingdroid.Communication.CommandPacket.ControllerConfig.Builder getControllerConfigBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getControllerConfigFieldBuilder().getBuilder();
-      }
-      public org.hummingdroid.Communication.CommandPacket.ControllerConfigOrBuilder getControllerConfigOrBuilder() {
-        if (controllerConfigBuilder_ != null) {
-          return controllerConfigBuilder_.getMessageOrBuilder();
-        } else {
-          return controllerConfig_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.CommandPacket.ControllerConfig, org.hummingdroid.Communication.CommandPacket.ControllerConfig.Builder, org.hummingdroid.Communication.CommandPacket.ControllerConfigOrBuilder> 
-          getControllerConfigFieldBuilder() {
-        if (controllerConfigBuilder_ == null) {
-          controllerConfigBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.hummingdroid.Communication.CommandPacket.ControllerConfig, org.hummingdroid.Communication.CommandPacket.ControllerConfig.Builder, org.hummingdroid.Communication.CommandPacket.ControllerConfigOrBuilder>(
-                  controllerConfig_,
-                  getParentForChildren(),
-                  isClean());
-          controllerConfig_ = null;
-        }
-        return controllerConfigBuilder_;
       }
       
       // optional .org.hummingdroid.CommandPacket.TelemetryConfig telemetry_config = 3;
       private org.hummingdroid.Communication.CommandPacket.TelemetryConfig telemetryConfig_ = org.hummingdroid.Communication.CommandPacket.TelemetryConfig.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.CommandPacket.TelemetryConfig, org.hummingdroid.Communication.CommandPacket.TelemetryConfig.Builder, org.hummingdroid.Communication.CommandPacket.TelemetryConfigOrBuilder> telemetryConfigBuilder_;
       public boolean hasTelemetryConfig() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public org.hummingdroid.Communication.CommandPacket.TelemetryConfig getTelemetryConfig() {
-        if (telemetryConfigBuilder_ == null) {
-          return telemetryConfig_;
-        } else {
-          return telemetryConfigBuilder_.getMessage();
-        }
+        return telemetryConfig_;
       }
       public Builder setTelemetryConfig(org.hummingdroid.Communication.CommandPacket.TelemetryConfig value) {
-        if (telemetryConfigBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          telemetryConfig_ = value;
-          onChanged();
-        } else {
-          telemetryConfigBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        telemetryConfig_ = value;
+        
         bitField0_ |= 0x00000004;
         return this;
       }
       public Builder setTelemetryConfig(
           org.hummingdroid.Communication.CommandPacket.TelemetryConfig.Builder builderForValue) {
-        if (telemetryConfigBuilder_ == null) {
-          telemetryConfig_ = builderForValue.build();
-          onChanged();
-        } else {
-          telemetryConfigBuilder_.setMessage(builderForValue.build());
-        }
+        telemetryConfig_ = builderForValue.build();
+        
         bitField0_ |= 0x00000004;
         return this;
       }
       public Builder mergeTelemetryConfig(org.hummingdroid.Communication.CommandPacket.TelemetryConfig value) {
-        if (telemetryConfigBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
-              telemetryConfig_ != org.hummingdroid.Communication.CommandPacket.TelemetryConfig.getDefaultInstance()) {
-            telemetryConfig_ =
-              org.hummingdroid.Communication.CommandPacket.TelemetryConfig.newBuilder(telemetryConfig_).mergeFrom(value).buildPartial();
-          } else {
-            telemetryConfig_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000004) == 0x00000004) &&
+            telemetryConfig_ != org.hummingdroid.Communication.CommandPacket.TelemetryConfig.getDefaultInstance()) {
+          telemetryConfig_ =
+            org.hummingdroid.Communication.CommandPacket.TelemetryConfig.newBuilder(telemetryConfig_).mergeFrom(value).buildPartial();
         } else {
-          telemetryConfigBuilder_.mergeFrom(value);
+          telemetryConfig_ = value;
         }
+        
         bitField0_ |= 0x00000004;
         return this;
       }
       public Builder clearTelemetryConfig() {
-        if (telemetryConfigBuilder_ == null) {
-          telemetryConfig_ = org.hummingdroid.Communication.CommandPacket.TelemetryConfig.getDefaultInstance();
-          onChanged();
-        } else {
-          telemetryConfigBuilder_.clear();
-        }
+        telemetryConfig_ = org.hummingdroid.Communication.CommandPacket.TelemetryConfig.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
-      }
-      public org.hummingdroid.Communication.CommandPacket.TelemetryConfig.Builder getTelemetryConfigBuilder() {
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return getTelemetryConfigFieldBuilder().getBuilder();
-      }
-      public org.hummingdroid.Communication.CommandPacket.TelemetryConfigOrBuilder getTelemetryConfigOrBuilder() {
-        if (telemetryConfigBuilder_ != null) {
-          return telemetryConfigBuilder_.getMessageOrBuilder();
-        } else {
-          return telemetryConfig_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.CommandPacket.TelemetryConfig, org.hummingdroid.Communication.CommandPacket.TelemetryConfig.Builder, org.hummingdroid.Communication.CommandPacket.TelemetryConfigOrBuilder> 
-          getTelemetryConfigFieldBuilder() {
-        if (telemetryConfigBuilder_ == null) {
-          telemetryConfigBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.hummingdroid.Communication.CommandPacket.TelemetryConfig, org.hummingdroid.Communication.CommandPacket.TelemetryConfig.Builder, org.hummingdroid.Communication.CommandPacket.TelemetryConfigOrBuilder>(
-                  telemetryConfig_,
-                  getParentForChildren(),
-                  isClean());
-          telemetryConfig_ = null;
-        }
-        return telemetryConfigBuilder_;
       }
       
       // optional .org.hummingdroid.CommandPacket.SensorsConfig sensors_config = 4;
       private org.hummingdroid.Communication.CommandPacket.SensorsConfig sensorsConfig_ = org.hummingdroid.Communication.CommandPacket.SensorsConfig.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.CommandPacket.SensorsConfig, org.hummingdroid.Communication.CommandPacket.SensorsConfig.Builder, org.hummingdroid.Communication.CommandPacket.SensorsConfigOrBuilder> sensorsConfigBuilder_;
       public boolean hasSensorsConfig() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public org.hummingdroid.Communication.CommandPacket.SensorsConfig getSensorsConfig() {
-        if (sensorsConfigBuilder_ == null) {
-          return sensorsConfig_;
-        } else {
-          return sensorsConfigBuilder_.getMessage();
-        }
+        return sensorsConfig_;
       }
       public Builder setSensorsConfig(org.hummingdroid.Communication.CommandPacket.SensorsConfig value) {
-        if (sensorsConfigBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          sensorsConfig_ = value;
-          onChanged();
-        } else {
-          sensorsConfigBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        sensorsConfig_ = value;
+        
         bitField0_ |= 0x00000008;
         return this;
       }
       public Builder setSensorsConfig(
           org.hummingdroid.Communication.CommandPacket.SensorsConfig.Builder builderForValue) {
-        if (sensorsConfigBuilder_ == null) {
-          sensorsConfig_ = builderForValue.build();
-          onChanged();
-        } else {
-          sensorsConfigBuilder_.setMessage(builderForValue.build());
-        }
+        sensorsConfig_ = builderForValue.build();
+        
         bitField0_ |= 0x00000008;
         return this;
       }
       public Builder mergeSensorsConfig(org.hummingdroid.Communication.CommandPacket.SensorsConfig value) {
-        if (sensorsConfigBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008) &&
-              sensorsConfig_ != org.hummingdroid.Communication.CommandPacket.SensorsConfig.getDefaultInstance()) {
-            sensorsConfig_ =
-              org.hummingdroid.Communication.CommandPacket.SensorsConfig.newBuilder(sensorsConfig_).mergeFrom(value).buildPartial();
-          } else {
-            sensorsConfig_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000008) == 0x00000008) &&
+            sensorsConfig_ != org.hummingdroid.Communication.CommandPacket.SensorsConfig.getDefaultInstance()) {
+          sensorsConfig_ =
+            org.hummingdroid.Communication.CommandPacket.SensorsConfig.newBuilder(sensorsConfig_).mergeFrom(value).buildPartial();
         } else {
-          sensorsConfigBuilder_.mergeFrom(value);
+          sensorsConfig_ = value;
         }
+        
         bitField0_ |= 0x00000008;
         return this;
       }
       public Builder clearSensorsConfig() {
-        if (sensorsConfigBuilder_ == null) {
-          sensorsConfig_ = org.hummingdroid.Communication.CommandPacket.SensorsConfig.getDefaultInstance();
-          onChanged();
-        } else {
-          sensorsConfigBuilder_.clear();
-        }
+        sensorsConfig_ = org.hummingdroid.Communication.CommandPacket.SensorsConfig.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
-      }
-      public org.hummingdroid.Communication.CommandPacket.SensorsConfig.Builder getSensorsConfigBuilder() {
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return getSensorsConfigFieldBuilder().getBuilder();
-      }
-      public org.hummingdroid.Communication.CommandPacket.SensorsConfigOrBuilder getSensorsConfigOrBuilder() {
-        if (sensorsConfigBuilder_ != null) {
-          return sensorsConfigBuilder_.getMessageOrBuilder();
-        } else {
-          return sensorsConfig_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.CommandPacket.SensorsConfig, org.hummingdroid.Communication.CommandPacket.SensorsConfig.Builder, org.hummingdroid.Communication.CommandPacket.SensorsConfigOrBuilder> 
-          getSensorsConfigFieldBuilder() {
-        if (sensorsConfigBuilder_ == null) {
-          sensorsConfigBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.hummingdroid.Communication.CommandPacket.SensorsConfig, org.hummingdroid.Communication.CommandPacket.SensorsConfig.Builder, org.hummingdroid.Communication.CommandPacket.SensorsConfigOrBuilder>(
-                  sensorsConfig_,
-                  getParentForChildren(),
-                  isClean());
-          sensorsConfig_ = null;
-        }
-        return sensorsConfigBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:org.hummingdroid.CommandPacket)
@@ -4610,25 +3745,22 @@ public final class Communication {
   }
   
   public interface TelemetryPacketOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // optional .org.hummingdroid.Attitude command = 1;
     boolean hasCommand();
     org.hummingdroid.Communication.Attitude getCommand();
-    org.hummingdroid.Communication.AttitudeOrBuilder getCommandOrBuilder();
     
     // optional .org.hummingdroid.Attitude attitude = 2;
     boolean hasAttitude();
     org.hummingdroid.Communication.Attitude getAttitude();
-    org.hummingdroid.Communication.AttitudeOrBuilder getAttitudeOrBuilder();
     
     // optional .org.hummingdroid.MotorsControl control = 3;
     boolean hasControl();
     org.hummingdroid.Communication.MotorsControl getControl();
-    org.hummingdroid.Communication.MotorsControlOrBuilder getControlOrBuilder();
   }
   public static final class TelemetryPacket extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements TelemetryPacketOrBuilder {
     // Use TelemetryPacket.newBuilder() to construct.
     private TelemetryPacket(Builder builder) {
@@ -4645,16 +3777,6 @@ public final class Communication {
       return defaultInstance;
     }
     
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_TelemetryPacket_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.hummingdroid.Communication.internal_static_org_hummingdroid_TelemetryPacket_fieldAccessorTable;
-    }
-    
     private int bitField0_;
     // optional .org.hummingdroid.Attitude command = 1;
     public static final int COMMAND_FIELD_NUMBER = 1;
@@ -4663,9 +3785,6 @@ public final class Communication {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     public org.hummingdroid.Communication.Attitude getCommand() {
-      return command_;
-    }
-    public org.hummingdroid.Communication.AttitudeOrBuilder getCommandOrBuilder() {
       return command_;
     }
     
@@ -4678,9 +3797,6 @@ public final class Communication {
     public org.hummingdroid.Communication.Attitude getAttitude() {
       return attitude_;
     }
-    public org.hummingdroid.Communication.AttitudeOrBuilder getAttitudeOrBuilder() {
-      return attitude_;
-    }
     
     // optional .org.hummingdroid.MotorsControl control = 3;
     public static final int CONTROL_FIELD_NUMBER = 3;
@@ -4689,9 +3805,6 @@ public final class Communication {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     public org.hummingdroid.Communication.MotorsControl getControl() {
-      return control_;
-    }
-    public org.hummingdroid.Communication.MotorsControlOrBuilder getControlOrBuilder() {
       return control_;
     }
     
@@ -4739,7 +3852,6 @@ public final class Communication {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeMessage(3, control_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -4760,7 +3872,6 @@ public final class Communication {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, control_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
@@ -4846,40 +3957,16 @@ public final class Communication {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.hummingdroid.Communication.TelemetryPacketOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_TelemetryPacket_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.hummingdroid.Communication.internal_static_org_hummingdroid_TelemetryPacket_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          org.hummingdroid.Communication.TelemetryPacket, Builder>
+        implements org.hummingdroid.Communication.TelemetryPacketOrBuilder {
       // Construct using org.hummingdroid.Communication.TelemetryPacket.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getCommandFieldBuilder();
-          getAttitudeFieldBuilder();
-          getControlFieldBuilder();
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -4887,34 +3974,17 @@ public final class Communication {
       
       public Builder clear() {
         super.clear();
-        if (commandBuilder_ == null) {
-          command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-        } else {
-          commandBuilder_.clear();
-        }
+        command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (attitudeBuilder_ == null) {
-          attitude_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-        } else {
-          attitudeBuilder_.clear();
-        }
+        attitude_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000002);
-        if (controlBuilder_ == null) {
-          control_ = org.hummingdroid.Communication.MotorsControl.getDefaultInstance();
-        } else {
-          controlBuilder_.clear();
-        }
+        control_ = org.hummingdroid.Communication.MotorsControl.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.hummingdroid.Communication.TelemetryPacket.getDescriptor();
       }
       
       public org.hummingdroid.Communication.TelemetryPacket getDefaultInstanceForType() {
@@ -4946,39 +4016,17 @@ public final class Communication {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        if (commandBuilder_ == null) {
-          result.command_ = command_;
-        } else {
-          result.command_ = commandBuilder_.build();
-        }
+        result.command_ = command_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        if (attitudeBuilder_ == null) {
-          result.attitude_ = attitude_;
-        } else {
-          result.attitude_ = attitudeBuilder_.build();
-        }
+        result.attitude_ = attitude_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        if (controlBuilder_ == null) {
-          result.control_ = control_;
-        } else {
-          result.control_ = controlBuilder_.build();
-        }
+        result.control_ = control_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.hummingdroid.Communication.TelemetryPacket) {
-          return mergeFrom((org.hummingdroid.Communication.TelemetryPacket)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(org.hummingdroid.Communication.TelemetryPacket other) {
@@ -4992,7 +4040,6 @@ public final class Communication {
         if (other.hasControl()) {
           mergeControl(other.getControl());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -5022,21 +4069,15 @@ public final class Communication {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -5076,272 +4117,131 @@ public final class Communication {
       
       // optional .org.hummingdroid.Attitude command = 1;
       private org.hummingdroid.Communication.Attitude command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder> commandBuilder_;
       public boolean hasCommand() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       public org.hummingdroid.Communication.Attitude getCommand() {
-        if (commandBuilder_ == null) {
-          return command_;
-        } else {
-          return commandBuilder_.getMessage();
-        }
+        return command_;
       }
       public Builder setCommand(org.hummingdroid.Communication.Attitude value) {
-        if (commandBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          command_ = value;
-          onChanged();
-        } else {
-          commandBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        command_ = value;
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder setCommand(
           org.hummingdroid.Communication.Attitude.Builder builderForValue) {
-        if (commandBuilder_ == null) {
-          command_ = builderForValue.build();
-          onChanged();
-        } else {
-          commandBuilder_.setMessage(builderForValue.build());
-        }
+        command_ = builderForValue.build();
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder mergeCommand(org.hummingdroid.Communication.Attitude value) {
-        if (commandBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              command_ != org.hummingdroid.Communication.Attitude.getDefaultInstance()) {
-            command_ =
-              org.hummingdroid.Communication.Attitude.newBuilder(command_).mergeFrom(value).buildPartial();
-          } else {
-            command_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000001) == 0x00000001) &&
+            command_ != org.hummingdroid.Communication.Attitude.getDefaultInstance()) {
+          command_ =
+            org.hummingdroid.Communication.Attitude.newBuilder(command_).mergeFrom(value).buildPartial();
         } else {
-          commandBuilder_.mergeFrom(value);
+          command_ = value;
         }
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder clearCommand() {
-        if (commandBuilder_ == null) {
-          command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-          onChanged();
-        } else {
-          commandBuilder_.clear();
-        }
+        command_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
-      }
-      public org.hummingdroid.Communication.Attitude.Builder getCommandBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getCommandFieldBuilder().getBuilder();
-      }
-      public org.hummingdroid.Communication.AttitudeOrBuilder getCommandOrBuilder() {
-        if (commandBuilder_ != null) {
-          return commandBuilder_.getMessageOrBuilder();
-        } else {
-          return command_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder> 
-          getCommandFieldBuilder() {
-        if (commandBuilder_ == null) {
-          commandBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder>(
-                  command_,
-                  getParentForChildren(),
-                  isClean());
-          command_ = null;
-        }
-        return commandBuilder_;
       }
       
       // optional .org.hummingdroid.Attitude attitude = 2;
       private org.hummingdroid.Communication.Attitude attitude_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder> attitudeBuilder_;
       public boolean hasAttitude() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       public org.hummingdroid.Communication.Attitude getAttitude() {
-        if (attitudeBuilder_ == null) {
-          return attitude_;
-        } else {
-          return attitudeBuilder_.getMessage();
-        }
+        return attitude_;
       }
       public Builder setAttitude(org.hummingdroid.Communication.Attitude value) {
-        if (attitudeBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          attitude_ = value;
-          onChanged();
-        } else {
-          attitudeBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        attitude_ = value;
+        
         bitField0_ |= 0x00000002;
         return this;
       }
       public Builder setAttitude(
           org.hummingdroid.Communication.Attitude.Builder builderForValue) {
-        if (attitudeBuilder_ == null) {
-          attitude_ = builderForValue.build();
-          onChanged();
-        } else {
-          attitudeBuilder_.setMessage(builderForValue.build());
-        }
+        attitude_ = builderForValue.build();
+        
         bitField0_ |= 0x00000002;
         return this;
       }
       public Builder mergeAttitude(org.hummingdroid.Communication.Attitude value) {
-        if (attitudeBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              attitude_ != org.hummingdroid.Communication.Attitude.getDefaultInstance()) {
-            attitude_ =
-              org.hummingdroid.Communication.Attitude.newBuilder(attitude_).mergeFrom(value).buildPartial();
-          } else {
-            attitude_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000002) == 0x00000002) &&
+            attitude_ != org.hummingdroid.Communication.Attitude.getDefaultInstance()) {
+          attitude_ =
+            org.hummingdroid.Communication.Attitude.newBuilder(attitude_).mergeFrom(value).buildPartial();
         } else {
-          attitudeBuilder_.mergeFrom(value);
+          attitude_ = value;
         }
+        
         bitField0_ |= 0x00000002;
         return this;
       }
       public Builder clearAttitude() {
-        if (attitudeBuilder_ == null) {
-          attitude_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
-          onChanged();
-        } else {
-          attitudeBuilder_.clear();
-        }
+        attitude_ = org.hummingdroid.Communication.Attitude.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
-      }
-      public org.hummingdroid.Communication.Attitude.Builder getAttitudeBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getAttitudeFieldBuilder().getBuilder();
-      }
-      public org.hummingdroid.Communication.AttitudeOrBuilder getAttitudeOrBuilder() {
-        if (attitudeBuilder_ != null) {
-          return attitudeBuilder_.getMessageOrBuilder();
-        } else {
-          return attitude_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder> 
-          getAttitudeFieldBuilder() {
-        if (attitudeBuilder_ == null) {
-          attitudeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.hummingdroid.Communication.Attitude, org.hummingdroid.Communication.Attitude.Builder, org.hummingdroid.Communication.AttitudeOrBuilder>(
-                  attitude_,
-                  getParentForChildren(),
-                  isClean());
-          attitude_ = null;
-        }
-        return attitudeBuilder_;
       }
       
       // optional .org.hummingdroid.MotorsControl control = 3;
       private org.hummingdroid.Communication.MotorsControl control_ = org.hummingdroid.Communication.MotorsControl.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.MotorsControl, org.hummingdroid.Communication.MotorsControl.Builder, org.hummingdroid.Communication.MotorsControlOrBuilder> controlBuilder_;
       public boolean hasControl() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public org.hummingdroid.Communication.MotorsControl getControl() {
-        if (controlBuilder_ == null) {
-          return control_;
-        } else {
-          return controlBuilder_.getMessage();
-        }
+        return control_;
       }
       public Builder setControl(org.hummingdroid.Communication.MotorsControl value) {
-        if (controlBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          control_ = value;
-          onChanged();
-        } else {
-          controlBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        control_ = value;
+        
         bitField0_ |= 0x00000004;
         return this;
       }
       public Builder setControl(
           org.hummingdroid.Communication.MotorsControl.Builder builderForValue) {
-        if (controlBuilder_ == null) {
-          control_ = builderForValue.build();
-          onChanged();
-        } else {
-          controlBuilder_.setMessage(builderForValue.build());
-        }
+        control_ = builderForValue.build();
+        
         bitField0_ |= 0x00000004;
         return this;
       }
       public Builder mergeControl(org.hummingdroid.Communication.MotorsControl value) {
-        if (controlBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
-              control_ != org.hummingdroid.Communication.MotorsControl.getDefaultInstance()) {
-            control_ =
-              org.hummingdroid.Communication.MotorsControl.newBuilder(control_).mergeFrom(value).buildPartial();
-          } else {
-            control_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000004) == 0x00000004) &&
+            control_ != org.hummingdroid.Communication.MotorsControl.getDefaultInstance()) {
+          control_ =
+            org.hummingdroid.Communication.MotorsControl.newBuilder(control_).mergeFrom(value).buildPartial();
         } else {
-          controlBuilder_.mergeFrom(value);
+          control_ = value;
         }
+        
         bitField0_ |= 0x00000004;
         return this;
       }
       public Builder clearControl() {
-        if (controlBuilder_ == null) {
-          control_ = org.hummingdroid.Communication.MotorsControl.getDefaultInstance();
-          onChanged();
-        } else {
-          controlBuilder_.clear();
-        }
+        control_ = org.hummingdroid.Communication.MotorsControl.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
-      }
-      public org.hummingdroid.Communication.MotorsControl.Builder getControlBuilder() {
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return getControlFieldBuilder().getBuilder();
-      }
-      public org.hummingdroid.Communication.MotorsControlOrBuilder getControlOrBuilder() {
-        if (controlBuilder_ != null) {
-          return controlBuilder_.getMessageOrBuilder();
-        } else {
-          return control_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          org.hummingdroid.Communication.MotorsControl, org.hummingdroid.Communication.MotorsControl.Builder, org.hummingdroid.Communication.MotorsControlOrBuilder> 
-          getControlFieldBuilder() {
-        if (controlBuilder_ == null) {
-          controlBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.hummingdroid.Communication.MotorsControl, org.hummingdroid.Communication.MotorsControl.Builder, org.hummingdroid.Communication.MotorsControlOrBuilder>(
-                  control_,
-                  getParentForChildren(),
-                  isClean());
-          control_ = null;
-        }
-        return controlBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:org.hummingdroid.TelemetryPacket)
@@ -5355,162 +4255,8 @@ public final class Communication {
     // @@protoc_insertion_point(class_scope:org.hummingdroid.TelemetryPacket)
   }
   
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_hummingdroid_Attitude_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_hummingdroid_Attitude_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_hummingdroid_MotorsControl_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_hummingdroid_MotorsControl_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_hummingdroid_PID_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_hummingdroid_PID_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_hummingdroid_CommandPacket_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_hummingdroid_CommandPacket_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_hummingdroid_CommandPacket_ControllerConfig_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_hummingdroid_CommandPacket_ControllerConfig_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_hummingdroid_CommandPacket_SensorsConfig_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_hummingdroid_CommandPacket_SensorsConfig_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_hummingdroid_TelemetryPacket_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_hummingdroid_TelemetryPacket_fieldAccessorTable;
   
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
-  }
-  private static com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
   static {
-    java.lang.String[] descriptorData = {
-      "\n(src/org/hummingdroid/Communication.pro" +
-      "to\022\020org.hummingdroid\"K\n\010Attitude\022\020\n\010alti" +
-      "tude\030\001 \002(\002\022\014\n\004roll\030\002 \002(\002\022\r\n\005pitch\030\003 \002(\002\022" +
-      "\020\n\010yaw_rate\030\004 \002(\002\"o\n\rMotorsControl\022\031\n\021al" +
-      "titude_throttle\030\001 \002(\002\022\025\n\rroll_throttle\030\002" +
-      " \002(\002\022\026\n\016pitch_throttle\030\003 \002(\002\022\024\n\014yaw_thro" +
-      "ttle\030\004 \002(\002\"5\n\003PID\022\n\n\002Kp\030\001 \002(\002\022\n\n\002Ki\030\002 \002(" +
-      "\002\022\n\n\002Kd\030\003 \002(\002\022\n\n\002Ko\030\004 \002(\002\"\313\005\n\rCommandPac" +
-      "ket\022+\n\007command\030\001 \001(\0132\032.org.hummingdroid." +
-      "Attitude\022K\n\021controller_config\030\002 \001(\01320.or",
-      "g.hummingdroid.CommandPacket.ControllerC" +
-      "onfig\022I\n\020telemetry_config\030\003 \001(\0132/.org.hu" +
-      "mmingdroid.CommandPacket.TelemetryConfig" +
-      "\022E\n\016sensors_config\030\004 \001(\0132-.org.hummingdr" +
-      "oid.CommandPacket.SensorsConfig\032\204\002\n\020Cont" +
-      "rollerConfig\022+\n\014altitude_pid\030\001 \002(\0132\025.org" +
-      ".hummingdroid.PID\022\'\n\010roll_pid\030\002 \002(\0132\025.or" +
-      "g.hummingdroid.PID\022(\n\tpitch_pid\030\003 \002(\0132\025." +
-      "org.hummingdroid.PID\022+\n\014yaw_rate_pid\030\004 \002" +
-      "(\0132\025.org.hummingdroid.PID\022\027\n\017max_inclina",
-      "ison\030\005 \001(\002\022\024\n\014max_altitude\030\006 \001(\002\022\024\n\014max_" +
-      "yaw_rate\030\007 \001(\002\032v\n\017TelemetryConfig\022\014\n\004hos" +
-      "t\030\001 \002(\t\022\014\n\004port\030\002 \002(\005\022\026\n\016commandEnabled\030" +
-      "\003 \002(\010\022\027\n\017attitudeEnabled\030\004 \002(\010\022\026\n\016contro" +
-      "lEnabled\030\005 \002(\010\032/\n\rSensorsConfig\022\036\n\026accel" +
-      "_lowpass_constant\030\001 \002(\002\"\236\001\n\017TelemetryPac" +
-      "ket\022+\n\007command\030\001 \001(\0132\032.org.hummingdroid." +
-      "Attitude\022,\n\010attitude\030\002 \001(\0132\032.org.humming" +
-      "droid.Attitude\0220\n\007control\030\003 \001(\0132\037.org.hu" +
-      "mmingdroid.MotorsControl"
-    };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_org_hummingdroid_Attitude_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_org_hummingdroid_Attitude_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_hummingdroid_Attitude_descriptor,
-              new java.lang.String[] { "Altitude", "Roll", "Pitch", "YawRate", },
-              org.hummingdroid.Communication.Attitude.class,
-              org.hummingdroid.Communication.Attitude.Builder.class);
-          internal_static_org_hummingdroid_MotorsControl_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_org_hummingdroid_MotorsControl_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_hummingdroid_MotorsControl_descriptor,
-              new java.lang.String[] { "AltitudeThrottle", "RollThrottle", "PitchThrottle", "YawThrottle", },
-              org.hummingdroid.Communication.MotorsControl.class,
-              org.hummingdroid.Communication.MotorsControl.Builder.class);
-          internal_static_org_hummingdroid_PID_descriptor =
-            getDescriptor().getMessageTypes().get(2);
-          internal_static_org_hummingdroid_PID_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_hummingdroid_PID_descriptor,
-              new java.lang.String[] { "Kp", "Ki", "Kd", "Ko", },
-              org.hummingdroid.Communication.PID.class,
-              org.hummingdroid.Communication.PID.Builder.class);
-          internal_static_org_hummingdroid_CommandPacket_descriptor =
-            getDescriptor().getMessageTypes().get(3);
-          internal_static_org_hummingdroid_CommandPacket_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_hummingdroid_CommandPacket_descriptor,
-              new java.lang.String[] { "Command", "ControllerConfig", "TelemetryConfig", "SensorsConfig", },
-              org.hummingdroid.Communication.CommandPacket.class,
-              org.hummingdroid.Communication.CommandPacket.Builder.class);
-          internal_static_org_hummingdroid_CommandPacket_ControllerConfig_descriptor =
-            internal_static_org_hummingdroid_CommandPacket_descriptor.getNestedTypes().get(0);
-          internal_static_org_hummingdroid_CommandPacket_ControllerConfig_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_hummingdroid_CommandPacket_ControllerConfig_descriptor,
-              new java.lang.String[] { "AltitudePid", "RollPid", "PitchPid", "YawRatePid", "MaxInclinaison", "MaxAltitude", "MaxYawRate", },
-              org.hummingdroid.Communication.CommandPacket.ControllerConfig.class,
-              org.hummingdroid.Communication.CommandPacket.ControllerConfig.Builder.class);
-          internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_descriptor =
-            internal_static_org_hummingdroid_CommandPacket_descriptor.getNestedTypes().get(1);
-          internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_hummingdroid_CommandPacket_TelemetryConfig_descriptor,
-              new java.lang.String[] { "Host", "Port", "CommandEnabled", "AttitudeEnabled", "ControlEnabled", },
-              org.hummingdroid.Communication.CommandPacket.TelemetryConfig.class,
-              org.hummingdroid.Communication.CommandPacket.TelemetryConfig.Builder.class);
-          internal_static_org_hummingdroid_CommandPacket_SensorsConfig_descriptor =
-            internal_static_org_hummingdroid_CommandPacket_descriptor.getNestedTypes().get(2);
-          internal_static_org_hummingdroid_CommandPacket_SensorsConfig_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_hummingdroid_CommandPacket_SensorsConfig_descriptor,
-              new java.lang.String[] { "AccelLowpassConstant", },
-              org.hummingdroid.Communication.CommandPacket.SensorsConfig.class,
-              org.hummingdroid.Communication.CommandPacket.SensorsConfig.Builder.class);
-          internal_static_org_hummingdroid_TelemetryPacket_descriptor =
-            getDescriptor().getMessageTypes().get(4);
-          internal_static_org_hummingdroid_TelemetryPacket_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_hummingdroid_TelemetryPacket_descriptor,
-              new java.lang.String[] { "Command", "Attitude", "Control", },
-              org.hummingdroid.Communication.TelemetryPacket.class,
-              org.hummingdroid.Communication.TelemetryPacket.Builder.class);
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
   }
   
   // @@protoc_insertion_point(outer_class_scope)

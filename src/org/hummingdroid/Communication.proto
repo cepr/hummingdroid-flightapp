@@ -18,7 +18,14 @@
 
 // To build Communication.java, you need Protobuf compiler and
 // type this command from the project root directory:
+
+// For Java
 // protoc --java_out=src src/org/hummingdroid/Communication.proto
+
+// For C++
+// protoc --cpp_out=. Communication.proto
+
+option optimize_for = LITE_RUNTIME;
 
 package org.hummingdroid;
 
