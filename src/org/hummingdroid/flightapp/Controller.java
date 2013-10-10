@@ -96,6 +96,13 @@ public class Controller {
 	 */
 	public synchronized void setCommand(Attitude command) {
 		this.command = command;
+		if (command.hasAltitude() && command.getAltitude() == 0f) {
+			// Need to reset the integrator of the PID
+			altitude_control.reset();
+			roll_control.reset();
+			pitch_control.reset();
+			yaw_rate_control.reset();
+		}
 	}
 
 	/**

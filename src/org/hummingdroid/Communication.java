@@ -998,6 +998,10 @@ public final class Communication {
     // required float Ko = 4;
     boolean hasKo();
     float getKo();
+    
+    // required float Td = 5;
+    boolean hasTd();
+    float getTd();
   }
   public static final class PID extends
       com.google.protobuf.GeneratedMessageLite
@@ -1058,11 +1062,22 @@ public final class Communication {
       return ko_;
     }
     
+    // required float Td = 5;
+    public static final int TD_FIELD_NUMBER = 5;
+    private float td_;
+    public boolean hasTd() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public float getTd() {
+      return td_;
+    }
+    
     private void initFields() {
       kp_ = 0F;
       ki_ = 0F;
       kd_ = 0F;
       ko_ = 0F;
+      td_ = 0F;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1085,6 +1100,10 @@ public final class Communication {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasTd()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1103,6 +1122,9 @@ public final class Communication {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeFloat(4, ko_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeFloat(5, td_);
       }
     }
     
@@ -1127,6 +1149,10 @@ public final class Communication {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(4, ko_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(5, td_);
       }
       memoizedSerializedSize = size;
       return size;
@@ -1238,6 +1264,8 @@ public final class Communication {
         bitField0_ = (bitField0_ & ~0x00000004);
         ko_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000008);
+        td_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       
@@ -1287,6 +1315,10 @@ public final class Communication {
           to_bitField0_ |= 0x00000008;
         }
         result.ko_ = ko_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.td_ = td_;
         result.bitField0_ = to_bitField0_;
         return result;
       }
@@ -1305,6 +1337,9 @@ public final class Communication {
         if (other.hasKo()) {
           setKo(other.getKo());
         }
+        if (other.hasTd()) {
+          setTd(other.getTd());
+        }
         return this;
       }
       
@@ -1322,6 +1357,10 @@ public final class Communication {
           return false;
         }
         if (!hasKo()) {
+          
+          return false;
+        }
+        if (!hasTd()) {
           
           return false;
         }
@@ -1363,6 +1402,11 @@ public final class Communication {
             case 37: {
               bitField0_ |= 0x00000008;
               ko_ = input.readFloat();
+              break;
+            }
+            case 45: {
+              bitField0_ |= 0x00000010;
+              td_ = input.readFloat();
               break;
             }
           }
@@ -1451,6 +1495,27 @@ public final class Communication {
       public Builder clearKo() {
         bitField0_ = (bitField0_ & ~0x00000008);
         ko_ = 0F;
+        
+        return this;
+      }
+      
+      // required float Td = 5;
+      private float td_ ;
+      public boolean hasTd() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public float getTd() {
+        return td_;
+      }
+      public Builder setTd(float value) {
+        bitField0_ |= 0x00000010;
+        td_ = value;
+        
+        return this;
+      }
+      public Builder clearTd() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        td_ = 0F;
         
         return this;
       }

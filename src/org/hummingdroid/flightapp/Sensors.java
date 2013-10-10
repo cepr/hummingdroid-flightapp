@@ -39,10 +39,6 @@ import android.hardware.SensorManager;
  */
 public class Sensors {
 
-	public final Value yaw_rate = new Value();
-	public final Value roll = new Value();
-	public final Value pitch = new Value();
-
 	private final Teensy teensy;
 	private final Controller controller;
 	private final Telemetry telemetry;
@@ -50,18 +46,26 @@ public class Sensors {
 	private final SensorManager sensor_manager;
 	private Thread thread;
 
+	// Roll
 	private final Value roll_gyro = new Value();
 	private final Value roll_accel = new Value();
 	private final Value roll_gyro_rate = new Value();
 	private final Value.LowPass roll_accel_lowpass = new Value.LowPass();
 	private final Value.HighPass roll_gyro_highpass = new Value.HighPass();
+	private final Value roll = new Value();
 
+	// Pitch
 	private final Value pitch_gyro = new Value();
 	private final Value pitch_accel = new Value();
 	private final Value pitch_gyro_rate = new Value();
 	private final Value.LowPass pitch_accel_lowpass = new Value.LowPass();
 	private final Value.HighPass pitch_gyro_highpass = new Value.HighPass();
+	private final Value pitch = new Value();
 
+	// Yaw rate
+	private final Value yaw_rate = new Value();
+
+	// Altitude
 	private final Value altitude = new Value();
 
 	private final Attitude.Builder builder = Attitude.newBuilder();
@@ -134,12 +138,13 @@ public class Sensors {
 				// Apply the low-pass filter on the accelerometer and the
 				// high-pass filter on the gyroscope
 				roll_accel_lowpass.lowpass(roll_accel);
-				pitch_accel_lowpass.lowpass(pitch_accel);
 				roll_gyro_highpass.highpass(roll_gyro);
-				pitch_gyro_highpass.highpass(pitch_gyro);
-
 				roll.add(roll_gyro_highpass, roll_accel_lowpass);
+
+				pitch_accel_lowpass.lowpass(pitch_accel);
+				pitch_gyro_highpass.highpass(pitch_gyro);
 				pitch.add(pitch_gyro_highpass, pitch_accel_lowpass);
+
 				yaw_rate.set(-event.values[2], event.timestamp);
 
 				Attitude attitude = builder.clear().setAltitude(altitude.value)

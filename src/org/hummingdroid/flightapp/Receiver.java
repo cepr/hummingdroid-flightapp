@@ -113,13 +113,17 @@ public class Receiver {
 					try {
 						// Listen to datagram packets
 						server = new DatagramSocket(REMOTE_COMMAND_UDP_PORT);
-						server.setSoTimeout(REMOTE_COMMAND_TIMEOUT_MS);
 
 						// Main reading loop
 						while (!stopping) {
 							try {
 								server.receive(packet);
-								connected = true;
+								if (!connected) {
+									connected = true;
+									// TODO update notification
+									server.setSoTimeout(REMOTE_COMMAND_TIMEOUT_MS);
+								}
+
 								byte[] data = new byte[packet.getLength()];
 								System.arraycopy(packet.getData(), 0, data, 0,
 										data.length);
@@ -144,6 +148,8 @@ public class Receiver {
 							} catch (InterruptedIOException e) {
 								// Nothing received for a long time
 								connected = false;
+								// TODO update notification
+								server.setSoTimeout(0);
 							}
 						}
 					} catch (SocketException e) {

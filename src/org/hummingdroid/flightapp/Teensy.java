@@ -44,6 +44,7 @@ public class Teensy {
 	 * 
 	 * @param src
 	 *            the source byte buffer
+	 * 
 	 * @param timeoutMillis
 	 *            the timeout for writing
 	 */
@@ -72,9 +73,12 @@ public class Teensy {
 	 * 
 	 * @param dest
 	 *            the destination byte buffer
+	 * 
 	 * @param timeoutMillis
 	 *            the timeout for reading
+	 * 
 	 * @return the actual number of bytes read
+	 * 
 	 * @throws IOException
 	 *             if an error occurred during reading
 	 */

@@ -62,6 +62,10 @@ public class Value {
 		timestamp = value.timestamp;
 	}
 
+	public void reset() {
+		value = 0f;
+	}
+
 	public static class Derivator extends Value {
 
 		private float prev;
@@ -112,12 +116,14 @@ public class Value {
 		private final Value propo = new Value();
 		private final Value integ = new Value();
 		private final Value integ_factor = new Value(); 
+		private final LowPass low_pass = new LowPass();
 		private final Derivator deriv = new Derivator();
 		private final Value deriv_factor = new Value();
 		private org.hummingdroid.Communication.PID params = null;
 
 		public synchronized void setParams(org.hummingdroid.Communication.PID params) {
 			this.params = params;
+			low_pass.setT(params.getTd());
 		}
 
 		public synchronized void pid(Value value) {
@@ -128,13 +134,20 @@ public class Value {
 			propo.amplify(value, params.getKp());
 			// I
 			integ.integrate(value);
+			float max = 1f / params.getKi();
+			integ.constrain(-max, max);
 			integ_factor.amplify(integ, params.getKi());
 			// D
-			deriv.derive(value);
+			low_pass.lowpass(value);
+			deriv.derive(low_pass);
 			deriv_factor.amplify(deriv, params.getKd());
 			// Sum
 			this.value = propo.value + integ_factor.value + deriv_factor.value + params.getKo();
 			this.timestamp = value.timestamp;
+		}
+
+		public synchronized void reset() {
+			integ.reset();
 		}
 	}
 }
