@@ -7,6 +7,7 @@ CPPFLAGS+=\
 	-I libs/SPI \
 	-I libs/WiFi \
 	-I libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0 \
+	-I libs/Adafruit-PWM-Servo-Driver-Library \
 	-Wall
 
 # Make sure we link using g++ and not gcc
@@ -16,6 +17,7 @@ all: flight_software
 
 OBJS:=\
 	flight_software.o \
+	libs/Adafruit-PWM-Servo-Driver-Library/Adafruit_PWMServoDriver.o \
 	libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0/SFE_LSM9DS0.o \
 	libs/SPI/SPI.o \
 	libs/WiFi/WiFiClient.o \

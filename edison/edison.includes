@@ -1,6 +1,7 @@
 libs/arduino-1.5.3-Intel.1.0.4
 libs/arduino-1.5.3-Intel.1.0.4/avr
 libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0
+libs/Adafruit-PWM-Servo-Driver-Library
 libs/protobuf/python/google/protobuf/pyext
 libs/protobuf/ruby/ext/google/protobuf_c
 libs/protobuf/src/google/protobuf

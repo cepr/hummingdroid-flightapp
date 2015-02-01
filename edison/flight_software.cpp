@@ -6,11 +6,8 @@
 #include <SPI.h> // Included for SFE_LSM9DS0 library
 #include <Wire.h>
 #include <SFE_LSM9DS0.h>
+#include <Adafruit_PWMServoDriver.h>
 
-///////////////////////
-// Example I2C Setup //
-///////////////////////
-// Comment out this section if you're using SPI
 // SDO_XM and SDO_G are both grounded, so our addresses are:
 #define LSM9DS0_XM  0x1D // Would be 0x1E if SDO_XM is LOW
 #define LSM9DS0_G   0x6B // Would be 0x6A if SDO_G is LOW
@@ -19,14 +16,15 @@
 // [SPI or I2C Mode declaration],[gyro I2C address],[xm I2C add.]
 LSM9DS0 dof(MODE_I2C, LSM9DS0_G, LSM9DS0_XM);
 
-///////////////////////
-// Example SPI Setup //
-///////////////////////
-/* // Uncomment this section if you're using SPI
-#define LSM9DS0_CSG  9  // CSG connected to Arduino pin 9
-#define LSM9DS0_CSXM 10 // CSXM connected to Arduino pin 10
-LSM9DS0 dof(MODE_SPI, LSM9DS0_CSG, LSM9DS0_CSXM);
-*/
+// called this way, it uses the default address 0x40
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+
+// Depending on your servo make, the pulse width min and max may vary, you
+// want these to be as small/large as possible without hitting the hard stop
+// for max range. You'll have to tweak them as necessary to match the servos you
+// have!
+#define SERVOMIN  150 // this is the 'minimum' pulse length count (out of 4096)
+#define SERVOMAX  600 // this is the 'maximum' pulse length count (out of 4096)
 
 // Do you want to print calculated values or raw ADC ticks read
 // from the sensor? Comment out ONE of the two #defines below
@@ -56,7 +54,14 @@ int main()
     // make sure communication was successful.
     printf("LSM9DS0 WHO_AM_I's returned: 0x%04d\n"
            "Should be 0x49D4\n"
-           "\n", status);
+           "\n", (int)status);
+
+    pwm.begin();
+    pwm.setPWMFreq(400);
+    pwm.setPWM(0, 0, 50);
+    pwm.setPWM(1, 0, 50);
+    pwm.setPWM(2, 0, 50);
+    pwm.setPWM(3, 0, 50);
 
     //loop
     while (true){
@@ -105,7 +110,7 @@ static void printAccel()
 
   // Now we can use the ax, ay, and az variables as we please.
   // Either print them as raw ADC values, or calculated in g's.
-  Serial.print("A: ");
+  printf("A: ");
 #ifdef PRINT_CALCULATED
   // If you want to print calculated values, you can use the
   // calcAccel helper function to convert a raw ADC value to
@@ -126,7 +131,7 @@ static void printMag()
 
   // Now we can use the mx, my, and mz variables as we please.
   // Either print them as raw ADC values, or calculated in Gauss.
-  Serial.print("M: ");
+  printf("M: ");
 #ifdef PRINT_CALCULATED
   // If you want to print calculated values, you can use the
   // calcMag helper function to convert a raw ADC value to
