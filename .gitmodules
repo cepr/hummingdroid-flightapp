@@ -1,0 +1,6 @@
+[submodule "edison/libs/LSM9DS0_Breakout"]
+	path = edison/libs/LSM9DS0_Breakout
+	url = https://github.com/sparkfun/LSM9DS0_Breakout.git
+[submodule "edison/libs/protobuf"]
+	path = edison/libs/protobuf
+	url = https://github.com/google/protobuf.git
