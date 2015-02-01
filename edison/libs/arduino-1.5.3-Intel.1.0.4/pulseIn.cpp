@@ -32,7 +32,6 @@ unsigned long pulseIn(uint8_t pin, uint8_t value, unsigned long timeout)
 {
   unsigned long time_a;
   unsigned long time_b;
-  bool fastMode = true;
   bool timeoutFlag = false;
   bool timeBFlag = false;
   int highValue = 1;

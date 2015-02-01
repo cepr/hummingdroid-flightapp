@@ -27,7 +27,6 @@
 extern "C"{
 #endif
 
-int i2c_getadapter(uint32_t i2c_bus_address);
 int i2c_openadapter(uint8_t i2c_adapter_nr);
 int i2c_setslave(int i2c_fd, uint8_t addr);
 int i2c_writebyte(int i2c_fd, uint8_t byte);

@@ -78,7 +78,7 @@ String::String(char c)
 	*this = buf;
 }
 
-static char * c_spec_signed[] = {
+static const char * c_spec_signed[] = {
 		"%d",
 		"%ld",
 		"%o",
@@ -86,7 +86,7 @@ static char * c_spec_signed[] = {
 		"unsupported base",
 	};
 
-static char * c_spec_unsigned[] = {
+static const char * c_spec_unsigned[] = {
 		"%u",
 		"%lu",
 		"%o",
@@ -95,7 +95,7 @@ static char * c_spec_unsigned[] = {
 	};
 
 
-char * String::getCSpec(int base, bool issigned, bool islong){
+const char * String::getCSpec(int base, bool issigned, bool islong){
 	int int_idx = 0;
 
 	if(islong == true)

@@ -34,7 +34,6 @@ int TTYUARTClass::_detach_console( void )
 	 *   - Send them the KILL signal (bash doesn't seem to respond to TERM).
 	 */
 
-	int ret = 0;
 	char cmd[256];
 	char *ttydev;
 
@@ -218,10 +217,9 @@ void * TTYUARTClass::TTYIrqHandler(void * pargs)
 }
 
 // Public Methods //////////////////////////////////////////////////////////////
-int TTYUARTClass::init_tty( char * tty_name )
+int TTYUARTClass::init_tty( const char * tty_name )
 {
 	extern int errno;
-	int ret;
 
 	if(tty_name == NULL)
 		return -EINVAL;

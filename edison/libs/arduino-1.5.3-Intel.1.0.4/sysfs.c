@@ -25,6 +25,7 @@ Boston, MA 02111-1307 USA
 #include <interrupt.h>
 #include <errno.h>
 #include <dirent.h>
+#include "sysfs.h"
 
 #define MY_TRACE_PREFIX "sysfs"
 

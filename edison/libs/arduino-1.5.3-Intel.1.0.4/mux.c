@@ -39,7 +39,6 @@ int muxSelect(uint8_t arduino_pin, uint32_t tFunction)
 	int i = 0, j = 0, k = 0, matched = 0;
 	mux_sel_t sel;
 	PinDescription *p = NULL;
-	int ret = -EINVAL;
 
 	for (i = 0; i < sizeof_g_APinDescription; i++) {
 		p = &g_APinDescription[i];
@@ -176,8 +175,7 @@ int muxSelectPwmPin(uint8_t pin)
 
 int muxInit(void)
 {
-	int i = 0, j = 0;
-	mux_sel_t sel;
+    int i = 0;
 	PinDescription *p = NULL;
 
 	/*

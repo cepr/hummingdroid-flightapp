@@ -181,7 +181,7 @@ public:
 
 	// parsing/conversion
 	long toInt(void) const;
-	char * getCSpec(int base, bool issigned, bool islong);
+    const char * getCSpec(int base, bool issigned, bool islong);
 
 	char *buffer;	        // the actual char array
 	unsigned int capacity;  // the array length minus one (for the '\0')

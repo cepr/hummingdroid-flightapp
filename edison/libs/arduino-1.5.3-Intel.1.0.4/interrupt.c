@@ -37,6 +37,9 @@
 
 #define MY_TRACE_PREFIX "interrupt"
 
+#ifdef timeradd
+# undef timeradd
+#endif
 #define timeradd(a, b, result)				\
 do {							\
 	result.tv_sec = a.tv_sec + b.tv_sec;		\
@@ -94,7 +97,7 @@ static struct interrupt_desc idesc;
  * interrupt_main
  *
  */
-static void interrupt_main(void * pargs)
+static void* interrupt_main(void * pargs)
 {
 	int loop = 1, ret = 0, max = 0;
 	fd_set fdset, fdset_except;
@@ -199,6 +202,7 @@ static void interrupt_main(void * pargs)
 
 	/* Exit out */
 	pthread_exit(NULL);
+    return 0;
 }
 
 /**
@@ -404,7 +408,6 @@ int createTimerfd(int *fd, uint32_t period_us)
 	struct itimerspec timer_interval;
 	struct timespec timer_res;
 	struct timespec now;
-	struct timespec interval;
 	long period_ns;
 
 	if (period_us == 0) {
@@ -468,7 +471,7 @@ do_error:
 int interrupt_init( void )
 {
 	extern int errno;
-	int ret = 0, fd;
+    int ret = 0;
 
 	/* Setup pipe */
 	ret = pipe2(idesc.pipe_tx_rx, O_NONBLOCK);

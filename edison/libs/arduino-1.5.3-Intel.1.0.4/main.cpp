@@ -12,10 +12,6 @@
 /************************ Global *************************/
 int main(int argc, char * argv[])
 {
-	char *platform_path = NULL;
-	struct stat s;
-	int err;
-
 	// Install a signal handler
 
 	// make ttyprintk at some point

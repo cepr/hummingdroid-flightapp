@@ -22,6 +22,7 @@ extern "C" {
 
 #include <stdio.h>
 #include <trace.h>
+#include <sysfs.h>
 
 #include "Arduino.h"
 #include "pins_arduino.h"
@@ -34,21 +35,6 @@ extern "C" {
  * */
 static uint32_t _readResolution = 10;
 static uint32_t _writeResolution = 8;
-static uint8_t analog_reference = DEFAULT;
-
-static const int pin2pwm(uint8_t pin)
-{
-	uint32_t i;
-
-	// Scan mappings
-	for (i = 0; i < sizeof_g_APwmDescription; i++){
-		if(g_APwmDescription[i].ulArduinoId == pin)
-			return g_APwmDescription[i].ulPWMId;
-	}
-
-	// Indicate error
-	return PIN_EINVAL;
-}
 
 int pin2pwmhandle_enable(uint8_t pin)
 {
@@ -190,15 +176,15 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
 		g_APinState[ulPin].uPwmEnabled = 1;
 	}
 
-	if (sysfsPwmSetDutyCycle(pin2pwmhandle_duty(ulPin), ulValue))
+    if (sysfsPwmSetDutyCycle(pin2pwmhandle_duty(ulPin), ulValue)) {
 		trace_error("%s Failed setting duty_cycle: %u", __func__,
 				ulValue);
+    }
 }
 
 void pwmInit(void)
 {
 	int i = 0;
-	int ret = 0;
 	PwmDescription *pwm;
 
 	for (i = 0; i < sizeof_g_APwmDescription; i++) {
@@ -241,8 +227,6 @@ void adcInit(void)
 	}
 
 	/* No need to set any muxing: done by pinMode.  */
-
-	return 0;
 }
 
 #ifdef __cplusplus

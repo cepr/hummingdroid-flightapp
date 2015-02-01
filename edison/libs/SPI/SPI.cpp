@@ -166,8 +166,9 @@ uint8_t SPIClass::transfer(uint8_t txData)
 	msg.rx_buf = (__u64) &rxData;
 	msg.len = sizeof(uint8_t);
 	
-	if (ioctl (this->fd, SPI_IOC_MESSAGE(1), &msg) < 0)
+    if (ioctl (this->fd, SPI_IOC_MESSAGE(1), &msg) < 0) {
 		trace_error("Failed to execute SPI transfer\n");
+    }
 
 	return rxData;
 }
@@ -184,8 +185,9 @@ void SPIClass::transferBuffer(const uint8_t *txData,
 	msg.rx_buf = (__u64) rxData;
 	msg.len = len;
 	
-	if (ioctl (this->fd, SPI_IOC_MESSAGE(1), &msg) < 0)
+    if (ioctl (this->fd, SPI_IOC_MESSAGE(1), &msg) < 0) {
 		trace_error("Failed to execute SPI transfer\n");
+    }
 }
 
 void SPIClass::attachInterrupt() {

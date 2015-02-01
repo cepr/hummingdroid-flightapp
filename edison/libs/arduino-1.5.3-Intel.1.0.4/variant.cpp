@@ -524,7 +524,6 @@ int variantPinMode(uint8_t pin, uint8_t mode)
 	 * The pin at this time is set to Fast-mode by default, if available
 	 */
 
-	int ret = 0;
 	PinDescription *p = NULL;
 
 	/* Search for entry */
@@ -554,7 +553,7 @@ int variantPinModeIRQ(uint8_t pin, uint8_t mode)
  */
 void turnOnPWM(uint8_t pin)
 {
-	int i;
+    unsigned int i;
 
 	/* Mark PWM enabled on pin */
 	g_APinState[pin].uCurrentPwm = 1;
@@ -570,7 +569,7 @@ void turnOnPWM(uint8_t pin)
 
 void turnOffPWM(uint8_t pin)
 {
-	int handle = 0, ret = 0;
+    int handle = 0;
 	PinDescription *p = NULL;
 
 	// Scan mappings
@@ -606,9 +605,8 @@ void turnOffPWM(uint8_t pin)
 
 void variantEnableFastGpio(int pin)
 {
-	int entryno = ardPin2DescIdx[pin];
+    uint32_t entryno = ardPin2DescIdx[pin];
 	PinDescription *p = NULL;
-	int ret = 0;
 
 	if (entryno >= sizeof_g_APinDescription) {
 		trace_error("%s: ardPin2DescIdx[%d] == %d >= "
@@ -642,7 +640,7 @@ void variantEnableFastGpio(int pin)
 void setPwmSwizzler(uint8_t pwmout0, uint8_t pwmout1, uint8_t pwmout2,
 		uint8_t pwmout3)
 {
-	int i;
+    uint32_t i;
 
 	/* All parameters must be different */
 	if (any_equal(pwmout0, pwmout1, pwmout2, pwmout3)) {
@@ -693,9 +691,10 @@ void eepromInit(void)
 		goto err;
 	}
 
-	if (write(fd, &buf, LINUX_EEPROM_SIZE) != LINUX_EEPROM_SIZE)
+    if (write(fd, &buf, LINUX_EEPROM_SIZE) != LINUX_EEPROM_SIZE) {
 		trace_error("%s Can't write to EEPROM file: %s", __func__,
 				strerror(errno));
+    }
 
 	trace_debug("%s Created EEPROM file '%s' of size %u bytes", __func__,
 			LINUX_EEPROM, LINUX_EEPROM_SIZE);
@@ -719,8 +718,9 @@ void init( int argc, char * argv[] )
 	pinInit();
 
 	/* Initialize fast path to GPIO */
-	if (fastGpioPciInit())
+    if (fastGpioPciInit()) {
 		trace_error("Unable to initialize fast GPIO mode!");
+    }
 
 	sizeof_g_APwmDescription = sizeof(g_APwmDescription)/sizeof(struct _PwmDescription);
 	pwmInit();

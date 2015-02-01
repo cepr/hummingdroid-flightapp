@@ -144,7 +144,6 @@ int WiFiUDP::beginPacket(const char *host, uint16_t port)
 {
 	// Look up the host first
 
-	int ret = 0;
 	extern int errno;
 	struct hostent *hp;
 
@@ -186,8 +185,9 @@ int WiFiUDP::sendUDP()
 {
 	int ret;
 
-	if ((ret = sendto(_sock, _buffer, _offset, 0, (struct sockaddr*)&_sin, sizeof(_sin))) < 0)
+    if ((ret = sendto(_sock, _buffer, _offset, 0, (struct sockaddr*)&_sin, sizeof(_sin))) < 0) {
 		trace_error("%s Couldn't send UPD message: %s", __func__, strerror(errno));
+    }
 
 	return ret;
 }
@@ -200,7 +200,7 @@ size_t WiFiUDP::write(uint8_t byte)
 int WiFiUDP::bufferData(const uint8_t *buffer, size_t size)
 {
 	int written_bytes =  0;
-	if  (UDP_TX_PACKET_MAX_SIZE - _offset < size) {
+    if  (UDP_TX_PACKET_MAX_SIZE - (size_t)_offset < size) {
 		written_bytes =  UDP_TX_PACKET_MAX_SIZE - _offset;
 	} else {
 		written_bytes = size;

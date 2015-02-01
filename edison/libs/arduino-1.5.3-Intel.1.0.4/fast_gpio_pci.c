@@ -12,8 +12,11 @@
 #include <sys/mman.h>
 #include <dirent.h>
 #include <trace.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <Arduino.h>
-
 #include "fast_gpio_pci.h"
 
 #define MY_TRACE_PREFIX		"fast_gpio_pci"

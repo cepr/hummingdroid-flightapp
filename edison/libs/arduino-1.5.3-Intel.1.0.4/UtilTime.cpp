@@ -112,7 +112,7 @@ int timeInit(void)
     int cpufreq_fd, ret;
     char buf[0x400];
     char * str = 0, * str2 = 0;
-    char * mhz_str = "cpu MHz\t\t: ";
+    const char * mhz_str = "cpu MHz\t\t: ";
 
     /* Grab initial TSC snapshot */
     tsc_init = rdtsc();
@@ -156,4 +156,6 @@ int timeInit(void)
     clocks_per_ns = 1000/cpufreq;
 
     printf("nanoseconds per clock %f\n", clocks_per_ns);
+
+    return 0;
 }

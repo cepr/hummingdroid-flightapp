@@ -188,7 +188,7 @@ int WiFiClass::begin(char* ssid)
 	sprintf(cmd, "iwconfig %s essid %s", ARDUINO_WLAN, ssid);
 	system(cmd);
 	delay(8000);
-	sprintf(cmd, "kill -9 `cat /tmp/udhcpc.pid`", ARDUINO_WLAN);
+    sprintf(cmd, "kill -9 `cat /tmp/udhcpc.pid`");
 	system(cmd);
 	sprintf(cmd, "udhcpc -i %s -n -t 1 -T 1 -p /tmp/udhcpc.pid", ARDUINO_WLAN);
 	system(cmd);
@@ -229,7 +229,7 @@ int WiFiClass::begin(char* ssid, uint8_t key_idx, const char *key)
 	sprintf(cmd, "iwconfig wlan0 essid %s", ssid);
 	system(cmd);
 	delay(8000);
-	sprintf(cmd, "kill -9 `cat /tmp/udhcpc.pid`", ARDUINO_WLAN);
+    sprintf(cmd, "kill -9 `cat /tmp/udhcpc.pid`");
 	system(cmd);
 	sprintf(cmd, "udhcpc -i %s -n -t 1 -T 1 -p /tmp/udhcpc.pid", ARDUINO_WLAN);
 	system(cmd);
@@ -280,11 +280,11 @@ int WiFiClass::begin(char* ssid, const char *passphrase)
 	system(cmd);
 	sprintf(cmd, "wpa_cli -i%s set_network 0 ssid \'\"%s\"\'", ARDUINO_WLAN, ssid);
 	system(cmd);
-	sprintf(cmd, "wpa_cli -iwlan0 select_network 0", ARDUINO_WLAN);
+    sprintf(cmd, "wpa_cli -iwlan0 select_network 0");
 	system(cmd);
-	sprintf(cmd, "wpa_cli -iwlan0 enable_network 0", ARDUINO_WLAN);
+    sprintf(cmd, "wpa_cli -iwlan0 enable_network 0");
 	system(cmd);
-	sprintf(cmd, "wpa_cli -iwlan0 reassociate", ARDUINO_WLAN);
+    sprintf(cmd, "wpa_cli -iwlan0 reassociate");
 	system(cmd);
 	delay(10000);
 

@@ -1,0 +1,4 @@
+/*.user
+*.o
+arduino_core.a
+flight_software

@@ -25,13 +25,13 @@
 #include "variant.h"
 
 #define BUFFER_LENGTH 32
-#define I2C2 0x4819c000
-#define I2C1 0x00000000
-#define WIRE_INTERFACES_COUNT 1
+#define I2C6 6
+#define I2C1 1
+#define WIRE_INTERFACES_COUNT 2
 
 class TwoWire : public Stream {
 public:
-	TwoWire(void(*begin_cb)(void));
+    TwoWire(int adapter_nr);
 	void begin();
 	void begin(uint8_t);
 	void begin(int);
@@ -79,9 +79,6 @@ private:
 	// Callback user functions
 	void (*onRequestCallback)(void);
 	void (*onReceiveCallback)(int);
-
-	// Called before initialization
-	void (*onBeginCallback)(void);
 
 	// Timeouts (
 	static const uint32_t RECV_TIMEOUT = 100000;

@@ -63,7 +63,7 @@ void toneNonBlocking(uint8_t _pin, unsigned int frequency, unsigned long duratio
   params->frequency = frequency;
   params->duration = duration;
   params->threadID = tempThreadControl;
-  int iret1 = pthread_create( &toneThread, NULL, toneHandler, (void*) params);
+  pthread_create( &toneThread, NULL, toneHandler, (void*) params);
   pthread_detach(toneThread);
 }
 
@@ -122,7 +122,7 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
     params->frequency = frequency;
     params->duration = duration;
     params->threadID = tempThreadControl;
-    int iret1 = pthread_create( &toneThread, NULL, toneHandler, (void*) params);
+    pthread_create( &toneThread, NULL, toneHandler, (void*) params);
     pthread_detach(toneThread);
   }
 }
@@ -215,4 +215,5 @@ void *toneHandler(void *arg)
       }
     }
   }
+  return 0;
 }

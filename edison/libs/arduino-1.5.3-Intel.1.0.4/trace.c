@@ -18,6 +18,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#define __USE_GNU // for pipe2()
+#include <unistd.h>
 //#include <sys/stat.h>
 #include <sys/time.h>
 
@@ -71,7 +73,7 @@ static char * trce_msg [] = {
  */
 static void * trace_main ( void * pargs )
 {
-	int res = 0, loop = 1, ret = 0;
+    int loop = 1, ret = 0;
 	fd_set fdset;
 	struct trace_msg tmsg;
 	extern int errno;
@@ -114,10 +116,10 @@ static void * trace_main ( void * pargs )
 							case TRACE_CMD_TRACE:
 								if(tdesc.trace_target & TRACE_TARGET_UART){
 										if( tmsg.tlevel == TRACE_LEVEL_ERROR){
-											fprintf(stderr, tmsg.tbuf);
+                                            fprintf(stderr, "%s", tmsg.tbuf);
 											fflush(stderr);
 										}else{
-											printf(tmsg.tbuf);
+                                            printf("%s", tmsg.tbuf);
 											fflush(stdout);
 										}
 								}

@@ -37,32 +37,6 @@
 struct i2c_msg i2c_buf[2];
 unsigned int i2c_buf_count = 0;
 
-int i2c_getadapter(uint32_t i2c_bus_address)
-{
-	/* Single adapter supported for now.  */
-#if 0
-	char buf[MAX_BUF];
-	DIR *d;
-	struct dirent *dir;
-	int adapter_nr = -1;
-	snprintf(buf, sizeof(buf), "/sys/devices/ocp.2/%x.i2c",
-							i2c_bus_address);
-	d = opendir(buf);
-	if (d) {
-		while ((dir = readdir(d)) != NULL) {
-			if (!strncmp("i2c", dir->d_name, 3)) {
-				sscanf(dir->d_name, "i2c-%d", &adapter_nr);
-				closedir(d);
-				return adapter_nr;
-			}
-		}
-		closedir(d);
-	}
-	return -1;
-#endif
-	return LINUX_I2C_ADAPTER;
-}
-
 int i2c_openadapter(uint8_t i2c_adapter_nr)
 {
 	char buf[MAX_BUF];

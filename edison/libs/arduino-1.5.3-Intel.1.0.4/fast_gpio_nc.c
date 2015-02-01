@@ -66,7 +66,7 @@ static struct fgpio_nc fgpio;
  */
 int fastGpioNCInit(void)
 {
-	int i, ret;
+    int ret;
 	extern int errno;
 
 	ret = fastGpioFindUioByName(UIO_NAME);

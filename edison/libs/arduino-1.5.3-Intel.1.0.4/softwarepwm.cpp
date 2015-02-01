@@ -52,7 +52,7 @@ void softAnalogWrite(uint32_t pin, uint32_t duty, uint32_t freq)
   params->frequency = freq;
   params->threadID = tempThreadControl;
   
-  int iret1 = pthread_create( &pwmThread, NULL, pwmHandler, (void*) params);
+  pthread_create( &pwmThread, NULL, pwmHandler, (void*) params);
   pthread_detach(pwmThread);
 }
 
@@ -71,7 +71,7 @@ void softAnalogWrite(uint32_t pin, uint32_t duty)
   params->frequency = 500;
   params->threadID = tempThreadControl;
   
-  int iret1 = pthread_create( &pwmThread, NULL, pwmHandler, (void*) params);
+  pthread_create( &pwmThread, NULL, pwmHandler, (void*) params);
   pthread_detach(pwmThread);
 }
 
@@ -115,12 +115,13 @@ void *pwmHandler(void *arg)
       {
         //invalid duty cycle value
       }
-      while((b-a) < (period))
+      while((int)(b-a) < (period))
       {
         b = micros();
       }
     }
   }
+  return 0;
 }
 
 void pulse(int usec, int pin)
@@ -129,7 +130,7 @@ void pulse(int usec, int pin)
   unsigned long a = micros();
   unsigned long b = a;
   fastDigitalWrite(pin, HIGH);
-  while((b-a) < (usec))
+  while((int)(b-a) < (usec))
   {
     b = micros();
   }

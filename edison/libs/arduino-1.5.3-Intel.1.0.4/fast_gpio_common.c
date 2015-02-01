@@ -23,7 +23,6 @@ int fastGpioFindUioByName(const char *name)
 {
 	const struct dirent *ent;
 	int uio_num;
-	size_t name_len;
 
 	FILE *nameFile;
 	DIR *dp;
@@ -62,7 +61,7 @@ int fastGpioFindUioByName(const char *name)
 
 			memset(thisname, 0, sizeof(thisname));
 			fread(thisname, UIO_MAX_NAME_LEN, 1, nameFile);
-			if (!thisname) {
+            if (!*thisname) {
 				fclose(nameFile);
 				continue;
 			}

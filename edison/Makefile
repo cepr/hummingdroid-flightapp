@@ -5,7 +5,9 @@ CPPFLAGS+=\
 	-I "libs/arduino-1.5.3-Intel.1.0.4" \
 	-I libs/Wire \
 	-I libs/SPI \
-	-I libs/WiFi
+	-I libs/WiFi \
+	-I libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0 \
+	-Wall
 
 # Make sure we link using g++ and not gcc
 LINK.o:=$(LINK.cpp)
@@ -57,6 +59,9 @@ arduino_core.a: $(ARDUINO_OBJS)
 
 flight_software: LDLIBS+=-lpthread
 flight_software: $(OBJS) arduino_core.a
+
+install: flight_software
+	scp $< root@quadcopter.local:/home/root
 
 clean:
 	$(RM) flight_software arduino_core.a $(OBJS) $(ARDUINO_OBJS)

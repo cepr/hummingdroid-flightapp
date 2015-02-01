@@ -33,7 +33,7 @@ public:
 	virtual ~TTYUARTClass();
 
 	static void * TTYIrqHandler(void * pargs);	// static has no implicit this
-	int init_tty( char * tty_name );
+	int init_tty(const char *tty_name );
 	void begin( const uint32_t dwBaudRate ) ;
 	void end( void ) ;
 	int available( void ) ;

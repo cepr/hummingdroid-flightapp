@@ -29,11 +29,10 @@ extern "C" {
 #include <trace.h>
 #define MY_TRACE_PREFIX "Wire"
 
-TwoWire::TwoWire(void(*_beginCb)(void)) : rxBufferIndex(0), rxBufferLength(0), 
+TwoWire::TwoWire(int adapter_nr) : rxBufferIndex(0), rxBufferLength(0),
 					  txAddress(0), txBufferLength(0), 
 					  srvBufferIndex(0), srvBufferLength(0), 
-					  onBeginCallback(_beginCb), 
-					  adapter_nr(-1), i2c_fd(-1),
+                      adapter_nr(adapter_nr), i2c_fd(-1),
 					  i2c_transfer(0)
 {
 	// Empty
@@ -42,11 +41,6 @@ TwoWire::TwoWire(void(*_beginCb)(void)) : rxBufferIndex(0), rxBufferLength(0),
 void TwoWire::begin(void)
 {
 	muxSelectI2c(0);
-	if (onBeginCallback)
-		onBeginCallback();
-	if ((adapter_nr = i2c_getadapter(I2C2)) < 0) {
-		return;	
-	}
 	if ((i2c_fd = i2c_openadapter(adapter_nr)) < 0) {
 		return;	
 	}
@@ -55,8 +49,6 @@ void TwoWire::begin(void)
 
 void TwoWire::begin(uint8_t address)
 {
-	if (onBeginCallback)
-		onBeginCallback();
 }
 
 void TwoWire::begin(int address)
@@ -238,32 +230,14 @@ void TwoWire::onService(void)
 {
 }
 
-#if WIRE_INTERFACES_COUNT > 0
-static void Wire_Init(void)
-{
-}
-
-TwoWire Wire = TwoWire(Wire_Init);
+TwoWire Wire = TwoWire(I2C1);
 
 void WIRE_ISR_HANDLER(void) {
 	Wire.onService();
 }
-#endif
 
-#if WIRE_INTERFACES_COUNT > 1
-static void Wire1_Init(void)
-{
-	if ((adapter_nr = i2c_getadapter(I2C1)) < 0) {
-		return;	
-	}
-	if ((i2c_fd = i2c_openadapter) < 0) {
-		return;	
-	}
-}
-
-TwoWire Wire1 = TwoWire(Wire1_Init);
+TwoWire Wire1 = TwoWire(I2C6);
 
 void WIRE1_ISR_HANDLER(void) {
 	Wire1.onService();
 }
-#endif
