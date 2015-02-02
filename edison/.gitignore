@@ -1,4 +1,6 @@
 /*.user
+/Communication.pb.*
 *.o
-arduino_core.a
+*.a
 flight_software
+

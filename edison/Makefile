@@ -8,7 +8,9 @@ CPPFLAGS+=\
 	-I libs/WiFi \
 	-I libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0 \
 	-I libs/Adafruit-PWM-Servo-Driver-Library \
-	-Wall
+	-I libs/protobuf/src \
+	-Wall \
+	-O0
 
 # Make sure we link using g++ and not gcc
 LINK.o:=$(LINK.cpp)
@@ -16,7 +18,6 @@ LINK.o:=$(LINK.cpp)
 all: flight_software
 
 OBJS:=\
-	flight_software.o \
 	libs/Adafruit-PWM-Servo-Driver-Library/Adafruit_PWMServoDriver.o \
 	libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0/SFE_LSM9DS0.o \
 	libs/SPI/SPI.o \
@@ -27,7 +28,19 @@ OBJS:=\
 	libs/WiFi/WiFiUdp.o \
 	libs/WiFi/WiFiServer.o \
 	libs/Wire/Wire.o \
-	flight_software.o
+	Communication.pb.o \
+	Motors.o \
+	Telemetry.o \
+	DatagramSocket.o \
+	Object.o \
+	Value.o \
+	Receiver.o \
+	FlightService.o \
+	Telemetry.o \
+	Sensors.o \
+	Thread.o \
+	Timestamp.o \
+	Controller.o
 
 ARDUINO_OBJS:=\
 	libs/arduino-1.5.3-Intel.1.0.4/fast_gpio_pci.o \
@@ -60,13 +73,27 @@ arduino_core.a: $(ARDUINO_OBJS)
 	ar r $@ $^
 
 flight_software: LDLIBS+=-lpthread
-flight_software: $(OBJS) arduino_core.a
+flight_software: $(OBJS) arduino_core.a libs/protobuf/build/src/.libs/libprotobuf-lite.a
+	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
+.PHONY: install
 install: flight_software
 	scp $< root@quadcopter.local:/home/root
 
-clean:
-	$(RM) flight_software arduino_core.a $(OBJS) $(ARDUINO_OBJS)
+libs/protobuf/build/src/.libs/libprotobuf-lite.a:
+	mkdir -p libs/protobuf/build
+	cd libs/protobuf/build && ../configure && make
 
-#/home/cpriscal/bin/arduino-1.5.3-Intel.1.0.4/hardware/tools/edison/sysroots/x86_64-pokysdk-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++ -m32 -march=i586 --sysroot=/home/cpriscal/bin/arduino-1.5.3-Intel.1.0.4/hardware/tools/edison/sysroots/core2-32-poky-linux -Os -Wl,--gc-sections -march=i686 -o /tmp/build7073233215406790678.tmp/flight_software.cpp.elf /tmp/build7073233215406790678.tmp/flight_software.cpp.o /tmp/build7073233215406790678.tmp/SPI/SPI.cpp.o /tmp/build7073233215406790678.tmp/Wire/Wire.cpp.o /tmp/build7073233215406790678.tmp/SFE_LSM9DS0/SFE_LSM9DS0.cpp.o /tmp/build7073233215406790678.tmp/core.a -L/tmp/build7073233215406790678.tmp -lm -lpthread 
-#/home/cpriscal/bin/arduino-1.5.3-Intel.1.0.4/hardware/tools/edison/sysroots/x86_64-pokysdk-linux/usr/bin/i586-poky-linux/i586-poky-linux-strip /tmp/build7073233215406790678.tmp/flight_software.cpp.elf 
+Communication.pb.cc: Communication.proto libs/protobuf/build/src/.libs/libprotobuf-lite.a
+	libs/protobuf/build/src/protoc --cpp_out=. Communication.proto
+
+.PHONY: clean
+clean:
+	rm -rf \
+		flight_software \
+		arduino_core.a \
+		$(OBJS) \
+		$(ARDUINO_OBJS) \
+		libs/protobuf/build \
+		Communication.pb.h \
+		Communication.pb.cc

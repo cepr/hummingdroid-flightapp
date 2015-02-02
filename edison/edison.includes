@@ -4,6 +4,7 @@ libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0
 libs/Adafruit-PWM-Servo-Driver-Library
 libs/protobuf/python/google/protobuf/pyext
 libs/protobuf/ruby/ext/google/protobuf_c
+libs/protobuf/src
 libs/protobuf/src/google/protobuf
 libs/protobuf/src/google/protobuf/compiler
 libs/protobuf/src/google/protobuf/compiler/cpp
