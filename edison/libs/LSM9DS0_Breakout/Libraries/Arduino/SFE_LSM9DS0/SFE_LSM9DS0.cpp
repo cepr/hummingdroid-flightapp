@@ -301,7 +301,7 @@ void LSM9DS0::calLSM9DS0(float * gbias, float * abias)
     xmReadBytes(OUT_X_L_A, &data[0], 6);
     accel_bias[0] += (((int16_t)data[1] << 8) | data[0]);
     accel_bias[1] += (((int16_t)data[3] << 8) | data[2]);
-    accel_bias[2] += (((int16_t)data[5] << 8) | data[4]) - (int16_t)(1./aRes); // Assumes sensor facing up!
+    accel_bias[2] += (((int16_t)data[5] << 8) | data[4]);
   }  
 
   accel_bias[0] /= samples; // average the data
@@ -547,7 +547,7 @@ uint8_t LSM9DS0::gReadByte(uint8_t subAddress)
 	// gyro-specific I2C address or SPI CS pin.
 	if (interfaceMode == MODE_I2C)
 		return I2CreadByte(gAddress, subAddress);
-	else if (interfaceMode == MODE_SPI)
+    else
 		return SPIreadByte(gAddress, subAddress);
 }
 
@@ -567,7 +567,7 @@ uint8_t LSM9DS0::xmReadByte(uint8_t subAddress)
 	// accelerometer-specific I2C address or SPI CS pin.
 	if (interfaceMode == MODE_I2C)
 		return I2CreadByte(xmAddress, subAddress);
-	else if (interfaceMode == MODE_SPI)
+    else
 		return SPIreadByte(xmAddress, subAddress);
 }
 
