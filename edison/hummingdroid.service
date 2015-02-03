@@ -1,0 +1,12 @@
+[Unit]
+Description=HummingDroid Quadcopter Service
+
+[Service]
+ExecStart=/home/root/flight_software
+Restart=always
+RestartSec=1
+# WatchdogSec=5
+
+[Install]
+Alias=hummingdroid.service
+
