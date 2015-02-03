@@ -56,17 +56,17 @@ void Sensors::run()
         // Read Acceleration
         dof.readAccel();
         Timestamp now = Timestamp::now();
-        roll_accel.set(atan2f(-dof.calcAccel(dof.ax), dof.calcAccel(dof.az)), now);
-        pitch_accel.set(-atan2f(-dof.calcAccel(dof.ay), dof.calcAccel(dof.az)), now);
+        roll_accel.set(atan2f(dof.calcAccel(dof.ay), dof.calcAccel(dof.az)), now);
+        pitch_accel.set(-atan2f(-dof.calcAccel(dof.ax), dof.calcAccel(dof.az)), now);
 
         // Read Gyroscope
         dof.readGyro();
         now = Timestamp::now();
 
-        roll_gyro_rate.set(dof.calcGyro(dof.gy), now);
+        roll_gyro_rate.set(dof.calcGyro(dof.gx) * DEG_TO_RAD, now);
         roll_gyro.integrate(roll_gyro_rate);
 
-        pitch_gyro_rate.set(dof.calcGyro(dof.gx), now);
+        pitch_gyro_rate.set(dof.calcGyro(dof.gy) * DEG_TO_RAD, now);
         pitch_gyro.integrate(pitch_gyro_rate);
 
         // Apply the low-pass filter on the accelerometer and the
@@ -79,7 +79,7 @@ void Sensors::run()
         pitch_gyro_highpass.highpass(pitch_gyro);
         pitch.add(pitch_gyro_highpass, pitch_accel_lowpass);
 
-        yaw_rate.set(-dof.calcGyro(dof.gz), now);
+        yaw_rate.set(-dof.calcGyro(dof.gz) * DEG_TO_RAD, now);
 
         attitude.set_altitude(altitude.value);
         attitude.set_roll(roll.value);

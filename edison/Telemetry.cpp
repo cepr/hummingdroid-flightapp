@@ -80,7 +80,6 @@ void Telemetry::run()
             synchronized
             std::string data = packet.SerializeAsString();
             socket.send(data.c_str(), data.length());
-            fputc('t', stderr);
         }
         // Sleep
         usleep(50000);
