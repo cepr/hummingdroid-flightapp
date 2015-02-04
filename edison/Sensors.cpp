@@ -89,7 +89,7 @@ void Sensors::run()
         controller->setAttitude(attitude, now);
         telemetry->setAttitude(attitude);
 
-        usleep(2500); // about 400 Hz
+        //usleep(2500); // about 400 Hz
     }
 }
 

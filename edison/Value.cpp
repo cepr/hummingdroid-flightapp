@@ -92,7 +92,13 @@ void LowPass::setT(float T) {
 }
 
 void LowPass::lowpass(const Value & value) {
-    this->value = T * this->value + (1. - T) * value.value;
+    if (!T) {
+        // No filter
+        this->value = value.value;
+    } else {
+        float K = (value.timestamp - this->timestamp) * 2.3 / T;
+        this->value = (1. - K) * this->value + K * value.value;
+    }
     this->timestamp = value.timestamp;
 }
 

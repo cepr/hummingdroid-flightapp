@@ -64,7 +64,7 @@ FlightService::FlightService() :
 
     {
         CommandPacket::SensorsConfig s;
-        s.set_accel_lowpass_constant(.95);
+        s.set_accel_lowpass_constant(5.);
         sensors.setConfig(s);
     }
 }
