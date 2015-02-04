@@ -18,21 +18,20 @@
 
 #include "Value.h"
 #include <time.h>
+#include "math.h"
 
 namespace org {
 namespace hummingdroid {
 namespace flightapp {
 
 Value::Value() :
-    value(0),
-    valid(false)
+    value(0)
 {
 }
 
 Value::Value(const Value &that) :
     value(that.value),
-    timestamp(that.timestamp),
-    valid(that.valid)
+    timestamp(that.timestamp)
 {
 }
 
@@ -70,15 +69,16 @@ void Value::amplify(float gain) {
 
 void Value::reset() {
     value = 0.;
+    timestamp.t.tv_sec = 0;
+    timestamp.t.tv_nsec = 0;
 }
 
 void Derivator::derive(const Value & value)
 {
-    if (timestamp.valid && value.timestamp.valid) {
-        float dt = value.timestamp - timestamp;
-        this->value = (value.value - prev) / dt;
-    } else {
-        this->valid = true;
+    float dt = value.timestamp - timestamp;
+    this->value = (value.value - prev) / dt;
+    if (isnan(this->value)) {
+        this->value = 0;
     }
     prev = value.value;
     this->timestamp = value.timestamp;
@@ -115,7 +115,7 @@ void HighPass::highpass(const Value & value) {
 // ///////////////////////////////////////////////
 
 void PID::setParams(const hummingdroid::PID & params) {
-    // TODO Use Mutex
+    synchronized
     this->params = params;
     low_pass.setT(params.td());
 }
@@ -148,13 +148,9 @@ void PID::reset() {
 
 void Integrator::integrate(const Value &value)
 {
-    if (timestamp.valid && value.timestamp.valid) {
-        float dt = value.timestamp - timestamp;
+    float dt = value.timestamp - timestamp;
+    if (!isnan(dt)) {
         this->value += (value.value + prev) * dt / 2.;
-    } else {
-        // This is the first iteration
-        this->value = 0;
-        this->valid = true;
     }
     this->timestamp = value.timestamp;
     prev = value.value;

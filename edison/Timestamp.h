@@ -15,12 +15,10 @@ public:
     void operator=(const Timestamp & that) {
         this->t.tv_sec = that.t.tv_sec;
         this->t.tv_nsec = that.t.tv_nsec;
-        this->valid = that.valid;
     }
 
     static Timestamp now();
 
-    bool valid;
     struct timespec t;
 };
 

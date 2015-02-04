@@ -38,12 +38,11 @@ public:
     // Attributes
     float value;
     Timestamp timestamp;
-    bool valid;
 
     // Operators
     void operator =(const Value & value) {
         this->value = value.value;
-
+        this->timestamp = value.timestamp;
     }
 
     void set(const Value & value);
