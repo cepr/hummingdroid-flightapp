@@ -26,19 +26,13 @@ namespace flightapp {
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
 
 static uint16_t scale(float value) {
-    if (value < 0.) {
-        return 0;
-    } else if (value > 4095.) {
-        return (uint16_t) 4095;
-    } else {
-        return (uint16_t) value;
-    }
+    return MAX(MIN(697 * value + 942, 1639), 0);
 }
 
 void Motors::begin()
 {
-    pwm.setPWMFreq(400);
     pwm.begin();
+    pwm.setPWMFreq(200);
 }
 
 void Motors::setControl(const MotorsControl &control)
@@ -57,10 +51,10 @@ void Motors::setControl(const MotorsControl &control)
         g = MIN(g, 1. / max);
     }
 
-    pwm.setPWM(0, 0, scale(fl * g * 4095.));
-    pwm.setPWM(0, 0, scale(fr * g * 4095.));
-    pwm.setPWM(0, 0, scale(br * g * 4095.));
-    pwm.setPWM(0, 0, scale(bl * g * 4095.));
+    pwm.setPWM(0, 0, scale(fl * g));
+    pwm.setPWM(1, 0, scale(fr * g));
+    pwm.setPWM(2, 0, scale(br * g));
+    pwm.setPWM(3, 0, scale(bl * g));
 }
 
 }
