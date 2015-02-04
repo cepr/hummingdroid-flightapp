@@ -80,6 +80,7 @@ flight_software: $(OBJS) arduino_core.a libs/protobuf/build/src/.libs/libprotobu
 install: flight_software
 	ssh root@quadcopter.local 'systemctl stop hummingdroid.service'
 	scp $< root@quadcopter.local:/home/root
+	ssh root@quadcopter.local 'sync'
 	ssh root@quadcopter.local 'systemctl start hummingdroid.service'
 
 libs/protobuf/build/src/.libs/libprotobuf-lite.a:
