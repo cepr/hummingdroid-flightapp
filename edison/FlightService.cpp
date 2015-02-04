@@ -72,6 +72,7 @@ FlightService::FlightService() :
 void FlightService::loop()
 {
     // Start the threads
+    motors.begin();
     telemetry.start();
     receiver.start();
     sensors.run(); // Note: we directly run the sensor thread in the main thread
