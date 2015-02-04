@@ -74,6 +74,9 @@ message CommandPacket {
 
     message SensorsConfig {
         required float accel_lowpass_constant = 1;
+        required float gyro_roll_bias = 2;
+        required float gyro_pitch_bias = 3;
+        required float gyro_yaw_bias = 4;
     }
 
     optional Attitude           command = 1;

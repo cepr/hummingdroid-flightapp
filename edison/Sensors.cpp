@@ -31,9 +31,11 @@ namespace flightapp {
 Sensors::Sensors(FlightService *context) :
     controller(&context->controller),
     telemetry(&context->telemetry),
-    dof(MODE_I2C, LSM9DS0_G, LSM9DS0_XM)
+    dof(MODE_I2C, LSM9DS0_G, LSM9DS0_XM),
+    gyro_roll_bias(0.),
+    gyro_pitch_bias(0.),
+    gyro_yaw_bias(0.)
 {
-
 }
 
 void Sensors::setConfig(const CommandPacket::SensorsConfig &config)
@@ -44,6 +46,9 @@ void Sensors::setConfig(const CommandPacket::SensorsConfig &config)
     roll_gyro_highpass.setT(T);
     pitch_accel_lowpass.setT(T);
     pitch_gyro_highpass.setT(T);
+    gyro_roll_bias = config.gyro_roll_bias();
+    gyro_pitch_bias = config.gyro_pitch_bias();
+    gyro_yaw_bias = config.gyro_yaw_bias();
 }
 
 void Sensors::run()
@@ -64,10 +69,24 @@ void Sensors::run()
         now = Timestamp::now();
 
         roll_gyro_rate.set(dof.calcGyro(dof.gx) * DEG_TO_RAD, now);
+        roll_gyro_rate.value -= gyro_roll_bias;
         roll_gyro.integrate(roll_gyro_rate);
+        while (roll_gyro.value > PI) {
+            roll_gyro.value -= TWO_PI;
+        }
+        while (roll_gyro.value < -PI) {
+            roll_gyro.value += TWO_PI;
+        }
 
         pitch_gyro_rate.set(dof.calcGyro(dof.gy) * DEG_TO_RAD, now);
+        pitch_gyro_rate.value -= gyro_pitch_bias;
         pitch_gyro.integrate(pitch_gyro_rate);
+        while (pitch_gyro.value > PI) {
+            pitch_gyro.value -= TWO_PI;
+        }
+        while (pitch_gyro.value < -PI) {
+            pitch_gyro.value += TWO_PI;
+        }
 
         // Apply the low-pass filter on the accelerometer and the
         // high-pass filter on the gyroscope
@@ -80,6 +99,7 @@ void Sensors::run()
         pitch.add(pitch_gyro_highpass, pitch_accel_lowpass);
 
         yaw_rate.set(-dof.calcGyro(dof.gz) * DEG_TO_RAD, now);
+        yaw_rate.value -= gyro_yaw_bias;
 
         attitude.set_altitude(altitude.value);
         attitude.set_roll(roll.value);

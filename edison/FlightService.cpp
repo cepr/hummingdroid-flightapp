@@ -65,6 +65,9 @@ FlightService::FlightService() :
     {
         CommandPacket::SensorsConfig s;
         s.set_accel_lowpass_constant(5.);
+        s.set_gyro_roll_bias(0.);
+        s.set_gyro_pitch_bias(0.);
+        s.set_gyro_yaw_bias(0.);
         sensors.setConfig(s);
     }
 }
