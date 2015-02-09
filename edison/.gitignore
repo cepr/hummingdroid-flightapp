@@ -1,5 +1,6 @@
 /*.user
 /Communication.pb.*
+/Makefile
 *.o
 *.a
 *.d
