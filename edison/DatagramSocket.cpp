@@ -87,11 +87,14 @@ void DatagramSocket::bind(unsigned short port)
     }
 }
 
-void DatagramSocket::send(const void *data, int size)
+bool DatagramSocket::send(const void *data, int size)
 {
     synchronized
 
     if (write(udp_socket, data, size) == -1) {
         perror("DatagramSocket: sendto() failed");
+        return -1;
+    } else {
+        return 0;
     }
 }

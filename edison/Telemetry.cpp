@@ -30,8 +30,10 @@ namespace flightapp {
 void Telemetry::setConfig(const CommandPacket::TelemetryConfig &config)
 {
     synchronized
+    bool new_host = config.has_host() && (!this->config.has_host() || this->config.host() != config.host());
     this->config = config;
-    if (config.has_host()) {
+    if (new_host) {
+        // We want to avoid doing too many DNS requests
         socket.connect(config.host().c_str(),
                        config.has_port() ? config.port() : DEFAULT_PORT);
         notify();
@@ -65,27 +67,33 @@ void Telemetry::run()
 {
     fprintf(stderr, "Telemetry: Thread started\n");
 
-    // Wait for the telemetry to be configured
-    {
-        synchronized
-        while(!config.has_host()) {
-            wait();
-        }
-    }
-    fprintf(stderr,
-            "Telemetry: Telemetry requested by %s\n",
-            config.host().c_str());
-
-    // Main connection loop
-    while (true) {
-        // Send a telemetry packet
+    while(true) {
+        // Wait for the telemetry to be configured
         {
             synchronized
-            std::string data = packet.SerializeAsString();
-            socket.send(data.c_str(), data.length());
+            while(!config.has_host()) {
+                wait();
+            }
         }
-        // Sleep
-        usleep(50000);
+        fprintf(stderr,
+                "Telemetry: Telemetry requested by %s\n",
+                config.host().c_str());
+
+        // Main connection loop
+        while (true) {
+            // Send a telemetry packet
+            {
+                synchronized
+                std::string data = packet.SerializeAsString();
+                if (socket.send(data.c_str(), data.length()) == -1) {
+                    // The telemetry client is not here anymore, wait for another one to register
+                    config.clear_host();
+                    break;
+                }
+            }
+            // Sleep
+            usleep(50000);
+        }
     }
 }
 

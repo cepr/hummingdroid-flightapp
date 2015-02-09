@@ -10,7 +10,7 @@ public:
     ~DatagramSocket();
     void connect(const char *host, unsigned short port);
     void bind(unsigned short port);
-    void send(const void *data, int size);
+    bool send(const void *data, int size);
     int udp_socket;
 };
 
