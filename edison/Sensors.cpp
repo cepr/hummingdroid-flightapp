@@ -33,7 +33,9 @@ Sensors::Sensors(FlightService *context) :
     telemetry(&context->telemetry),
     dof(MODE_I2C, LSM9DS0_G, LSM9DS0_XM),
     gyro_roll_bias(0.),
+    accel_roll_bias(0.),
     gyro_pitch_bias(0.),
+    accel_pitch_bias(0.),
     gyro_yaw_bias(0.)
 {
 }
@@ -47,7 +49,9 @@ void Sensors::setConfig(const CommandPacket::SensorsConfig &config)
     pitch_accel_lowpass.setT(T);
     pitch_gyro_highpass.setT(T);
     gyro_roll_bias = config.gyro_roll_bias();
+    accel_roll_bias = config.accel_roll_bias();
     gyro_pitch_bias = config.gyro_pitch_bias();
+    accel_pitch_bias = config.accel_pitch_bias();
     gyro_yaw_bias = config.gyro_yaw_bias();
 }
 
@@ -62,7 +66,9 @@ void Sensors::run()
         dof.readAccel();
         Timestamp now = Timestamp::now();
         roll_accel.set(atan2f(dof.calcAccel(dof.ay), dof.calcAccel(dof.az)), now);
+        roll_accel.value -= accel_roll_bias;
         pitch_accel.set(-atan2f(-dof.calcAccel(dof.ax), dof.calcAccel(dof.az)), now);
+        pitch_accel.value -= accel_pitch_bias;
 
         // Read Gyroscope
         dof.readGyro();

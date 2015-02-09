@@ -57,6 +57,7 @@ private:
     HighPass roll_gyro_highpass;
     Value roll;
     float gyro_roll_bias;
+    float accel_roll_bias;
 
 	// Pitch
     Integrator pitch_gyro;
@@ -66,6 +67,7 @@ private:
     HighPass pitch_gyro_highpass;
     Value pitch;
     float gyro_pitch_bias;
+    float accel_pitch_bias;
 
 	// Yaw rate
     Value yaw_rate;

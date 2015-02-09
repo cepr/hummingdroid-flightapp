@@ -79,6 +79,8 @@ message CommandPacket {
         required float gyro_roll_bias = 2;
         required float gyro_pitch_bias = 3;
         required float gyro_yaw_bias = 4;
+        required float accel_roll_bias = 5;
+        required float accel_pitch_bias = 6;
     }
 
     message MotorsConfig {
