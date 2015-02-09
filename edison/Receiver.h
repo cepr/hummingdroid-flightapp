@@ -53,6 +53,7 @@ public:
     Controller *controller;
     Telemetry *telemetry;
     Sensors *sensors;
+    Motors *motors;
 
     boolean connected;
 

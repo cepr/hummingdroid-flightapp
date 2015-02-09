@@ -31,6 +31,7 @@ Receiver::Receiver(FlightService *context) :
     controller(&context->controller),
     telemetry(&context->telemetry),
     sensors(&context->sensors),
+    motors(&context->motors),
     connected(false)
 {
 }
@@ -81,6 +82,9 @@ void Receiver::run()
         }
         if (command.has_sensors_config()) {
             sensors->setConfig(command.sensors_config());
+        }
+        if (command.has_motors_config()) {
+            motors->setConfig(command.motors_config());
         }
     }
 }

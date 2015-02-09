@@ -81,10 +81,16 @@ message CommandPacket {
         required float gyro_yaw_bias = 4;
     }
 
+    message MotorsConfig {
+        required int32 min_pwm = 1;
+        required int32 max_pwm = 2;
+    }
+
     optional Attitude           command = 1;
     optional ControllerConfig   controller_config = 2;
     optional TelemetryConfig    telemetry_config = 3;
     optional SensorsConfig      sensors_config = 4;
+    optional MotorsConfig       motors_config = 5;
 }
 
 // Telemetry packet sent from air to ground.
