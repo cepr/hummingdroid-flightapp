@@ -73,6 +73,10 @@ void Value::reset() {
     timestamp.t.tv_nsec = 0;
 }
 
+Derivator::Derivator() : prev(0.0 / 0.0)
+{
+}
+
 void Derivator::derive(const Value & value)
 {
     float dt = value.timestamp - timestamp;
@@ -87,6 +91,10 @@ void Derivator::derive(const Value & value)
 // ///////////////////////////////////////////////
 // LOW PASS FILTER
 // ///////////////////////////////////////////////
+LowPass::LowPass(float T) : T(T)
+{
+}
+
 void LowPass::setT(float T) {
     this->T = T;
 }
@@ -97,7 +105,11 @@ void LowPass::lowpass(const Value & value) {
         this->value = value.value;
     } else {
         float K = (value.timestamp - this->timestamp) * 2.3 / T;
-        this->value = (1. - K) * this->value + K * value.value;
+        if (!isnan(K)) {
+            this->value = (1. - K) * this->value + K * value.value;
+        } else {
+            this->value = value.value;
+        }
     }
     this->timestamp = value.timestamp;
 }
@@ -152,10 +164,14 @@ void PID::reset() {
     integ.reset();
 }
 
+Integrator::Integrator() : prev(0.0 / 0.0)
+{
+}
+
 void Integrator::integrate(const Value &value)
 {
     float dt = value.timestamp - timestamp;
-    if (!isnan(dt)) {
+    if (!isnan(dt) && !isnan(prev)) {
         this->value += (value.value + prev) * dt / 2.;
     }
     this->timestamp = value.timestamp;

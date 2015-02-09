@@ -59,6 +59,7 @@ private:
     float prev;
 
 public:
+    Derivator();
     void derive(const Value & value);
 };
 
@@ -66,6 +67,7 @@ class Integrator : public Value {
 private:
     float prev;
 public:
+    Integrator();
     void integrate(const Value & value);
 };
 
@@ -74,6 +76,7 @@ protected:
     float T;
 
 public:
+    LowPass(float T = 0.);
     void setT(float T);
     void lowpass(const Value &value);
 };
