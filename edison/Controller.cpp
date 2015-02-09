@@ -105,6 +105,7 @@ void Controller::setAttitude(const Attitude &attitude, const Timestamp &timestam
     control.set_roll_throttle(roll_control.value);
     control.set_pitch_throttle(pitch_control.value);
     control.set_yaw_throttle(yaw_rate_control.value);
+    control.set_timestamp(timestamp);
 
     // Telemetry
     telemetry->setControl(control);

@@ -105,6 +105,7 @@ void Sensors::run()
         attitude.set_roll(roll.value);
         attitude.set_pitch(pitch.value);
         attitude.set_yaw_rate(yaw_rate.value);
+        attitude.set_timestamp(now);
 
         controller->setAttitude(attitude, now);
         telemetry->setAttitude(attitude);

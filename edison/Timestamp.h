@@ -17,6 +17,10 @@ public:
         this->t.tv_nsec = that.t.tv_nsec;
     }
 
+    operator double() const {
+        return (double)t.tv_sec + (double)t.tv_nsec * 1.e-9;
+    }
+
     static Timestamp now();
 
     struct timespec t;

@@ -17,6 +17,7 @@
  */
 
 #include "Telemetry.h"
+#include "Timestamp.h"
 #include <stdio.h>
 #include <unistd.h>
 
@@ -40,8 +41,10 @@ void Telemetry::setConfig(const CommandPacket::TelemetryConfig &config)
 void Telemetry::setCommand(const Attitude & command)
 {
     synchronized
-    if (config.has_commandenabled() && config.commandenabled())
+    if (config.has_commandenabled() && config.commandenabled()) {
         packet.mutable_command()->CopyFrom(command);
+        packet.mutable_command()->set_timestamp(Timestamp::now());
+    }
 }
 
 void Telemetry::setAttitude(const Attitude & attitude)
