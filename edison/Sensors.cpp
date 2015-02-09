@@ -72,7 +72,7 @@ void Sensors::run()
         roll_gyro_rate.value -= gyro_roll_bias;
         roll_gyro.integrate(roll_gyro_rate);
 
-        pitch_gyro_rate.set(dof.calcGyro(dof.gy) * DEG_TO_RAD, now);
+        pitch_gyro_rate.set(dof.calcGyro(-dof.gy) * DEG_TO_RAD, now);
         pitch_gyro_rate.value -= gyro_pitch_bias;
         pitch_gyro.integrate(pitch_gyro_rate);
 
