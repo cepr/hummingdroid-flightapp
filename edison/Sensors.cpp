@@ -71,22 +71,10 @@ void Sensors::run()
         roll_gyro_rate.set(dof.calcGyro(dof.gx) * DEG_TO_RAD, now);
         roll_gyro_rate.value -= gyro_roll_bias;
         roll_gyro.integrate(roll_gyro_rate);
-        while (roll_gyro.value > PI) {
-            roll_gyro.value -= TWO_PI;
-        }
-        while (roll_gyro.value < -PI) {
-            roll_gyro.value += TWO_PI;
-        }
 
         pitch_gyro_rate.set(dof.calcGyro(dof.gy) * DEG_TO_RAD, now);
         pitch_gyro_rate.value -= gyro_pitch_bias;
         pitch_gyro.integrate(pitch_gyro_rate);
-        while (pitch_gyro.value > PI) {
-            pitch_gyro.value -= TWO_PI;
-        }
-        while (pitch_gyro.value < -PI) {
-            pitch_gyro.value += TWO_PI;
-        }
 
         // Apply the low-pass filter on the accelerometer and the
         // high-pass filter on the gyroscope
@@ -97,6 +85,20 @@ void Sensors::run()
         pitch_accel_lowpass.lowpass(pitch_accel);
         pitch_gyro_highpass.highpass(pitch_gyro);
         pitch.add(pitch_gyro_highpass, pitch_accel_lowpass);
+
+        // Limit the angles between -PI and PI
+        while (roll_gyro.value > PI) {
+            roll_gyro.value -= TWO_PI;
+        }
+        while (roll_gyro.value < -PI) {
+            roll_gyro.value += TWO_PI;
+        }
+        while (pitch_gyro.value > PI) {
+            pitch_gyro.value -= TWO_PI;
+        }
+        while (pitch_gyro.value < -PI) {
+            pitch_gyro.value += TWO_PI;
+        }
 
         yaw_rate.set(-dof.calcGyro(dof.gz) * DEG_TO_RAD, now);
         yaw_rate.value -= gyro_yaw_bias;
@@ -110,7 +112,7 @@ void Sensors::run()
         controller->setAttitude(attitude, now);
         telemetry->setAttitude(attitude);
 
-        //usleep(2500); // about 400 Hz
+        usleep(2500); // about 400 Hz
     }
 }
 
