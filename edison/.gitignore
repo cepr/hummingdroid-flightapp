@@ -2,5 +2,6 @@
 /Communication.pb.*
 *.o
 *.a
+*.d
 flight_software
 

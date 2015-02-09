@@ -1,4 +1,55 @@
 
+all: flight_software
+
+-include libs/Adafruit-PWM-Servo-Driver-Library/Adafruit_PWMServoDriver.d
+-include libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0/SFE_LSM9DS0.d
+-include libs/SPI/SPI.d
+-include libs/WiFi/WiFiClient.d
+-include libs/WiFi/WiFi.d
+-include libs/WiFi/Dhcp.d
+-include libs/WiFi/Dns.d
+-include libs/WiFi/WiFiUdp.d
+-include libs/WiFi/WiFiServer.d
+-include libs/Wire/Wire.d
+-include Communication.pb.d
+-include Motors.d
+-include Telemetry.d
+-include DatagramSocket.d
+-include Object.d
+-include Value.d
+-include Receiver.d
+-include FlightService.d
+-include Telemetry.d
+-include Sensors.d
+-include Thread.d
+-include Timestamp.d
+-include Controller.d
+-include libs/arduino-1.5.3-Intel.1.0.4/fast_gpio_pci.d
+-include libs/arduino-1.5.3-Intel.1.0.4/fast_gpio_sc.d
+-include libs/arduino-1.5.3-Intel.1.0.4/wiring_digital.d
+-include libs/arduino-1.5.3-Intel.1.0.4/sysfs.d
+-include libs/arduino-1.5.3-Intel.1.0.4/wiring_analog.d
+-include libs/arduino-1.5.3-Intel.1.0.4/trace.d
+-include libs/arduino-1.5.3-Intel.1.0.4/fast_gpio_nc.d
+-include libs/arduino-1.5.3-Intel.1.0.4/i2c.d
+-include libs/arduino-1.5.3-Intel.1.0.4/mux.d
+-include libs/arduino-1.5.3-Intel.1.0.4/fast_gpio_common.d
+-include libs/arduino-1.5.3-Intel.1.0.4/interrupt.d
+-include libs/arduino-1.5.3-Intel.1.0.4/Stream.d
+-include libs/arduino-1.5.3-Intel.1.0.4/WString.d
+-include libs/arduino-1.5.3-Intel.1.0.4/Tone.d
+-include libs/arduino-1.5.3-Intel.1.0.4/pulseIn.d
+-include libs/arduino-1.5.3-Intel.1.0.4/UtilMisc.d
+-include libs/arduino-1.5.3-Intel.1.0.4/TTYUART.d
+-include libs/arduino-1.5.3-Intel.1.0.4/main.d
+-include libs/arduino-1.5.3-Intel.1.0.4/UtilTime.d
+-include libs/arduino-1.5.3-Intel.1.0.4/WMath.d
+-include libs/arduino-1.5.3-Intel.1.0.4/Print.d
+-include libs/arduino-1.5.3-Intel.1.0.4/IPAddress.d
+-include libs/arduino-1.5.3-Intel.1.0.4/RingBuffer.d
+-include libs/arduino-1.5.3-Intel.1.0.4/softwarepwm.d
+-include libs/arduino-1.5.3-Intel.1.0.4/variant.d
+
 # Compilation flags
 CPPFLAGS+=\
 	-DARDUINO=153 \
@@ -10,12 +61,11 @@ CPPFLAGS+=\
 	-I libs/Adafruit-PWM-Servo-Driver-Library \
 	-I libs/protobuf/src \
 	-Wall \
-	-O0
+	-O0 \
+	-MD
 
 # Make sure we link using g++ and not gcc
 LINK.o:=$(LINK.cpp)
-
-all: flight_software
 
 OBJS:=\
 	libs/Adafruit-PWM-Servo-Driver-Library/Adafruit_PWMServoDriver.o \
