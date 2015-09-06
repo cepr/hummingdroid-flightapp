@@ -17,6 +17,7 @@
  */
 
 #include "Motors.h"
+#include <AnalogIO.h>
 
 namespace org {
 namespace hummingdroid {
@@ -28,8 +29,7 @@ Motors::Motors() : min_pwm(0), max_pwm(0)
 
 void Motors::begin()
 {
-    pwm.begin();
-    pwm.setPWMFreq(200);
+    // TODO set PWM frequency (defaults to 483Hz)
 }
 
 void Motors::setConfig(const CommandPacket::MotorsConfig &config)
@@ -50,10 +50,10 @@ void Motors::setControl(const MotorsControl &control)
     float br = (1 - r) * (1 - p) * (1 - y);
     float bl = (1 + r) * (1 - p) * (1 + y);
 
-    pwm.setPWM(0, 0, scale(fl + g));
-    pwm.setPWM(1, 0, scale(fr + g));
-    pwm.setPWM(2, 0, scale(br + g));
-    pwm.setPWM(3, 0, scale(bl + g));
+    analogWrite(0, scale(fl + g));
+    analogWrite(1, scale(fr + g));
+    analogWrite(2, scale(br + g));
+    analogWrite(3, scale(bl + g));
 }
 
 }

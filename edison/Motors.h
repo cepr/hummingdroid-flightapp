@@ -20,7 +20,6 @@
 #define _MOTORS_H_
 
 #include "Communication.pb.h"
-#include "Adafruit_PWMServoDriver.h"
 
 #define MAX(x, y) ((x) > (y) ? (x) : (y))
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
@@ -44,7 +43,6 @@ public:
     void setConfig(const CommandPacket::MotorsConfig & config);
     void setControl(const MotorsControl & control);
 private:
-    Adafruit_PWMServoDriver pwm;
     float min_pwm, max_pwm;
     inline uint16_t scale(float value) {
         return MAX(MIN((max_pwm - min_pwm) * value + min_pwm, max_pwm), 0);

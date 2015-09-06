@@ -1,7 +1,6 @@
 #!/bin/bash
 
 OBJS="\
-	libs/Adafruit-PWM-Servo-Driver-Library/Adafruit_PWMServoDriver.o \
 	libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0/SFE_LSM9DS0.o \
 	libs/SPI/SPI.o \
 	libs/WiFi/WiFiClient.o \
@@ -60,7 +59,6 @@ INCLUDES="\
 	libs/SPI \
 	libs/WiFi \
 	libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0 \
-	libs/Adafruit-PWM-Servo-Driver-Library \
 	libs/protobuf/src"
 
 function usage() {
