@@ -25,7 +25,9 @@
 // For C++
 // protoc --cpp_out=. Communication.proto
 
-option optimize_for = LITE_RUNTIME;
+// option optimize_for = LITE_RUNTIME;
+
+syntax = "proto2";
 
 package org.hummingdroid;
 

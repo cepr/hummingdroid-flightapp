@@ -91,7 +91,7 @@ function generate_makefile() {
 	echo '	ar r $@ $^'
 	echo
 	echo 'flight_software: LDLIBS+=-lpthread'
-	echo "flight_software: $OBJS arduino_core.a libs/protobuf/build/src/.libs/libprotobuf-lite.a"
+	echo "flight_software: $OBJS arduino_core.a libs/protobuf/build/src/.libs/libprotobuf.a"
 	echo '	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@'
 	echo
 	echo 'install: flight_software'
@@ -99,11 +99,11 @@ function generate_makefile() {
 	echo '	scp $< root@quadcopter.local:/home/root'
 	echo '	ssh root@quadcopter.local ''sync'''
 	echo
-	echo 'libs/protobuf/build/src/.libs/libprotobuf-lite.a:'
+	echo 'libs/protobuf/build/src/.libs/libprotobuf.a:'
 	echo '	mkdir -p libs/protobuf/build'
 	echo '	cd libs/protobuf/build && ../configure && make'
 	echo
-	echo 'Communication.pb.cc: Communication.proto libs/protobuf/build/src/.libs/libprotobuf-lite.a'
+	echo 'Communication.pb.cc: Communication.proto libs/protobuf/build/src/.libs/libprotobuf.a'
 	echo '	libs/protobuf/build/src/protoc --cpp_out=. Communication.proto'
 	echo
 	echo 'clean:'
