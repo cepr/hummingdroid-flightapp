@@ -3,12 +3,6 @@
 OBJS="\
 	libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0/SFE_LSM9DS0.o \
 	libs/SPI/SPI.o \
-	libs/WiFi/WiFiClient.o \
-	libs/WiFi/WiFi.o \
-	libs/WiFi/Dhcp.o \
-	libs/WiFi/Dns.o \
-	libs/WiFi/WiFiUdp.o \
-	libs/WiFi/WiFiServer.o \
 	libs/Wire/Wire.o \
 	Communication.pb.o \
 	Motors.o \
@@ -57,7 +51,6 @@ INCLUDES="\
 	libs/arduino-1.5.3-Intel.1.0.4 \
 	libs/Wire \
 	libs/SPI \
-	libs/WiFi \
 	libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0 \
 	libs/protobuf/src"
 
