@@ -28,6 +28,7 @@ void DatagramSocket::connect(const char *host, unsigned short port)
 {
     synchronized
 
+    bool connected = false;
     struct addrinfo hints;
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_family = AF_UNSPEC;
@@ -43,31 +44,40 @@ void DatagramSocket::connect(const char *host, unsigned short port)
        exit(EXIT_FAILURE);
     }
 
-    switch(result->ai_addr->sa_family) {
-    case AF_INET:
-        {
-            union {
-                uint32_t ip32;
-                uint8_t ip8[4];
-            } ip;
-            ip.ip32 = ((struct sockaddr_in*)result->ai_addr)->sin_addr.s_addr;
-            fprintf(stderr, "%s has been resolved to %d.%d.%d.%d\n", host, ip.ip8[0], ip.ip8[1], ip.ip8[2], ip.ip8[3]);
+    struct addrinfo *it = result;
+    while(it != NULL) {
+        switch(it->ai_addr->sa_family) {
+        case AF_INET:
+            {
+                union {
+                    uint32_t ip32;
+                    uint8_t ip8[4];
+                } ip;
+                ip.ip32 = ((struct sockaddr_in*)result->ai_addr)->sin_addr.s_addr;
+                fprintf(stderr, "%s has been resolved to %d.%d.%d.%d\n", host, ip.ip8[0], ip.ip8[1], ip.ip8[2], ip.ip8[3]);
+            }
+            break;
+        case AF_INET6:
+            fprintf(stderr, "%s has been resolved to an IPV6 address\n", host);
+            break;
+        default:
+            fprintf(stderr, "%s has been resolved to an unknown address familly\n", host);
+            break;
         }
-        break;
-    case AF_INET6:
-        fprintf(stderr, "%s has been resolved to an IPV6 address\n", host);
-        break;
-    default:
-        fprintf(stderr, "%s has been resolved to an unknown address familly\n", host);
-        break;
-    }
 
-    if (::connect(udp_socket, result->ai_addr, result->ai_addrlen) == -1) {
-        perror("DatagramSocket.cpp: connect() failed");
+        if (::connect(udp_socket, it->ai_addr, it->ai_addrlen) == -1) {
+            perror("DatagramSocket.cpp: connect() failed");
+        } else {
+            connected = true;
+            break;
+        }
+        it = it->ai_next;
+    }
+    freeaddrinfo(result);
+    if (!connected) {
+        fprintf(stderr, "Cannot connect to %s\n", host);
         exit(EXIT_FAILURE);
     }
-
-    freeaddrinfo(result);
 }
 
 void DatagramSocket::bind(unsigned short port)

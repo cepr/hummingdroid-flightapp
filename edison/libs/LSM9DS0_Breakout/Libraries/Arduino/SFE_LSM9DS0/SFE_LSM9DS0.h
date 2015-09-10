@@ -22,12 +22,7 @@ Distributed as-is; no warranty is given.
 #ifndef __SFE_LSM9DS0_H__
 #define __SFE_LSM9DS0_H__
 
-#if defined(ARDUINO) && ARDUINO >= 100
-  #include "Arduino.h"
-#else
-  #include "WProgram.h"
-  #include "pins_arduino.h"
-#endif
+#include "mraa.h"
 
 ////////////////////////////
 // LSM9DS0 Gyro Registers //
@@ -117,15 +112,6 @@ Distributed as-is; no warranty is given.
 #define TIME_WINDOW			0x3D
 #define ACT_THS				0x3E
 #define ACT_DUR				0x3F
-
-// The LSM9DS0 functions over both I2C or SPI. This library supports both.
-// But the interface mode used must be sent to the LSM9DS0 constructor. Use
-// one of these two as the first parameter of the constructor.
-enum interface_mode
-{
-	MODE_SPI,
-	MODE_I2C,
-};
 
 class LSM9DS0
 {
@@ -226,13 +212,9 @@ public:
 	// The constructor will set up a handful of private variables, and set the
 	// communication mode as well.
 	// Input:
-	//	- interface = Either MODE_SPI or MODE_I2C, whichever you're using
-	//				to talk to the IC.
-	//	- gAddr = If MODE_I2C, this is the I2C address of the gyroscope.
-	// 				If MODE_SPI, this is the chip select pin of the gyro (CSG)
-	//	- xmAddr = If MODE_I2C, this is the I2C address of the accel/mag.
-	//				If MODE_SPI, this is the cs pin of the accel/mag (CSXM)
-	LSM9DS0(interface_mode interface, uint8_t gAddr, uint8_t xmAddr);
+    //	- gAddr = I2C address of the gyroscope.
+    //	- xmAddr = I2C address of the accel/mag.
+    LSM9DS0(uint8_t gAddr, uint8_t xmAddr);
 	
 	// begin() -- Initialize the gyro, accelerometer, and magnetometer.
 	// This will set up the scale and output rate of each sensor. It'll also
@@ -374,11 +356,12 @@ public:
 
 
 private:	
-	// xmAddress and gAddress store the I2C address or SPI chip select pin
+    // i2c context
+    mraa_i2c_context i2c;
+
+    // xmAddress and gAddress store the I2C address or SPI chip select pin
 	// for each sensor.
 	uint8_t xmAddress, gAddress;
-	// interfaceMode keeps track of whether we're using SPI or I2C to talk
-	interface_mode interfaceMode;
 	
 	// gScale, aScale, and mScale store the current scale range for each 
 	// sensor. Should be updated whenever that value changes.
@@ -488,40 +471,7 @@ private:
 	// This function will set the value of the aRes variable. aScale must
 	// be set prior to calling this function.
 	void calcaRes();
-	
-	///////////////////
-	// SPI Functions //
-	///////////////////
-	// initSPI() -- Initialize the SPI hardware.
-	// This function will setup all SPI pins and related hardware.
-	void initSPI();
-	
-	// SPIwriteByte() -- Write a byte out of SPI to a register in the device
-	// Input:
-	//	- csPin = The chip select pin of the slave device.
-	//	- subAddress = The register to be written to.
-	//	- data = Byte to be written to the register.
-	void SPIwriteByte(uint8_t csPin, uint8_t subAddress, uint8_t data);
-	
-	// SPIreadByte() -- Read a single byte from a register over SPI.
-	// Input:
-	//	- csPin = The chip select pin of the slave device.
-	//	- subAddress = The register to be read from.
-	// Output:
-	//	- The byte read from the requested address.
-	uint8_t SPIreadByte(uint8_t csPin, uint8_t subAddress);
-	
-	// SPIreadBytes() -- Read a series of bytes, starting at a register via SPI
-	// Input:
-	//	- csPin = The chip select pin of a slave device.
-	//	- subAddress = The register to begin reading.
-	// 	- * dest = Pointer to an array where we'll store the readings.
-	//	- count = Number of registers to be read.
-	// Output: No value is returned by the function, but the registers read are
-	// 		all stored in the *dest array given.
-	void SPIreadBytes(uint8_t csPin, uint8_t subAddress, 
-							uint8_t * dest, uint8_t count);
-	
+
 	///////////////////
 	// I2C Functions //
 	///////////////////

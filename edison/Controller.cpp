@@ -56,7 +56,7 @@ void Controller::setAttitude(const Attitude &attitude, const Timestamp &timestam
 {
     synchronized
     // Check for instability
-    boolean excessive_roll, excessive_pitch, excessive_yaw_rate, excessive_altitude;
+    bool excessive_roll, excessive_pitch, excessive_yaw_rate, excessive_altitude;
     if (config.has_max_inclinaison()) {
         excessive_roll = (attitude.roll() < -config.max_inclinaison()) || (attitude.roll() > config.max_inclinaison());
         excessive_pitch = (attitude.pitch() < -config.max_inclinaison()) || (attitude.pitch() > config.max_inclinaison());

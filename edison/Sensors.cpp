@@ -24,6 +24,13 @@
 #define LSM9DS0_XM  0x1D // Would be 0x1E if SDO_XM is LOW
 #define LSM9DS0_G   0x6B // Would be 0x6A if SDO_G is LOW
 
+#define FRONT_LEFT_SWITCH_PIN 0 // TODO
+#define FRONT_RIGHT_SWITCH_PIN 0 // TODO
+#define BACK_RIGHT_SWITCH_PIN 0 // TODO
+#define BACK_LEFT_SWITCH_PIN 0 // TODO
+
+#define DEG_TO_RAD 0.017453292519943295769236907684886
+
 namespace org {
 namespace hummingdroid {
 namespace flightapp {
@@ -31,13 +38,20 @@ namespace flightapp {
 Sensors::Sensors(FlightService *context) :
     controller(&context->controller),
     telemetry(&context->telemetry),
-    dof(MODE_I2C, LSM9DS0_G, LSM9DS0_XM),
+    dof(LSM9DS0_G, LSM9DS0_XM),
     gyro_roll_bias(0.),
+    gyro_roll_gain(1.),
     accel_roll_bias(0.),
     gyro_pitch_bias(0.),
+    gyro_pitch_gain(1.),
     accel_pitch_bias(0.),
-    gyro_yaw_bias(0.)
+    gyro_yaw_bias(0.),
+    apply_modulo(false)
 {
+    //pinMode(FRONT_LEFT_SWITCH_PIN, INPUT_PULLUP);
+    //pinMode(FRONT_RIGHT_SWITCH_PIN, INPUT_PULLUP);
+    //pinMode(BACK_RIGHT_SWITCH_PIN, INPUT_PULLUP);
+    //pinMode(BACK_LEFT_SWITCH_PIN, INPUT_PULLUP);
 }
 
 void Sensors::setConfig(const CommandPacket::SensorsConfig &config)
@@ -49,10 +63,13 @@ void Sensors::setConfig(const CommandPacket::SensorsConfig &config)
     pitch_accel_lowpass.setT(T);
     pitch_gyro_highpass.setT(T);
     gyro_roll_bias = config.gyro_roll_bias();
+    gyro_roll_gain = config.gyro_roll_gain();
     accel_roll_bias = config.accel_roll_bias();
     gyro_pitch_bias = config.gyro_pitch_bias();
+    gyro_pitch_gain = config.gyro_pitch_gain();
     accel_pitch_bias = config.accel_pitch_bias();
     gyro_yaw_bias = config.gyro_yaw_bias();
+    apply_modulo = config.apply_modulo();
 }
 
 void Sensors::run()
@@ -61,6 +78,12 @@ void Sensors::run()
     dof.begin();
     while(true) {
         synchronized
+
+        // Read switches
+        //switches.set_front_left(digitalRead(FRONT_LEFT_SWITCH_PIN));
+        //switches.set_front_right(digitalRead(FRONT_RIGHT_SWITCH_PIN));
+        //switches.set_back_right(digitalRead(BACK_RIGHT_SWITCH_PIN));
+        //switches.set_back_left(digitalRead(BACK_LEFT_SWITCH_PIN));
 
         // Read Acceleration
         dof.readAccel();
@@ -74,12 +97,12 @@ void Sensors::run()
         dof.readGyro();
         now = Timestamp::now();
 
-        roll_gyro_rate.set(dof.calcGyro(dof.gx) * DEG_TO_RAD, now);
-        roll_gyro_rate.value -= gyro_roll_bias;
+        roll_gyro_rate.set(-dof.calcGyro(dof.gx) * DEG_TO_RAD, now);
+        roll_gyro_rate.value = (roll_gyro_rate.value - gyro_roll_bias) * gyro_roll_gain;
         roll_gyro.integrate(roll_gyro_rate);
 
         pitch_gyro_rate.set(dof.calcGyro(-dof.gy) * DEG_TO_RAD, now);
-        pitch_gyro_rate.value -= gyro_pitch_bias;
+        pitch_gyro_rate.value = (pitch_gyro_rate.value - gyro_pitch_bias) * gyro_pitch_gain;
         pitch_gyro.integrate(pitch_gyro_rate);
 
         // Apply the low-pass filter on the accelerometer and the
@@ -93,20 +116,22 @@ void Sensors::run()
         pitch.add(pitch_gyro_highpass, pitch_accel_lowpass);
 
         // Limit the angles between -PI and PI
-        while (roll_gyro.value > PI) {
-            roll_gyro.value -= TWO_PI;
-        }
-        while (roll_gyro.value < -PI) {
-            roll_gyro.value += TWO_PI;
-        }
-        while (pitch_gyro.value > PI) {
-            pitch_gyro.value -= TWO_PI;
-        }
-        while (pitch_gyro.value < -PI) {
-            pitch_gyro.value += TWO_PI;
+        if (apply_modulo) {
+            while (roll.value > M_PI) {
+                roll.value -= M_PI*2;
+            }
+            while (roll.value < -M_PI) {
+                roll.value += M_PI*2;
+            }
+            while (pitch.value > M_PI) {
+                pitch.value -= M_PI*2;
+            }
+            while (pitch.value < -M_PI) {
+                pitch.value += M_PI*2;
+            }
         }
 
-        yaw_rate.set(-dof.calcGyro(dof.gz) * DEG_TO_RAD, now);
+        yaw_rate.set(dof.calcGyro(dof.gz) * DEG_TO_RAD, now);
         yaw_rate.value -= gyro_yaw_bias;
 
         attitude.set_altitude(altitude.value);
@@ -117,6 +142,7 @@ void Sensors::run()
 
         controller->setAttitude(attitude, now);
         telemetry->setAttitude(attitude);
+        telemetry->setSwitches(switches);
 
         usleep(2500); // about 400 Hz
     }

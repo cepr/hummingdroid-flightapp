@@ -1,5 +1,5 @@
-libs/arduino-1.5.3-Intel.1.0.4
-libs/arduino-1.5.3-Intel.1.0.4/avr
+libs/arduino-edison
+libs/arduino-edison/avr
 libs/LSM9DS0_Breakout/Libraries/Arduino/SFE_LSM9DS0
 libs/Adafruit-PWM-Servo-Driver-Library
 libs/protobuf/python/google/protobuf/pyext
@@ -20,3 +20,4 @@ libs/SPI
 libs/WiFi
 libs/WiFi/utility
 libs/Wire
+/opt/poky-edison/1.6.1/sysroots/core2-32-poky-linux/usr/include

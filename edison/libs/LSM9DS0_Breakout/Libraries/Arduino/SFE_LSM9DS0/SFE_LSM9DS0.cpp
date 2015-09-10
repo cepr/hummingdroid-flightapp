@@ -22,22 +22,14 @@ Distributed as-is; no warranty is given.
 ******************************************************************************/
 
 #include "SFE_LSM9DS0.h"
-#include <Wire.h> // Wire library is used for I2C
-#include <SPI.h>  // SPI library is used for...SPI.
+#include <unistd.h>
 
-#if defined(ARDUINO) && ARDUINO >= 100
-  #include "Arduino.h"
-#else
-  #include "WProgram.h"
-#endif
+#define I2C_BUS 1
 
-LSM9DS0::LSM9DS0(interface_mode interface, uint8_t gAddr, uint8_t xmAddr)
+LSM9DS0::LSM9DS0(uint8_t gAddr, uint8_t xmAddr)
 {
-	// interfaceMode will keep track of whether we're using SPI or I2C:
-	interfaceMode = interface;
-	
-	// xmAddress and gAddress will store the 7-bit I2C address, if using I2C.
-	// If we're using SPI, these variables store the chip-select pins.
+    i2c = mraa_i2c_init(I2C_BUS);
+    // xmAddress and gAddress will store the 7-bit I2C address, if using I2C.
 	xmAddress = xmAddr;
 	gAddress = gAddr;
 }
@@ -56,12 +48,6 @@ uint16_t LSM9DS0::begin(gyro_scale gScl, accel_scale aScl, mag_scale mScl,
 	calcgRes(); // Calculate DPS / ADC tick, stored in gRes variable
 	calcmRes(); // Calculate Gs / ADC tick, stored in mRes variable
 	calcaRes(); // Calculate g / ADC tick, stored in aRes variable
-	
-	// Now, initialize our hardware interface.
-	if (interfaceMode == MODE_I2C)	// If we're using I2C
-		initI2C();					// Initialize I2C
-	else if (interfaceMode == MODE_SPI) 	// else, if we're using SPI
-		initSPI();							// Initialize SPI
 	
 	// To verify communication, we can read from the WHO_AM_I register of
 	// each device. Store those in a variable so we can return them.
@@ -259,11 +245,11 @@ void LSM9DS0::calLSM9DS0(float * gbias, float * abias)
   int samples, ii;
   
   // First get gyro bias
-  byte c = gReadByte(CTRL_REG5_G);
+  uint8_t c = gReadByte(CTRL_REG5_G);
   gWriteByte(CTRL_REG5_G, c | 0x40);         // Enable gyro FIFO  
-  delay(20);                                 // Wait for change to take effect
+  usleep(20000);                                 // Wait for change to take effect
   gWriteByte(FIFO_CTRL_REG_G, 0x20 | 0x1F);  // Enable gyro FIFO stream mode and set watermark at 32 samples
-  delay(1000);  // delay 1000 milliseconds to collect FIFO samples
+  sleep(1);  // delay 1000 milliseconds to collect FIFO samples
   
   samples = (gReadByte(FIFO_SRC_REG_G) & 0x1F); // Read number of stored samples
 
@@ -284,16 +270,16 @@ void LSM9DS0::calLSM9DS0(float * gbias, float * abias)
   
   c = gReadByte(CTRL_REG5_G);
   gWriteByte(CTRL_REG5_G, c & ~0x40);  // Disable gyro FIFO  
-  delay(20);
+  usleep(20000);
   gWriteByte(FIFO_CTRL_REG_G, 0x00);   // Enable gyro bypass mode
   
 
   //  Now get the accelerometer biases
   c = xmReadByte(CTRL_REG0_XM);
   xmWriteByte(CTRL_REG0_XM, c | 0x40);      // Enable accelerometer FIFO  
-  delay(20);                                // Wait for change to take effect
+  usleep(20000);                                // Wait for change to take effect
   xmWriteByte(FIFO_CTRL_REG, 0x20 | 0x1F);  // Enable accelerometer FIFO stream mode and set watermark at 32 samples
-  delay(1000);  // delay 1000 milliseconds to collect FIFO samples
+  sleep(1);  // delay 1000 milliseconds to collect FIFO samples
 
   samples = (xmReadByte(FIFO_SRC_REG) & 0x1F); // Read number of stored accelerometer samples
 
@@ -314,7 +300,7 @@ void LSM9DS0::calLSM9DS0(float * gbias, float * abias)
 
   c = xmReadByte(CTRL_REG0_XM);
   xmWriteByte(CTRL_REG0_XM, c & ~0x40);    // Disable accelerometer FIFO  
-  delay(20);
+  usleep(20000);
   xmWriteByte(FIFO_CTRL_REG, 0x00);       // Enable accelerometer bypass mode
 }
 
@@ -525,153 +511,63 @@ void LSM9DS0::gWriteByte(uint8_t subAddress, uint8_t data)
 {
 	// Whether we're using I2C or SPI, write a byte using the
 	// gyro-specific I2C address or SPI CS pin.
-	if (interfaceMode == MODE_I2C)
-		I2CwriteByte(gAddress, subAddress, data);
-	else if (interfaceMode == MODE_SPI)
-		SPIwriteByte(gAddress, subAddress, data);
+    I2CwriteByte(gAddress, subAddress, data);
 }
 
 void LSM9DS0::xmWriteByte(uint8_t subAddress, uint8_t data)
 {
 	// Whether we're using I2C or SPI, write a byte using the
 	// accelerometer-specific I2C address or SPI CS pin.
-	if (interfaceMode == MODE_I2C)
-		return I2CwriteByte(xmAddress, subAddress, data);
-	else if (interfaceMode == MODE_SPI)
-		return SPIwriteByte(xmAddress, subAddress, data);
+    return I2CwriteByte(xmAddress, subAddress, data);
 }
 
 uint8_t LSM9DS0::gReadByte(uint8_t subAddress)
 {
 	// Whether we're using I2C or SPI, read a byte using the
 	// gyro-specific I2C address or SPI CS pin.
-	if (interfaceMode == MODE_I2C)
-		return I2CreadByte(gAddress, subAddress);
-    else
-		return SPIreadByte(gAddress, subAddress);
+    return I2CreadByte(gAddress, subAddress);
 }
 
 void LSM9DS0::gReadBytes(uint8_t subAddress, uint8_t * dest, uint8_t count)
 {
 	// Whether we're using I2C or SPI, read multiple bytes using the
 	// gyro-specific I2C address or SPI CS pin.
-	if (interfaceMode == MODE_I2C)
-		I2CreadBytes(gAddress, subAddress, dest, count);
-	else if (interfaceMode == MODE_SPI)
-		SPIreadBytes(gAddress, subAddress, dest, count);
+    I2CreadBytes(gAddress, subAddress, dest, count);
 }
 
 uint8_t LSM9DS0::xmReadByte(uint8_t subAddress)
 {
 	// Whether we're using I2C or SPI, read a byte using the
 	// accelerometer-specific I2C address or SPI CS pin.
-	if (interfaceMode == MODE_I2C)
-		return I2CreadByte(xmAddress, subAddress);
-    else
-		return SPIreadByte(xmAddress, subAddress);
+    return I2CreadByte(xmAddress, subAddress);
 }
 
 void LSM9DS0::xmReadBytes(uint8_t subAddress, uint8_t * dest, uint8_t count)
 {
 	// Whether we're using I2C or SPI, read multiple bytes using the
 	// accelerometer-specific I2C address or SPI CS pin.
-	if (interfaceMode == MODE_I2C)
-		I2CreadBytes(xmAddress, subAddress, dest, count);
-	else if (interfaceMode == MODE_SPI)
-		SPIreadBytes(xmAddress, subAddress, dest, count);
-}
-
-void LSM9DS0::initSPI()
-{
-	pinMode(gAddress, OUTPUT);
-	digitalWrite(gAddress, HIGH);
-	pinMode(xmAddress, OUTPUT);
-	digitalWrite(xmAddress, HIGH);
-	
-	SPI.begin();
-	// Maximum SPI frequency is 10MHz, could divide by 2 here:
-	SPI.setClockDivider(SPI_CLOCK_DIV4);
-	// Data is read and written MSb first.
-	SPI.setBitOrder(MSBFIRST);
-	// Data is captured on rising edge of clock (CPHA = 0)
-	// Base value of the clock is HIGH (CPOL = 1)
-	SPI.setDataMode(SPI_MODE1);
-}
-
-void LSM9DS0::SPIwriteByte(uint8_t csPin, uint8_t subAddress, uint8_t data)
-{
-	digitalWrite(csPin, LOW); // Initiate communication
-	
-	// If write, bit 0 (MSB) should be 0
-	// If single write, bit 1 should be 0
-	SPI.transfer(subAddress & 0x3F); // Send Address
-	SPI.transfer(data); // Send data
-	
-	digitalWrite(csPin, HIGH); // Close communication
-}
-
-uint8_t LSM9DS0::SPIreadByte(uint8_t csPin, uint8_t subAddress)
-{
-	uint8_t temp;
-	// Use the multiple read function to read 1 byte. 
-	// Value is returned to `temp`.
-	SPIreadBytes(csPin, subAddress, &temp, 1);
-	return temp;
-}
-
-void LSM9DS0::SPIreadBytes(uint8_t csPin, uint8_t subAddress,
-							uint8_t * dest, uint8_t count)
-{
-	digitalWrite(csPin, LOW); // Initiate communication
-	// To indicate a read, set bit 0 (msb) to 1
-	// If we're reading multiple bytes, set bit 1 to 1
-	// The remaining six bytes are the address to be read
-	if (count > 1)
-		SPI.transfer(0xC0 | (subAddress & 0x3F));
-	else
-		SPI.transfer(0x80 | (subAddress & 0x3F));
-	for (int i=0; i<count; i++)
-	{
-		dest[i] = SPI.transfer(0x00); // Read into destination array
-	}
-	digitalWrite(csPin, HIGH); // Close communication
-}
-
-void LSM9DS0::initI2C()
-{
-	Wire.begin();	// Initialize I2C library
+    I2CreadBytes(xmAddress, subAddress, dest, count);
 }
 
 // Wire.h read and write protocols
 void LSM9DS0::I2CwriteByte(uint8_t address, uint8_t subAddress, uint8_t data)
 {
-	Wire.beginTransmission(address);  // Initialize the Tx buffer
-	Wire.write(subAddress);           // Put slave register address in Tx buffer
-	Wire.write(data);                 // Put data in Tx buffer
-	Wire.endTransmission();           // Send the Tx buffer
+    mraa_i2c_address(i2c, address);
+    uint8_t buf[] = {subAddress, data};
+    mraa_i2c_write(i2c, buf, sizeof(buf));
 }
 
 uint8_t LSM9DS0::I2CreadByte(uint8_t address, uint8_t subAddress)
 {
-	uint8_t data; // `data` will store the register data	 
-	Wire.beginTransmission(address);         // Initialize the Tx buffer
-	Wire.write(subAddress);	                 // Put slave register address in Tx buffer
-	Wire.endTransmission(false);             // Send the Tx buffer, but send a restart to keep connection alive
-	Wire.requestFrom(address, (uint8_t) 1);  // Read one byte from slave register address 
-	data = Wire.read();                      // Fill Rx buffer with result
-	return data;                             // Return data read from slave register
+    mraa_i2c_address(i2c, address);
+    return mraa_i2c_read_byte_data(i2c, subAddress);
 }
 
 void LSM9DS0::I2CreadBytes(uint8_t address, uint8_t subAddress, uint8_t * dest, uint8_t count)
-{  
-	Wire.beginTransmission(address);   // Initialize the Tx buffer
-	// Next send the register to be read. OR with 0x80 to indicate multi-read.
-	Wire.write(subAddress | 0x80);     // Put slave register address in Tx buffer
-	Wire.endTransmission(false);       // Send the Tx buffer, but send a restart to keep connection alive
-	uint8_t i = 0;
-	Wire.requestFrom(address, count);  // Read bytes from slave register address 
-	while (Wire.available()) 
-	{
-		dest[i++] = Wire.read(); // Put read results in the Rx buffer
-	}
+{
+    // TODO use mraa_i2c_read_bytes_data() (not available in this version of lib mraa)
+    for (uint8_t i=0; i<count; i++){
+        mraa_i2c_address(i2c, address);
+        dest[i] = mraa_i2c_read_byte_data(i2c, subAddress + i);
+    }
 }

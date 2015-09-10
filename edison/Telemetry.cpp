@@ -60,7 +60,14 @@ void Telemetry::setControl(const MotorsControl & control)
 {
     synchronized
     if (config.has_controlenabled() && config.controlenabled())
-        packet.mutable_control()->CopyFrom(control);
+            packet.mutable_control()->CopyFrom(control);
+}
+
+void Telemetry::setSwitches(const Switches &switches)
+{
+    synchronized
+    if (config.has_switchesenabled() && config.switchesenabled())
+            packet.mutable_switches()->CopyFrom(switches);
 }
 
 void Telemetry::run()

@@ -35,6 +35,7 @@ public:
     void setCommand(const Attitude & command);
     void setAttitude(const Attitude & attitude);
     void setControl(const MotorsControl & control);
+    void setSwitches(const Switches & switches);
     // Thread entry point, do not call directly
     void run();
 private:

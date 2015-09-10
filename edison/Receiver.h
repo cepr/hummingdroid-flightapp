@@ -55,7 +55,7 @@ public:
     Sensors *sensors;
     Motors *motors;
 
-    boolean connected;
+    bool connected;
 
 	/**
 	 * Constructor.

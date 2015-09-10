@@ -17,9 +17,11 @@
  */
 
 #include "FlightService.h"
+#include "mraa.h"
 
 static org::hummingdroid::flightapp::FlightService app;
-int main() {
+int main(int argc, char* argv[]) {
+    mraa_init();
     app.loop();
     return 0;
 }
@@ -66,8 +68,11 @@ FlightService::FlightService() :
         CommandPacket::SensorsConfig s;
         s.set_accel_lowpass_constant(5.);
         s.set_gyro_roll_bias(0.);
+        s.set_gyro_roll_gain(1.);
         s.set_gyro_pitch_bias(0.);
+        s.set_gyro_pitch_gain(1.);
         s.set_gyro_yaw_bias(0.);
+        s.set_gyro_yaw_gain(1.);
         sensors.setConfig(s);
     }
 }

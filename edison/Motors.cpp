@@ -17,19 +17,45 @@
  */
 
 #include "Motors.h"
-#include <AnalogIO.h>
+#include "mraa.h"
 
 namespace org {
 namespace hummingdroid {
 namespace flightapp {
 
+#define PWM_FL_PIN 0
+#define PWM_FR_PIN 14
+#define PWM_BR_PIN 20
+#define PWM_BL_PIN 21
+
 Motors::Motors() : min_pwm(0), max_pwm(0)
 {
+    this->pwm_fl = mraa_pwm_init(PWM_FL_PIN);
+    this->pwm_fr = mraa_pwm_init(PWM_FR_PIN);
+    this->pwm_br = mraa_pwm_init(PWM_BR_PIN);
+    this->pwm_bl = mraa_pwm_init(PWM_BL_PIN);
+
+    if (!this->pwm_fl ||
+            !this->pwm_fr ||
+            !this->pwm_br ||
+            !this->pwm_bl) {
+        printf("PWM not available.\n");
+        exit(1);
+    }
+
+    // Set the frequency to 200Hz
+    mraa_pwm_period_us(this->pwm_fl, 1000000/200);
+    mraa_pwm_period_us(this->pwm_fr, 1000000/200);
+    mraa_pwm_period_us(this->pwm_br, 1000000/200);
+    mraa_pwm_period_us(this->pwm_bl, 1000000/200);
 }
 
 void Motors::begin()
 {
-    // TODO set PWM frequency (defaults to 483Hz)
+    mraa_pwm_enable(this->pwm_fl, 1);
+    mraa_pwm_enable(this->pwm_fr, 1);
+    mraa_pwm_enable(this->pwm_br, 1);
+    mraa_pwm_enable(this->pwm_bl, 1);
 }
 
 void Motors::setConfig(const CommandPacket::MotorsConfig &config)
@@ -45,15 +71,15 @@ void Motors::setControl(const MotorsControl &control)
     float p = control.pitch_throttle();
     float y = control.yaw_throttle();
 
-    float fl = (1 + r) * (1 + p) * (1 - y);
-    float fr = (1 - r) * (1 + p) * (1 + y);
-    float br = (1 - r) * (1 - p) * (1 - y);
-    float bl = (1 + r) * (1 - p) * (1 + y);
+    float fl =  r + p - y + g;
+    float fr = -r + p + y + g;
+    float br = -r - p - y + g;
+    float bl =  r - p + y + g;
 
-    analogWrite(0, scale(fl + g));
-    analogWrite(1, scale(fr + g));
-    analogWrite(2, scale(br + g));
-    analogWrite(3, scale(bl + g));
+    mraa_pwm_write(this->pwm_fl, scale(fl));
+    mraa_pwm_write(this->pwm_fr, scale(fr));
+    mraa_pwm_write(this->pwm_br, scale(br));
+    mraa_pwm_write(this->pwm_bl, scale(bl));
 }
 
 }

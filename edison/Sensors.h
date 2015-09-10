@@ -57,6 +57,7 @@ private:
     HighPass roll_gyro_highpass;
     Value roll;
     float gyro_roll_bias;
+    float gyro_roll_gain;
     float accel_roll_bias;
 
 	// Pitch
@@ -67,6 +68,7 @@ private:
     HighPass pitch_gyro_highpass;
     Value pitch;
     float gyro_pitch_bias;
+    float gyro_pitch_gain;
     float accel_pitch_bias;
 
 	// Yaw rate
@@ -78,6 +80,12 @@ private:
 
     // Computed attitude
     Attitude attitude;
+
+    // Switches
+    Switches switches;
+
+    // Misc
+    bool apply_modulo;
 
 public:
 	/**

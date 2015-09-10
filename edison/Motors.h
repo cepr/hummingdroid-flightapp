@@ -20,6 +20,7 @@
 #define _MOTORS_H_
 
 #include "Communication.pb.h"
+#include "mraa.hpp"
 
 #define MAX(x, y) ((x) > (y) ? (x) : (y))
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
@@ -44,7 +45,11 @@ public:
     void setControl(const MotorsControl & control);
 private:
     float min_pwm, max_pwm;
-    inline uint16_t scale(float value) {
+    mraa_pwm_context pwm_fl;
+    mraa_pwm_context pwm_fr;
+    mraa_pwm_context pwm_br;
+    mraa_pwm_context pwm_bl;
+    inline float scale(float value) {
         return MAX(MIN((max_pwm - min_pwm) * value + min_pwm, max_pwm), 0);
     }
 };
