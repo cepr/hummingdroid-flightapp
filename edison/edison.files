@@ -488,3 +488,4 @@ Timestamp.cpp
 Timestamp.h
 Value.cpp
 Value.h
+Communication.proto

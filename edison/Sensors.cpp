@@ -88,9 +88,9 @@ void Sensors::run()
         // Read Acceleration
         dof.readAccel();
         Timestamp now = Timestamp::now();
-        roll_accel.set(atan2f(dof.calcAccel(dof.ay), dof.calcAccel(dof.az)), now);
+        roll_accel.set(atan2f(dof.calcAccel(dof.ay), dof.calcAccel(-dof.az)), now);
         roll_accel.value -= accel_roll_bias;
-        pitch_accel.set(-atan2f(-dof.calcAccel(dof.ax), dof.calcAccel(dof.az)), now);
+        pitch_accel.set(atan2f(dof.calcAccel(-dof.ax), dof.calcAccel(-dof.az)), now);
         pitch_accel.value -= accel_pitch_bias;
 
         // Read Gyroscope
