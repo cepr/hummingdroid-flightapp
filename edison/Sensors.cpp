@@ -148,6 +148,12 @@ void Sensors::run()
     }
 }
 
+void Sensors::reset()
+{
+    roll_gyro.reset();
+    pitch_gyro.reset();
+}
+
 }
 }
 }

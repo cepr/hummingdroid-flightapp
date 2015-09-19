@@ -99,6 +99,8 @@ public:
     void setConfig(const CommandPacket::SensorsConfig & config);
 
     void run();
+
+    void reset();
 };
 
 }

@@ -69,6 +69,7 @@ private:
 public:
     Integrator();
     void integrate(const Value & value);
+    void reset();
 };
 
 class LowPass : public Value {

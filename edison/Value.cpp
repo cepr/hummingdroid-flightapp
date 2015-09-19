@@ -178,6 +178,12 @@ void Integrator::integrate(const Value &value)
     prev = value.value;
 }
 
+void Integrator::reset()
+{
+    value = 0.0;
+    prev = 0.0 / 0.0;
+}
+
 }
 }
 }

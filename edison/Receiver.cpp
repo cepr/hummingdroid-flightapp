@@ -85,6 +85,10 @@ void Receiver::run()
         }
         if (command.has_motors_config()) {
             motors->setConfig(command.motors_config());
+            // TODO: add a specific reset command
+            if (command.motors_config().min_pwm() == command.motors_config().max_pwm()) {
+                sensors->reset();
+            }
         }
     }
 }
