@@ -60,10 +60,10 @@ function generate_makefile() {
 	echo '	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@'
 	echo
 	echo 'install: flight_software'
-        echo '	ssh root@192.168.1.63 ''systemctl stop hummingdroid.service'''
-        echo '	scp $< root@192.168.1.63:/home/root'
-        echo '	ssh root@192.168.1.63 ''sync'''
-        echo '	ssh root@192.168.1.63 ''systemctl start hummingdroid.service'''
+        echo '	ssh root@drone.local ''systemctl stop hummingdroid.service'''
+        echo '	scp $< root@drone.local:/home/root'
+        echo '	ssh root@drone.local ''sync'''
+        echo '	ssh root@drone.local ''systemctl start hummingdroid.service'''
 	echo
 	echo 'libs/protobuf/build/src/.libs/libprotobuf.a:'
 	echo '	mkdir -p libs/protobuf/build'
@@ -78,10 +78,10 @@ function generate_makefile() {
 	echo "	rm -rf $DEPENDS"
 	echo
 	echo 'install_service:'
-        echo "	ssh root@192.168.1.63 'mkdir -p /home/root/.ssh'"
-        echo "	scp $HOME/.ssh/id_rsa.pub root@192.168.1.63:/home/root/.ssh/authorized_keys"
-        echo "	scp hummingdroid.service root@192.168.1.63:/lib/systemd/system"
-        echo "	ssh root@192.168.1.63 'systemctl enable hummingdroid.service'"
+        echo "	ssh root@drone.local 'mkdir -p /home/root/.ssh'"
+        echo "	scp $HOME/.ssh/id_rsa.pub root@drone.local:/home/root/.ssh/authorized_keys"
+        echo "	scp hummingdroid.service root@drone.local:/lib/systemd/system"
+        echo "	ssh root@drone.local 'systemctl enable hummingdroid.service'"
 	echo
 	echo 'endif'
 }
