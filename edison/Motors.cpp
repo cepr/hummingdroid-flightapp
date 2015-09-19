@@ -43,11 +43,11 @@ Motors::Motors() : min_pwm(0), max_pwm(0)
         exit(1);
     }
 
-    // Set the frequency to 200Hz
-    mraa_pwm_period_us(this->pwm_fl, 1000000/200);
-    mraa_pwm_period_us(this->pwm_fr, 1000000/200);
-    mraa_pwm_period_us(this->pwm_br, 1000000/200);
-    mraa_pwm_period_us(this->pwm_bl, 1000000/200);
+    // Set the frequency to 450Hz
+    mraa_pwm_period_us(this->pwm_fl, 1000000/450);
+    mraa_pwm_period_us(this->pwm_fr, 1000000/450);
+    mraa_pwm_period_us(this->pwm_br, 1000000/450);
+    mraa_pwm_period_us(this->pwm_bl, 1000000/450);
 }
 
 void Motors::begin()
