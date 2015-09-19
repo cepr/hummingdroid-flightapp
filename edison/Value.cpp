@@ -80,7 +80,7 @@ Derivator::Derivator() : prev(0.0 / 0.0)
 void Derivator::derive(const Value & value)
 {
     float dt = value.timestamp - timestamp;
-    this->value = (value.value - prev) / dt;
+    this->value = 2 * (value.value - prev) / dt - this->value;
     if (isnan(this->value)) {
         this->value = 0;
     }
